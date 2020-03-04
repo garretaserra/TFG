@@ -58,7 +58,44 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 La capa física és la que s'encarrega de la communicació anal·lògica modulant i desmodulant les senyals.
 Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents
 
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{./images/ble_channel_assignment.png}
+		\caption{Pila de BLE \cite{ble_stack}}
+		\label{ble_stack}
+	\end{center}
+\end{figure}
+
+Els canals es classifiquen com a dades o d'anunci (\it{Advertisment}). Els canals d'advertisment que són els que es vol tenir més qualitat coincideixen en els espais freqüencials entre els canals wifi més comuns (1, 6 i 11).
+
+Tot i que amb aquest protocol l'objectiu és transmetre poca informació de forma eficient, es per això que, tot i estar tractant amb paquets d'informació molt curts cal una tassa de transmissió el més alta possible. D'aquesta manera s'aconsegueix que les radio tant del transmissor com la dels receptors estiguin el mínim temps possible actives.
+La tassa de transmissió física del protocol es de 1 Mbps per a BLE 4 que augmenta opcionalment a la versió 5 a 2 Mbps.
+
+
 \subsubsection{Link Layer}
+
+La capa d'enllaç és la encarregada de escanejar, anunciar i gestionar connexions amb altres dispositius
+
+Per mitigar l'efecte de les interferències el protocol utilitza salts en freqüència (\it{frequency hopping}). Això permet reduir l'impacte d'una interferència estreta (?). Els salts són de entre 5 i 16 canals d'entre els 37 dedicats a dades.
+
+Bluetooth també permet la implementació de salts en freqüència adaptatius on només s'utilitzen canals suficientment bons descartant aquells en que es considera que hi ha masses interferències.
+
+En quant es realitza una connexió els dispositius han de definir-se entre els següents rols: Anunciador (\it{Advertiser}) o Escàner (\it{Scanner}), Esclau (\it{Slave}) o Mestre (\it{Master}) i Emissor (\it{Broadcaster}) o Observador (\it{Observer}).
+Aquests rols són independents per cada connexió per tant un dispositiu pot ser mestre en una connexió i alhora esclau en una altre.
+
+Per iniciar una connexió entre dos dispositius (\it{Peer-to-Peer}) un dispositiu vol ser descobert i envia missatges anunciant-se. L'altre dispositiu, que es vol connectar passa a ser un escàner. Aquest envia un paquet amb el requeriment de connexió, un cop acceptat, el dispositiu que fa d'escàner passa a ser mestre i el que anunciava passa a ser esclau.
+
+També és possible transmetre informació des d'un dispositiu a tots aquells que estiguin escoltant, per tant, una comunicació de un a molts (\it{One-to-many}). En aquest cas aquell que vol transmetre informació és el emissor i els dispositius que escolten són observadors.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
+		\caption{Pila de BLE \cite{ble_stack}}
+		\label{ble_stack}
+	\end{center}
+\end{figure}
+
+
 \subsection{Host}
 \subsubsection{L2 Cap}
 \subsubsection{SMP}

@@ -7,16 +7,18 @@
 \addvspace {15\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Pila de BLE \cite {ble_stack}}}{5}{figure.1.1}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Pila de BLE \cite {ble_stack}}}{6}{figure.1.2}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Pila de BLE \cite {ble_stack}}}{7}{figure.1.3}%
 \addvspace {15\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Exemple de figura}}{9}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Exemple d'arranjament amb múltiples imatges}}{10}{figure.2.2}%
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Títol subfigura 1}}}{10}{figure.2.2}%
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Títol subfigura 2}}}{10}{figure.2.2}%
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Títol subfigura 3}}}{10}{figure.2.2}%
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Títol subfigura 4}}}{10}{figure.2.2}%
-\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {Títol subfigura 5}}}{10}{figure.2.2}%
-\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {Títol subfigura 6}}}{10}{figure.2.2}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Exemple de figura}}{11}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Exemple d'arranjament amb múltiples imatges}}{12}{figure.2.2}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Títol subfigura 1}}}{12}{figure.2.2}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Títol subfigura 2}}}{12}{figure.2.2}%
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {Títol subfigura 3}}}{12}{figure.2.2}%
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {Títol subfigura 4}}}{12}{figure.2.2}%
+\contentsline {subfigure}{\numberline {(e)}{\ignorespaces {Títol subfigura 5}}}{12}{figure.2.2}%
+\contentsline {subfigure}{\numberline {(f)}{\ignorespaces {Títol subfigura 6}}}{12}{figure.2.2}%
 \addvspace {15\p@ }
 \addvspace {15\p@ }
 \changetoapp 
