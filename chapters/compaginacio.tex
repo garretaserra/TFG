@@ -111,8 +111,30 @@ La capa \textit{Security Management Protocol} proveeix de diferents serveis rela
 Aquests serveis són: autenticació i autorització de dispositius i també integritat, confidencialitat i privacitat de les dades.
 
 
-\subsubsection{ATT}
-\subsubsection{GATT}
+\subsubsection{ATT \& GATT}
+El \textit{Attribute Protocol} és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} defineix com utilitzar el protocol per oferir serveis a capes superiors.
+El ATT és un protocol dissenyat per a dispositius Low Energy amb l'objectiu de minimitzar la quantitat de dades transmeses. El atribut està format per 3 elements, \textit{handle}, UUID  i \textit{value}. El \textit{handle} fa la distinció única entre els diferents atributs, el UUID identifica el tipus d'atribut. Per últim el valor del atribut estarà dimensionat depenent del UUID.
+Des del punt de vista del protocol els dispositius són clients i servidors, normalment el client pren la iniciativa demanant dades però el servidor també te la capacitat d'iniciar una comunicació per exemple notificant quan un valor ha canviat.
+
+La definició del ATT és massa genèrica per si sola tal que seria comú que per fer el mateix es desenvolupessin múltiples estàndards que fossin incompatibles entre sí.
+Per tal de tenir millor definits els serveis s'utilitza el GATT. El GATT permet definir perfils que agrupen múltiples atributs en un sol servei.
+\begin{center}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		Handle	&	UUID	&	Descripció						&	Valor		\\ 	\hline
+		0x0100	&	0x2800	&	Thermometer service definition	&	UUID 0x1816	\\		\hline
+		0x0101	&	0x2803	&	Characteristic: temperature		&	\parbox[t]{4cm}{UUID 0x2A2B	\\ Value handle: 0x0102}	\\	\hline
+		0x0102	&	0x2A2B	&	Temperature value				&	20 degrees	\\	\hline
+		0x0110	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0111}	\\		\hline
+		0x0111	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
+		\hline
+	\end{tabular}
+\end{center}
+
+
+En un llistat de atributs el GATT identifica els serveis tenint en compte que cada servei principal té el UUID 0x2800 i els següents atributs formaran part del mateix servei fins que es trobi un nou atribut amb UUID 0x2800. En el valor del atribut amb UUID 0x2800 hi ha un altre UUID que especifica quin tipus de servei és.
+
+Cada servei té característiques que s'identifiquen perquè el UUID és 0x2803, en aquests atributs en el seu valor hi haurà un nou UUID que identifica la informació que hi haurà en el \textit{handle} que també està indicat.
 \subsubsection{GAP}
 \subsection{Application}
 
