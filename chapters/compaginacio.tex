@@ -80,22 +80,6 @@ Per mitigar l'efecte de les interferències el protocol utilitza salts en freqü
 
 Bluetooth també permet la implementació de salts en freqüència adaptatius on només s'utilitzen canals suficientment bons descartant aquells en que es considera que hi ha masses interferències.
 
-En quant es realitza una connexió els dispositius han de definir-se entre els següents rols: Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}), Esclau (\textit{Slave}) o Mestre (\textit{Master}) i Emissor (\textit{Broadcaster}) o Observador (\textit{Observer}).
-Aquests rols són independents per cada connexió per tant un dispositiu pot ser mestre en una connexió i alhora esclau en una altre.
-
-Per iniciar una connexió entre dos dispositius (\textit{Peer-to-Peer}) un dispositiu vol ser descobert i envia missatges anunciant-se. L'altre dispositiu, que es vol connectar passa a ser un escàner. Aquest envia un paquet amb el requeriment de connexió, un cop acceptat, el dispositiu que fa d'escàner passa a ser mestre i el que anunciava passa a ser esclau.
-
-També és possible transmetre informació des d'un dispositiu a tots aquells que estiguin escoltant, per tant, una comunicació de un a molts (\textit{One-to-many}). En aquest cas aquell que vol transmetre informació és el emissor i els dispositius que escolten són observadors.
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
-		\caption{Pila de BLE \cite{ble_stack}}
-		\label{ble_stack}
-	\end{center}
-\end{figure}
-
-
 \subsection{Host}
 \subsubsection{L2CAP}
 La \textit{Logical Link Control and Adaptation Protocol} és la capa encarregada de l'establiment de la connexió lògica, multiplexament de protocols, segmentació i 'reasembly', control de flux per cada canal L2CAP.
@@ -132,9 +116,24 @@ Per tal de tenir millor definits els serveis s'utilitza el GATT. El GATT permet 
 \end{center}
 
 
-En un llistat de atributs el GATT identifica els serveis tenint en compte que cada servei principal té el UUID 0x2800 i els següents atributs formaran part del mateix servei fins que es trobi un nou atribut amb UUID 0x2800. En el valor del atribut amb UUID 0x2800 hi ha un altre UUID que especifica quin tipus de servei és.
+En un llistat de atributs el GATT identifica els serveis tenint en compte que cada servei comença amb un atribut amb el UUID 0x2800, els següents atributs formaran part del mateix servei fins que es trobi un nou atribut amb UUID 0x2800. En el valor del atribut amb UUID 0x2800 hi ha un altre UUID que especifica quin tipus de servei és.
 
 Cada servei té característiques que s'identifiquen perquè el UUID és 0x2803, en aquests atributs en el seu valor hi haurà un nou UUID que identifica la informació que hi haurà en el \textit{handle} que també està indicat.
+
+
 \subsubsection{GAP}
-\subsection{Application}
+En quant es realitza una connexió els dispositius han de definir-se entre els següents rols: Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}), Esclau (\textit{Slave}) o Mestre (\textit{Master}) i Emissor (\textit{Broadcaster}) o Observador (\textit{Observer}).
+Aquests rols són independents per cada connexió per tant un dispositiu pot ser mestre en una connexió i alhora esclau en una altre.
+
+Per iniciar una connexió entre dos dispositius (\textit{Peer-to-Peer}) un dispositiu vol ser descobert i envia missatges anunciant-se. L'altre dispositiu, que es vol connectar passa a ser un escàner. Aquest envia un paquet amb el requeriment de connexió, un cop acceptat, el dispositiu que fa d'escàner passa a ser mestre i el que anunciava passa a ser esclau.
+
+També és possible transmetre informació des d'un dispositiu a tots aquells que estiguin escoltant, per tant, una comunicació de un a molts (\textit{One-to-many}). En aquest cas aquell que vol transmetre informació és el emissor i els dispositius que escolten són observadors.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
+		\caption{Pila de BLE \cite{ble_stack}}
+		\label{ble_stack}
+	\end{center}
+\end{figure}
 
