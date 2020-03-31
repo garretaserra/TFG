@@ -1,7 +1,7 @@
 \chapter{Pràctica}
 \section{Placa base CC1352R1}
 Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat el kit per desenvolupament ràpid del microcontrolador CC1352R1.
-\begin{figure}[h]
+\begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/launchxl-cc1352r1.jpg}
 		\caption{Placa \cite{placa}}
@@ -13,8 +13,14 @@ La placa té les següents característiques:
 
 
 \section{Software}
-Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Compose Studio. El software de desenvolupament és el SimpleLink(TM) CC13X2
+Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio. El software de desenvolupament és el SimpleLink(TM) CC13X2
 Comentar tema versió
+
+\section{Project 0}
+El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica. Aquest projecte exposa certs serveis a través de BLE i et permet veure una comunicació simple entre la placa i un dispositiu mòbil. La comunicació es fa a través del control dels dos LEDs que te la placa (els LEDs que estan directament controlars pel microcontrolador) i també per l'estat dels botons que hi ha a ambdós costats de la placa.
+*Aquest projecte també inclou altres serveis en que no entrarem.
+
+
 
 \section{Coses per defecte}
 \subsection{Fórmules, figures i taules}
