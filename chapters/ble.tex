@@ -107,11 +107,14 @@ Per tal de tenir millor definits els serveis s'utilitza el GATT. El GATT permet 
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		Handle	&	UUID	&	Descripció						&	Valor		\\ 	\hline
-		0x0100	&	0x2800	&	Thermometer service definition	&	UUID 0x1816	\\		\hline
-		0x0101	&	0x2803	&	Characteristic: temperature		&	\parbox[t]{4cm}{UUID 0x2A2B	\\ Value handle: 0x0102}	\\	\hline
-		0x0102	&	0x2A2B	&	Temperature value				&	20 degrees	\\	\hline
-		0x0110	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0111}	\\		\hline
-		0x0111	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
+		0x0100	&	0x2800	&	Battery Service					&	UUID 0x180F	\\		\hline
+		0x0101	&	0x2803	&	Characteristic: Battery Level	&	\parbox[t]{4cm}{UUID 0x2A19	\\ Value handle: 0x0102}	\\	\hline
+		0x0102	&	0x2A2B	&	Battery Value					&	20\%	\\	\hline
+		0x0103	&	0x2800	&	Custom Temperature Service		&	UUID 		\\	\hline
+		0x0104	&	0x2803	&	Characteristic: Temperature		&	\parbox[t]{4cm}{UUID 0x2A6E	\\ Value handle: 0x0105}	\\		\hline
+		0x0105	&	0x2A6E	&	Temperature Value				&	25.45	\\	\hline
+		0x0106	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0107}	\\		\hline
+		0x0107	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
 		\hline
 	\end{tabular}
 \end{center}
