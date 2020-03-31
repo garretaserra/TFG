@@ -87,13 +87,14 @@ La \textit{Logical Link Control and Adaptation Protocol} és la capa encarregada
 La multiplexació de protocols és necessària tal que serveix per identificar quin és el protocol que s'utilitza en les capes superiors.
 
 Per limitació física de l'arquitectura existeix una MTU (\textit{Maximum Transmission Unit}) i per tant els paquets de les capes superiors es converteixen en paquets més petits per a les capes inferiors.
+Aquesta MTU es pot definir per cada connexió així flexibilitzant la varietat de dispositius amb els que es pot connectar un mateix dispositiu.
 
 QOS Aquesta capa també és la que fa el seguiment de la qualitat de la connexió i dels recursos utilitzats per assegurar-se que les necessitats dels serveis es compleixen.
 
 \subsubsection{SMP}
 La capa \textit{Security Management Protocol} proveeix de diferents serveis relacionats amb la seguretat de la connexió.
 Aquests serveis són: autenticació i autorització de dispositius i també integritat, confidencialitat i privacitat de les dades.
-
+El protocol té tipus d'emparellament i generació de claus flexible per aconseguir reduir els requeriments de memòria i energia.
 
 \subsubsection{ATT \& GATT}
 El \textit{Attribute Protocol} és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} defineix com utilitzar el protocol per oferir serveis a capes superiors.
