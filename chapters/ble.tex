@@ -71,6 +71,8 @@ Els canals es classifiquen com a dades o d'anunci (\textit{Advertisment}). Els c
 Tot i que amb aquest protocol l'objectiu és transmetre poca informació de forma eficient, es per això que, tot i estar tractant amb paquets d'informació molt curts cal una tassa de transmissió el més alta possible. D'aquesta manera s'aconsegueix que les radio tant del transmissor com la dels receptors estiguin el mínim temps possible actives.
 La tassa de transmissió física del protocol es de 1 Mbps per a BLE 4 que augmenta opcionalment a la versió 5 a 2 Mbps.
 
+La modulació utilitzada per BLE és la mateixa que pel IEEE 802.11, GFSK (\textit{Gaussian Frequency Shift Keying}). Aquesta modulació és una de les més robustes i és el que permet (en part) a BLE tenir un abast molt més gran que Bluetooth Clàssic. Aplicar el filtre gaussià és útil ja que permet reduir el consum pic de energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
+
 
 \subsubsection{Link Layer}
 
@@ -101,8 +103,8 @@ El \textit{Attribute Protocol} és el protocol d'aplicació més comú per a BLE
 El ATT és un protocol dissenyat per a dispositius \textit{Low Energy} amb l'objectiu de minimitzar la quantitat de dades transmeses. El atribut està format per 4 elements, \textit{handle}, UUID, permisos  i \textit{value}.
 
 El \textit{handle} fa la distinció única entre els diferents atributs, ocupa 16 bits i no és obligatori que siguin valors seqüencials. És molt útil ja que s'utilitza per referenciar el atribut amb el mínim de bits possibles.
-El UUID identifica el tipus d'atribut, aquest numero pot ser de 16 bits si s'utilitza algun que ja estandarditzat pel SIG o bé en tindrà 128 bits si està definit pel fabricant.
-En els permisos s'indicarà quin tipus d'accés té el client a la informació. També pot estar definit si requereix un nivell mínim d'encriptació o si es necessari l'autenticació.
+El UUID (\textit{Universal Unique IDentifier}) identifica el tipus d'atribut, aquest numero pot ser de 16 bits si s'utilitza algun que ja estandarditzat pel SIG o bé en tindrà 128 bits si està definit pel fabricant.
+En els permisos s'indicarà quin tipus d'accés té el client a la informació (només lectura, lectura i escriptura ...). També pot estar definit si requereix un nivell mínim d'encriptació o si es necessari l'autenticació.
 Per últim el valor del atribut serà on hi ha la informació en si i la seva longitud i interpretació dependrà del UUID tot i que té un limit de 512 bytes.
 
 Des del punt de vista del protocol els dispositius són clients i servidors, normalment el client pren la iniciativa demanant dades però el servidor també te la capacitat d'iniciar una comunicació per exemple notificant quan un valor ha canviat.
