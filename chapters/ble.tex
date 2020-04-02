@@ -52,8 +52,12 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 	\end{center}
 \end{figure}
 
+La pila pròpia de Bluetooth Low Energy esta dividida en dues parts, el controladors i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol HCI (\textit{Host Controller Interface}) per comunicar-se entre si. Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART. També hi ha la possibilitat d'implementar les dues parts en un mateix xip. L'arquitectura de si està implementat amb un o dos components s'anomena configuració de xip únic o dual.
+
 
 \subsection{Controller}
+El controlador compren la capa física i la capa d'enllaç.
+
 \subsubsection{PHY}
 La capa física és la que s'encarrega de la comunicació anal·lògica modulant i desmodulant les senyals.
 Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents
@@ -71,7 +75,7 @@ Els canals es classifiquen com a dades o d'anunci (\textit{Advertisment}). Els c
 Tot i que amb aquest protocol l'objectiu és transmetre poca informació de forma eficient, es per això que, tot i estar tractant amb paquets d'informació molt curts cal una tassa de transmissió el més alta possible. D'aquesta manera s'aconsegueix que les radio tant del transmissor com la dels receptors estiguin el mínim temps possible actives.
 La tassa de transmissió física del protocol es de 1 Mbps per a BLE 4 que augmenta opcionalment a la versió 5 a 2 Mbps.
 
-La modulació utilitzada per BLE és la mateixa que pel IEEE 802.11, GFSK (\textit{Gaussian Frequency Shift Keying}). Aquesta modulació és una de les més robustes i és el que permet (en part) a BLE tenir un abast molt més gran que Bluetooth Clàssic. Aplicar el filtre gaussià és útil ja que permet reduir el consum pic de energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
+La modulació utilitzada per BLE és la mateixa que pel IEEE 802.11, GFSK (\textit{Gaussian Frequency Shift Keying}). Aquesta modulació és una de les més robustes, simples d'implementar i és el que permet (en part) a BLE tenir un abast molt més gran que Bluetooth Clàssic. Aplicar el filtre gaussià és útil ja que permet reduir el consum pic de energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
 
 
 \subsubsection{Link Layer}
