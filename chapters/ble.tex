@@ -66,10 +66,13 @@ Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals dif
 	\end{center}
 \end{figure}
 
-Els canals es classifiquen com a dades o d'anunci (\textit{Advertisment}). Els canals d'advertisment que són els que es vol tenir més qualitat coincideixen en els espais freqüencials entre els canals wifi més comuns (1, 6 i 11).
+Els canals es classifiquen com a dades o d'anunci (\textit{Advertisment}). Els canals d'advertisment que són els que es vol tenir més qualitat coincideixen en els espais freqüencials que minimitzen les interferències amb els canals wifi més comuns (1, 6 i 11).
 
 Tot i que amb aquest protocol l'objectiu és transmetre poca informació de forma eficient, es per això que, tot i estar tractant amb paquets d'informació molt curts cal una tassa de transmissió el més alta possible. D'aquesta manera s'aconsegueix que les radio tant del transmissor com la dels receptors estiguin el mínim temps possible actives.
 La tassa de transmissió física del protocol es de 1 Mbps per a BLE 4 que augmenta opcionalment a la versió 5 a 2 Mbps.
+La modulaci
+
+Pel que fa a la potencia de transmisió es pot controlar de tal manera que si és necessari i no limita la comunicació es pot disminuir per gastar menys energia. Tot i així, en el paquets que s'envien es menciona la potència amb la que s'ha transmès per a que el receptor pugui estimar la distància fins al transmisor(?).
 
 
 \subsubsection{Link Layer}
