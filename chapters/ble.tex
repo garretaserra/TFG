@@ -52,8 +52,12 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 	\end{center}
 \end{figure}
 
+La pila pròpia de Bluetooth Low Energy esta dividida en dues parts, el controladors i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol HCI (\textit{Host Controller Interface}) per comunicar-se entre si. Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART. També hi ha la possibilitat d'implementar les dues parts en un mateix xip. L'arquitectura de si està implementat amb un o dos components s'anomena configuració de xip únic o dual.
+
 
 \subsection{Controller}
+El controlador compren la capa física i la capa d'enllaç.
+
 \subsubsection{PHY}
 La capa física és la que s'encarrega de la comunicació anal·lògica modulant i desmodulant les senyals.
 Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents
@@ -73,6 +77,8 @@ La tassa de transmissió física del protocol es de 1 Mbps per a BLE 4 que augme
 La modulaci
 
 Pel que fa a la potencia de transmisió es pot controlar de tal manera que si és necessari i no limita la comunicació es pot disminuir per gastar menys energia. Tot i així, en el paquets que s'envien es menciona la potència amb la que s'ha transmès per a que el receptor pugui estimar la distància fins al transmisor(?).
+
+La modulació utilitzada per BLE és la mateixa que pel IEEE 802.11, GFSK (\textit{Gaussian Frequency Shift Keying}). Aquesta modulació és una de les més robustes, simples d'implementar i és el que permet (en part) a BLE tenir un abast molt més gran que Bluetooth Clàssic. Aplicar el filtre gaussià és útil ja que permet reduir el consum pic de energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
 
 
 \subsubsection{Link Layer}
@@ -101,29 +107,53 @@ El protocol té tipus d'emparellament i generació de claus flexible per aconseg
 
 \subsubsection{ATT \& GATT}
 El \textit{Attribute Protocol} és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} defineix com utilitzar el protocol per oferir serveis a capes superiors.
-El ATT és un protocol dissenyat per a dispositius Low Energy amb l'objectiu de minimitzar la quantitat de dades transmeses. El atribut està format per 3 elements, \textit{handle}, UUID  i \textit{value}. El \textit{handle} fa la distinció única entre els diferents atributs, el UUID identifica el tipus d'atribut. Per últim el valor del atribut estarà dimensionat depenent del UUID.
+El ATT és un protocol dissenyat per a dispositius \textit{Low Energy} amb l'objectiu de minimitzar la quantitat de dades transmeses. El atribut està format per 4 elements, \textit{handle}, UUID, permisos  i \textit{value}.
+
+El \textit{handle} fa la distinció única entre els diferents atributs, ocupa 16 bits i no és obligatori que siguin valors seqüencials. És molt útil ja que s'utilitza per referenciar el atribut amb el mínim de bits possibles.
+El UUID (\textit{Universal Unique IDentifier}) identifica el tipus d'atribut, aquest numero pot ser de 16 bits si s'utilitza algun que ja estandarditzat pel SIG o bé en tindrà 128 bits si està definit pel fabricant.
+En els permisos s'indicarà quin tipus d'accés té el client a la informació (només lectura, lectura i escriptura ...). També pot estar definit si requereix un nivell mínim d'encriptació o si es necessari l'autenticació.
+Per últim el valor del atribut serà on hi ha la informació en si i la seva longitud i interpretació dependrà del UUID tot i que té un limit de 512 bytes.
+
 Des del punt de vista del protocol els dispositius són clients i servidors, normalment el client pren la iniciativa demanant dades però el servidor també te la capacitat d'iniciar una comunicació per exemple notificant quan un valor ha canviat.
 
-La definició del ATT és massa genèrica per si sola tal que seria comú que per fer el mateix es desenvolupessin múltiples estàndards que fossin incompatibles entre sí.
-Per tal de tenir millor definits els serveis s'utilitza el GATT. El GATT permet definir perfils que agrupen múltiples atributs en un sol servei.
+La definició del ATT és massa genèrica per si sola tal que seria comú que per fer el mateix es desenvolupessin múltiples definicions que fossin incompatibles entre sí.
+Per tal de tenir millor definits els serveis s'utilitza el GATT. El GATT permet definir perfils que agrupen múltiples atributs en un sol servei \cite{services}.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{./images/GATT_Hierarchy.png}
+		\caption{Jerarquia de GATT \cite{GATT_Hierarchy}}
+	\end{center}
+\end{figure}
+
+En un llistat de atributs el GATT identifica els serveis tenint en compte que cada servei comença amb un atribut amb el UUID 0x2800, els següents atributs formaran part del mateix servei fins que es trobi un nou atribut amb UUID 0x2800. En el valor del atribut on es defineix el servei (UUID 0x2800) hi ha un altre UUID que especifica quin tipus de servei és.
+
+Cada servei té característiques \cite{characteristics} que s'identifiquen perquè el UUID és 0x2803, en aquests atributs en el seu valor hi haurà un nou UUID que identifica la informació que es troba en el atribut amb un cert \textit{handle} que també estarà indicat.
+
 \begin{center}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		Handle	&	UUID	&	Descripció						&	Valor		\\ 	\hline
-		0x0100	&	0x2800	&	Thermometer service definition	&	UUID 0x1816	\\		\hline
-		0x0101	&	0x2803	&	Characteristic: temperature		&	\parbox[t]{4cm}{UUID 0x2A2B	\\ Value handle: 0x0102}	\\	\hline
-		0x0102	&	0x2A2B	&	Temperature value				&	20 degrees	\\	\hline
-		0x0110	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0111}	\\		\hline
-		0x0111	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
+		0x0100	&	0x2800	&	Battery Service					&	UUID 0x180F	\\		\hline
+		0x0101	&	0x2803	&	Characteristic: Battery Level	&	\parbox[t]{4cm}{UUID 0x2A19	\\ Value handle: 0x0102}	\\	\hline
+		0x0102	&	0x2A2B	&	Battery Value					&	20	\\	\hline
+		0x0103	&	0x2800	&	Custom Temperature Service		&	UUID 	706676c8-3e49...	\\	\hline
+		0x0104	&	0x2803	&	Characteristic: Temperature		&	\parbox[t]{4cm}{UUID 0x2A6E	\\ Value handle: 0x0105}	\\		\hline
+		0x0105	&	0x2A6E	&	Temperature Value				&	25.45	\\	\hline
+		0x0106	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0107}	\\		\hline
+		0x0107	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
 		\hline
 	\end{tabular}
+
+Exemple de possibles atributs
 \end{center}
 
+En aquest exemple es pot veure que tenim 2 serveis diferents ja que hi ha 2 UUIDs 0x2800 i tenim 3 característiques en total (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
+Com que els calors corresponents al nivell de bateria i la temperatura estan estandarditzats no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
 
-En un llistat de atributs el GATT identifica els serveis tenint en compte que cada servei comença amb un atribut amb el UUID 0x2800, els següents atributs formaran part del mateix servei fins que es trobi un nou atribut amb UUID 0x2800. En el valor del atribut amb UUID 0x2800 hi ha un altre UUID que especifica quin tipus de servei és.
+Es pot veure com el servei que està definit per a la temperatura no forma part de l'estàndard ja que té 128 bits. El número que s'ha escollit és un UUID completament aleatori: 706676c8-3e49-4ecc-9379-fa9851444e53. Tot i que no hi ha una coordinació per assegurar-se que diferents desenvolupadors no utilitzen el mateix UUID degut a la longitud (128 bits) es considera improbable. La condició que ha de complir el UUID és que no sigui XXXXXXXX-0000-1000-8000-00805F9B34FB ja que aquest sufix correspon als que estan reservats per a l'estandard. En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també es poden veure tots els que ja s'han reservat per a empreses a questa web \cite{reservedUUIDs}.
 
-Cada servei té característiques que s'identifiquen perquè el UUID és 0x2803, en aquests atributs en el seu valor hi haurà un nou UUID que identifica la informació que hi haurà en el \textit{handle} que també està indicat.
-
+En aquest exemple no n'hi ha cap però les característiques poden tenir descriptors \cite{descriptors} que permeten aportar informació addicional sobre la característica que els precedeix.
 
 \subsubsection{GAP}
 En quant es realitza una connexió els dispositius han de definir-se entre els següents rols: Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}), Esclau (\textit{Slave}) o Mestre (\textit{Master}) i Emissor (\textit{Broadcaster}) o Observador (\textit{Observer}).
