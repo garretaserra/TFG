@@ -18,14 +18,6 @@ IBM i Ericsson van acordar utilitzar aquesta tecnologia de curt abast per permet
 Com que ni Ericsson ni IBM tenien majoria en la quota de mercat dels respectius productes van decidir que la tecnologia fos oberta. Es van unir al grup Intel, Nokia i Toshiba, i totes 5 companyies el 1998 van fundar el \textit{Blueooth Special Interest group}.
 El 2001 van sortir a la venta el primer mòbil amb Bluetooth, el Ericsson T39 i el primer portàtil el IBM ThinkPad A30
 
-
-Bluetooth enlloc de estar orientat a donar connexió a internet estava orientat a connectar dispositius entre si (punt a punt) per a la transferència de fitxers com contactes o fotografies.
-Posteriorment es va poder aconseguir velocitats suficients pel \textit{streaming} de música en temps real.
-Junt amb l'arribada dels telèfons intel·ligents els auriculars inal·làmbrics es van fer populars i també es va establir la dominància de bluetooth per a escoltar música sense cables.
-Amb aquest objectiu es va millorar bluetooth per tal de ser més resistent a interferències i aconseguir velocitats superiors per poder transmetre música d'alta fidelitat.
-Per un altre costat però va començar a sorgir el Internet of Things, basat en tenir molts dispositius connectats i això va generar necessitats que no es podien cobrir amb les tecnologies desenvolupades anteriorment.
-
-
 \section{Història de Bluetooth Low Energy}
 El 2001 a Nokia es va començar a buscar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb el mínim de compromisos possibles.
 El 2004 es va publicar la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
@@ -40,15 +32,30 @@ Després de més desenvolupament juntament amb Logitech i MIMOSA [citation neede
 
 Després de negociar amb els membres del SIG es va acordar incloure Wibree al estandard de bluetooth en la especificació 4.0 amb el nom de \textit{Bluetooth ultra low power technology} i publicitat com a Bluetooth Smart. El primer mòbil a incloure'l va ser el iPhone 4S al 2011.
 
-
-\section{MANETS}
-Bluetooth clàssic no permetia ni tenir més d'una connexió establerta amb dispositius i l'arquitectura feia que s'utilitzés bastanta energia per establir i mantenir una connexió encara que es volguessin transmetre molt poques dades.
-Aquestes limitacions feien que fos necessari definir nous protocols que estiguessin orientats a connexions de poques dades cap a més d'un dispositiu i que utilitzessin el mínim de energia possible.
-
-\subsection{BLE}
+\section{Bluetooth vs BLE}
 Bluetooth Low Energy no té cap relació amb Bluetooth Classic pel que fa a l'arquitectura del protocol. Tot i compartir nom (perque?) queda clar que no estem parlant del mateix amb el simple fet que no son compatibles entre sí. Tot i així comparteixen l'ús de la banda freqüencial de 2,4 GHz igual que altres protocols sense fils. Al 2016 es va anunciar la versió 5.0 anomenada Bluetooth 5 (sense el punt)[cita] i se li va canviar el nom (aclariment).
 
-% Diferencies entre classic i low energy
+
+\section{MANETS}
+Bluetooth clàssic no permetia tenir més d'una connexió establerta amb dispositius i l'arquitectura feia que s'utilitzés bastanta energia per establir i mantenir una connexió encara que es volguessin transmetre molt poques dades.
+Això no era un problema inicialment ja que principalment l'ús era per la transferència de fitxers com contactes o fotografies.
+Junt amb l'arribada dels telèfons intel·ligents els auriculars inal·làmbrics es van fer populars i també es va establir la dominància de Bluetooth per a escoltar música sense cables.
+Amb aquest objectiu es va millorar Bluetooth per tal de ser més resistent a interferències i aconseguir velocitats superiors per poder transmetre música d'alta fidelitat.
+Per un altre costat però va començar a sorgir el Internet of Things, basat en tenir molts dispositius connectats transmetent a taxes molt variades i de forma discontinua i això va generar necessitats que no es podien cobrir amb les tecnologies existents.
+Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i de llarg abast.
+
+Amb aquests requeriments van sorgir les MANETS (Mobile Ad-Hoc Networks) i a continuació compararem les característiques de les tecnologies més importants amb BLE per veure on queda situat BLE.
+
+\subsection{BLE}
+En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius.
+
+\subsubsection{LE 2M}
+En la versió de Bluetooth 5 permet a la capa física operar a 2 Msimbols/s enlloc dels 1 Ms/s que es podia anteriorment. L'augment de la velocitat dels símbols permet augmentar la quantitat de dades que es poden transmetre a nivell d'aplicació.
+Aquest canvi està pensat per facilitar la utilització de BLE en situacions més exigents pel que fa a dades com per exemple múltiples mesures del cos humà.
+
+\subsubsection{Abast}
+
+
 
 \subsection{Altres Protocols}
 Bluetooth Low Energy no és l'únic protocol orientat a la connexió de dispositius amb baix consum energètic. També existeixen els següents protocols:
@@ -96,12 +103,11 @@ Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals dif
 Els canals es classifiquen com a dades o d'anunci (\textit{Advertisment}). Els canals d'advertisment que són els que es vol tenir més qualitat coincideixen en els espais freqüencials que minimitzen les interferències amb els canals wifi més comuns (1, 6 i 11).
 
 Tot i que amb aquest protocol l'objectiu és transmetre poca informació de forma eficient, es per això que, tot i estar tractant amb paquets d'informació molt curts cal una tassa de transmissió el més alta possible. D'aquesta manera s'aconsegueix que les radio tant del transmissor com la dels receptors estiguin el mínim temps possible actives.
-La tassa de transmissió física del protocol es de 1 Mbps per a BLE 4 que augmenta opcionalment a la versió 5 a 2 Mbps.
-La modulaci
 
-Pel que fa a la potencia de transmisió es pot controlar de tal manera que si és necessari i no limita la comunicació es pot disminuir per gastar menys energia. Tot i així, en el paquets que s'envien es menciona la potència amb la que s'ha transmès per a que el receptor pugui estimar la distància fins al transmisor(?).
+Pel que fa a la potencia de transmissió es pot controlar de tal manera que si és necessari i no limita la comunicació es pot disminuir per gastar menys energia. Tot i així, en el paquets que s'envien es menciona la potència amb la que s'ha transmès per a que el receptor pugui estimar la distància fins al transmissor(?).
 
 La modulació utilitzada per BLE és la mateixa que pel IEEE 802.11, GFSK (\textit{Gaussian Frequency Shift Keying}). Aquesta modulació és una de les més robustes, simples d'implementar i és el que permet (en part) a BLE tenir un abast molt més gran que Bluetooth Clàssic. Aplicar el filtre gaussià és útil ja que permet reduir el consum pic de energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
+En Bluetooth 4.0 s'utilitza una desviació freqüencial de 185 kHz, en BLE 5 com que augmenta la velocitat de símbols també creix la interferència intersimbòlica. Per mitigar aquest efecte negatiu la desviació de freqüència passa a ser de 370 kHz
 
 
 \subsubsection{Link Layer}
