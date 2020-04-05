@@ -1,25 +1,48 @@
-\chapter{Context (Estat de l'art)}\label{C:compaginacio}
+\chapter{Origens del Bluetooth Low Energy}\label{C:compaginacio}
 
-\section{Ús lliure de RF}
-Amb l'establiment de les bandes ISM (Afegir referencia) es crea la possibilitat per el públic general utilitzar comunicació inal·làmbrica amb molta facilitat. Això es deu a que l'establiment de les bandes ISM està acceptat de manera (mes o menys(?)) de la mateixa manera internacionalment.
-Això facilita el disseny de productes per al consumidor habitual que ràpidament veu els avantatges de la comunicació inal·làmbrica entre dispositius.
-En aquest entorn sorgeix la necessitat d'establir estandards entre le companyies principals dels sectors. Per definir els estandards s'agrupen les companyies i formen grups com al WIFI Alliance o ...
+%\section{Ús lliure de RF}
+%Amb l'establiment de les bandes ISM (Afegir referencia) es crea la possibilitat per el públic general utilitzar comunicació inal·làmbrica amb molta facilitat. Això es deu a que l'establiment de les bandes ISM està acceptat de manera (mes o menys(?)) de la mateixa manera internacionalment.
+%Això facilita el disseny de productes per al consumidor habitual que ràpidament veu els avantatges de la comunicació inal·làmbrica entre dispositius.
+%En aquest entorn sorgeix la necessitat d'establir estandards entre le companyies principals dels sectors. Per definir els estandards s'agrupen les companyies i formen grups com al WIFI Alliance o ...
 
-\subsection{Wifi}
-La tecnologia de comunicació més popular avui en dia és la WIFI, dissenyada originalment als anys (?) i establerta als anys (?) orientada a permetre una connexió (* bona) i sense consideració per les interferències entre si mateixa que no es podien preveure llavors.  
-- Avantatges
-- Innovació
-- Evolució
+%\subsection{Wifi}
+%La tecnologia de comunicació més popular avui en dia és la WIFI, dissenyada originalment als anys (?) i establerta als anys (?) orientada a permetre una connexió (* bona) i sense consideració per les interferències entre si mateixa que no es podien preveure llavors.  
+%- Avantatges
+%- Innovació
+%- Evolució
 
-\subsection{Bluetooth Classic}
+\section{Història de Bluetooth Clàssic}
+El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth va començar al 1989 per part de Ericsson.
+Inicialment la voluntat era utilitzar aquesta tecnologia per a auriculars inal·làmbrics. La tecnologia va ser primer utilitzada en els ordinadors portàtils de IBM (ThinkPad). Inicialment es volia integrar connectivitat de la xarxa de telefonia als ordinadors però no era factible degut al consum d'energia de la tecnologia mòbil.
+IBM i Ericsson van acordar utilitzar aquesta tecnologia de curt abast per permetre a mòbils Ericsson i ordinadors ThinkPad comunicar-se entre si i poder accedir a la xarxa mòbil des d'un ordinador.
+Com que ni Ericsson ni IBM tenien majoria en la quota de mercat dels respectius productes van decidir que la tecnologia fos oberta. Es van unir al grup Intel, Nokia i Toshiba, i totes 5 companyies el 1998 van fundar el \textit{Blueooth Special Interest group}.
+El 2001 van sortir a la venta el primer mòbil amb Bluetooth, el Ericsson T39 i el primer portàtil el IBM ThinkPad A30
+
+
 Bluetooth enlloc de estar orientat a donar connexió a internet estava orientat a connectar dispositius entre si (punt a punt) per a la transferència de fitxers com contactes o fotografies.
 Posteriorment es va poder aconseguir velocitats suficients pel \textit{streaming} de música en temps real.
 Junt amb l'arribada dels telèfons intel·ligents els auriculars inal·làmbrics es van fer populars i també es va establir la dominància de bluetooth per a escoltar música sense cables.
-Amb aquest objectiu es va millorar bluetooth per tal de ser més resistent a interferències i a poder transmetre més velocitat per poder transmetre música d'alta fidelitat.
+Amb aquest objectiu es va millorar bluetooth per tal de ser més resistent a interferències i aconseguir velocitats superiors per poder transmetre música d'alta fidelitat.
 Per un altre costat però va començar a sorgir el Internet of Things, basat en tenir molts dispositius connectats i això va generar necessitats que no es podien cobrir amb les tecnologies desenvolupades anteriorment.
 
+
+\section{Història de Bluetooth Low Energy}
+El 2001 a Nokia es va començar a buscar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb el mínim de compromisos possibles.
+El 2004 es va publicar la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
+Després de més desenvolupament juntament amb Logitech i MIMOSA [citation needed] es va divulgar al 2006 amb el nom de Wibree.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{./images/Wibree_Logo.png}
+		\caption{Wibree Logo}
+	\end{center}
+\end{figure}
+
+Després de negociar amb els membres del SIG es va acordar incloure Wibree al estandard de bluetooth en la especificació 4.0 amb el nom de \textit{Bluetooth ultra low power technology} i publicitat com a Bluetooth Smart. El primer mòbil a incloure'l va ser el iPhone 4S al 2011.
+
+
 \section{MANETS}
-Bluetooth classic no permetia ni tenir més d'una connexió establerta amb dispositius i l'arquitectura feia que s'utilitzés bastanta energia per establir i mantenir una connexió encara que es volguessin transmetre molt poques dades.
+Bluetooth clàssic no permetia ni tenir més d'una connexió establerta amb dispositius i l'arquitectura feia que s'utilitzés bastanta energia per establir i mantenir una connexió encara que es volguessin transmetre molt poques dades.
 Aquestes limitacions feien que fos necessari definir nous protocols que estiguessin orientats a connexions de poques dades cap a més d'un dispositiu i que utilitzessin el mínim de energia possible.
 
 \subsection{BLE}
