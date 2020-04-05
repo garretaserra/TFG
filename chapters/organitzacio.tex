@@ -20,170 +20,34 @@ Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de d
 Comentar tema versió
 
 \section{Project 0}
-El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica. Aquest projecte exposa certs serveis a través de BLE i et permet veure una comunicació simple entre la placa i un dispositiu mòbil. La comunicació es fa a través del control dels dos LEDs que te la placa (els LEDs que estan directament controlats pel microcontrolador) i també per l'estat dels botons que hi ha a ambdós costats de la placa.
+El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica. Aquest projecte exposa certs serveis a través de BLE i et permet veure una comunicació simple entre la placa i un dispositiu mòbil.
+La comunicació es fa a través del control dels dos LEDs que te la placa (els LEDs que estan directament controlats pel microcontrolador) i també per l'estat dels botons que hi ha a ambdós costats de la placa.
 *Aquest projecte també inclou altres serveis en que no entrarem.
 
-Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arquitectura dels serveis amb les seves característiques amb una relativa simple funcionalitat.
+Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arquitectura dels serveis amb les seves característiques amb una relativa simple funcionalitat. A continuació s'analitzaran diferents parts dels atributs.
 
+\subsection{Serveis de Butons i LEDs}
 
+En la següent taula es poden veure tots els valors que hi ha tal i com estan en la taula d'atributs del servidor GATT.
+Per facilitar la visualització de les dades s'han tret els zeros finals dels UUIDs propis però cal recordar que en total tenen 16 parells (128 bits en representació hexadecimal) i no només els 9 parells que surten a la taula.
 
-\section{Coses per defecte}
-\subsection{Fórmules, figures i taules}
-
-\subsubsection{Fórmules}
-
-Pel que fa al format de les formules, no cal fer absolutament res. \LaTeX \ ja ho fa tot per vosaltres :-)  
-
-Simplement el que heu de fer és escriure la fórmula com per exemple:
-
-\begin{equation}\label{E:prova}
-\sum _{i=0}^{N} \sum _{j=0}^{N} \frac{\lambda _{ij}}{\alpha _i \beta_ j} \cdot \cos (2\pi f_i) \sin(2 \pi f_j)
-\end{equation}
-
-i per citar-la és tant fàcil com fer: \ref{E:prova}
-
-\subsubsection{Figures}
-
-Pel que fa al format de les figures, no cal fer absolutament res. \LaTeX \ ja ho fa tot per vosaltres :-) . 
-
-Simplement el que heu de fer és inserir la figura amb el codi següent:
-
-\begin{verbatim}
-\begin{figure}[htb]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{./setup/EETAC-positiu-negre}
-\caption{Exemple de figura}
-\label{F:prova}
+	\begin{table}[h!]
+		\csvautotabular{data_files/projectzeroUUID.csv}
+	\end{table}
 \end{center}
-\end{figure}
-\end{verbatim}
 
-donant com a resultat la figura \ref{F:prova}.
+Per poder entendre els atributs, al tenir UUID propis és necessari tenir en compte la documentació amb la que s'ha desenvolupat aquest projecte.
 
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{./setup/EETAC-positiu-negre}
-\caption{Exemple de figura}
-\label{F:prova}
-\end{center}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./images/Project_0_UUID.png}
+		\caption{Definició dels UUIDs}
+	\end{center}
 \end{figure}
 
-Podem tocar la variable \texttt{width} per ajustar l'amplada de la figura com més ens convingui. Teniu en compte que la variable \texttt{textwidth} guarda el valor de l'amplada del texte dins la pàgina i per tant és una bona referència per delimitar amplades de figura, així doncs, la figura \ref{F:prova} ocupa la meitat de l'amplada del texte en una pàgina. 
+El primer que cal tenir clar és que en taula anterior (afegir link dinàmic) els valors estan representats amb l'ordre en que es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitza \textit{little-endian} per enviar la informació.
+Això resulta en que els caràcters hexadecimals queden (per parelles) ordenats al revés.
 
-Podeu arranjar múltiples imatges en una sola figura amb el paquet \texttt{subfigmat}, que defineix un nou entorn \texttt{subfigmatrix} que accepta per argument el nombre de columnes del arranjament. Per exemple, per fer una figura amb tres columnes d'imatges:
-
-\begin{verbatim}
-\begin{figure}[htb]
-  \begin{center}
-    \begin{subfigmatrix}{3}
-      \subfigure[Títol subfigura 1]
-         {\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S1}} 
-      \subfigure[Títol subfigura 2]
-         {\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S2}} 
-      \subfigure[Títol subfigura 3]
-         {\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S3}} 
-      \subfigure[Títol subfigura 4]
-         {\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S4}} 
-      \subfigure[Títol subfigura 5]
-         {\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S5}} 
-      \subfigure[Títol subfigura 6]
-         {\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S6}} 
-    \end{subfigmatrix}
-    \caption{Exemple d'arranjament amb múltiples imatges}
-    \label{F:prova2}
-  \end{center}
-\end{figure}
-\end{verbatim}
-
-que dona com a resultat, la figura \ref{F:prova2}.
-
-\begin{figure}[htb]
-  \begin{center}
-    \begin{subfigmatrix}{3}
-      \subfigure[Títol subfigura 1]{\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S1}} 
-      \subfigure[Títol subfigura 2]{\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S2}} 
-      \subfigure[Títol subfigura 3]{\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S3}} 
-      \subfigure[Títol subfigura 4]{\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S4}} 
-      \subfigure[Títol subfigura 5]{\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S5}} 
-      \subfigure[Títol subfigura 6]{\includegraphics{./setup/EETAC-positiu-negre}\label{SF:S6}} 
-    \end{subfigmatrix}
-    \caption{Exemple d'arranjament amb múltiples imatges}
-    \label{F:prova2}
-  \end{center}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\subsubsection{Taules}
-
-Pel que fa a la numeració de les taules, no cal fer gran cosa. \LaTeX \ ja fa gran part de la feina bruta. 
-
-Simplement el que heu de fer és inserir la figura amb el codi següent:
-
-\begin{verbatim}
-\begin{table}[htb]
-\begin{center}
-\begin{tabular}{|c|l|r|}
-\hline
-{\bf Títol de la Columna 1} & {\bf Títol de la Columna 2} & 
-{\bf Títol de la Columna 3}  \\ \hline \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-\end{tabular}
-\caption{Exemple de taula}
-\label{T:prova}
-\end{center}
-\end{table}
-\end{verbatim}
-
-donant com a resultat la taula \ref{T:prova}.
-
-
-\begin{table}[htb]
-\caption{Exemple de taula}
-\begin{center}
-\begin{tabular}{|c|l|r|}
-\hline
-{\bf Títol de la Columna 1} & {\bf Títol de la Columna 2} & {\bf Títol de la Columna 3}  \\ \hline \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-centrada        & a l'esquerra    & a la dreta       \\ \hline
-\end{tabular}
-\label{T:prova}
-\end{center}
-\end{table}
-
-L'entorn \texttt{tabular} que ofereix \LaTeX \ és molt complet i permet crear multitud de taules diferents, tot i que és alhora bastant complexe. Cau fora de les intencions del present document descriure la sintaxis i el format d'aquest tipus d'entorn. És molt fàcil trobar informació al respecte amb llibres especialitzats o simplement a Internet. 
-
-
-\subsection{Estudi d'ambientalització}
-
-En general l'estudi d'ambientalització es podrà incloure dins de la introducció o a les conclusions, llevat del cas que les repercussions ambientals del treball tinguin una importància tant rellevant que sigui recomanable dedicar-hi un capítol específic.
-
-
-\subsection{Bibliografia}
-
-Tret que el treball consisteixi en la cerca de bibliografia sobre un tema concret, la bibliografia ha de contenir només la llista d'obres consultades.
-
-A la bibliografia s'han de llistar conjuntament llibres i articles de revistes. Citar una referència bibliogràfica és tant fàcil com fer:
-
-\begin{verbatim}
-\cite{prova1}
-\end{verbatim}
-
-per citar la referència \cite{prova1}.
-
-El format de la bibliografia es genera automàticament. Un altre (gran!) avantatge del \LaTeX \ :-)
-
-
-\section{Apèndixs}
-
-En general, cal posar als apèndixs totes les dades i documents que farien el text feixuc i dificultarien la seva lectura, sense oblidar que les contínues referències als apèndixs poden obligar al lector a interrompre constantment la lectura del treball. És per això, que els apèndixs poden incloure diagrames, dades estadístiques, taules de resultats i desenvolupaments teòrics complementaris.
-
-En el cas que, amb el conjunt d'apèndixs, el treball tingui una extensió superior als 100 fulls (aproximadament 200 pàgines), els apèndixs s'han de enquadernar en un volum separat del cos principal del treball. Aquesta plantilla ja proporciona les eines necessàries per fer la portada necessària en cas d'enquadernar els apèndixs per separat.
+Al analitzar els atributs es pot veure com primer hi ha la definició del servei de LEDs i just després hi ha les declaracions de característiques del LED0 i LED1 amb els seus corresponents valors.
+Posteriorment hi ha la declaració del servei dels botons amb les corresponents característiques.
