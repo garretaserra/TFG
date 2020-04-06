@@ -46,15 +46,37 @@ Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i de llarg
 
 Amb aquests requeriments van sorgir les MANETS (Mobile Ad-Hoc Networks) i a continuació compararem les característiques de les tecnologies més importants amb BLE per veure on queda situat BLE.
 
-\subsection{BLE}
-En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius.
+\subsection{Versions de BLE}
+En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius \cite{BLE_5_improvement_over_4}.
 
 \subsubsection{LE 2M}
 En la versió de Bluetooth 5 permet a la capa física operar a 2 Msimbols/s enlloc dels 1 Ms/s que es podia anteriorment. L'augment de la velocitat dels símbols permet augmentar la quantitat de dades que es poden transmetre a nivell d'aplicació.
 Aquest canvi està pensat per facilitar la utilització de BLE en situacions més exigents pel que fa a dades com per exemple múltiples mesures del cos humà.
 
 \subsubsection{Abast}
+Tot i que la tecnologia BLE ja de per si en la seva versió original (4.0) tenia una distància màxima de transmissió teòrica molt gran.
+Però tenir la possibilitat de més abast en les comunicacions ajuden a cobrir les necessitats generades per sectors com el de les cases intel·ligents.
+El límit del abast ve definit per la potència màxima de transmissió (sigui per protocol o per normativa) i la \textit{Bit Error Ratio} que s'accepta sent el percentatge de bits que es reben incorrectament.
+Bluetooth defineix la BER mínima en 0.1\% per tant quant un de cada mil bits es erroni es considera que la connexió és massa dolenta i que ja s'ha arribat al límit de distància.
+Per tractar els errors en transmissió hi ha dues estratègies: detecció d'errors i correcció d'errors.
+En la versió 4.0 de Bluetooth només s'utilitzava la detecció d'errors.
+En Bluetooth 5 s'implementa correcció d'errors d'aquesta manera sense augmentar la potència transmesa es pot incrementar el abast màxim que pot tenir la comunicació.
+El desavantatge és que més bits dels que es transmeten es dediquen a corregir errors per tant queda menys espai per a dades així reduint el \textit{throughput}.
 
+
+El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb un codificador convolucional que pot generar a la sortida més bits dels que entren. El codificador pot funcionar amb dos esquemes diferents s'anomenen S=2 i S=8.
+Amb els diferents esquemes s'utilitza un \textit{code rate} diferent que pot augmentar la capacitat de correcció i augmentar el abast però disminuir la quantitat de dades que es poden transmetre.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{./images/LE_PHY.png}
+		\caption{Comparació de diferents capes físiques}
+	\end{center}
+\end{figure}
+
+\subsubsection{Advertisement Extensions}
+\subsubsection{Slot Availability Masks}
+\subsubsection{Improved Frequency Hopping}
 
 
 \subsection{Altres Protocols}
