@@ -81,13 +81,29 @@ Amb els diferents esquemes s'utilitza un \textit{code rate} diferent que pot aug
 
 \subsection{Altres Protocols}
 Bluetooth Low Energy no és l'únic protocol orientat a la connexió de dispositius amb baix consum energètic. També existeixen els següents protocols:
-Zigbee, utilitzat en Philips Hue
-Zwave Ring (home security)
-6lowpan
-insteon
-lorawan
 
-% Prodcutes que utilitzen cadascun
+\subsubsection{Zigbee}
+El estàndard Zigbee està orientat al control i seguiment de dispositius alimentats amb bateria. Zigbee està disenyat per sobre del IEEE 802.15.4 i aconsegueix una taxa màxima  de 250 Kbps i fins a 100 metres en línia de visió (\textit{LOS}).
+Els dispositius de Philips Hue que serveixen per controlar bombetes intel·ligents entre d'altres.
+[citation needed]
+
+\subsubsection{6LoWPAN}
+IPv6 \textit{over Low power Wireless Personal Area Networks} és un protocol que permet enviar paquets de Internet Protocol versió 6 a través de IEEE 802.15.4.
+Aquest protocol està orientat a aportar internet amb connexions sense fils.
+Una de les característiques destacades és la capacitat de comprimir les capçaleres dels paquets per així reduir el sobrecost que suposa.
+La utilització de aquest protocol és majoritàriament coneguda per l'estandardització de Thread que utilitza el 6LoWPAN per a domòtica. [citation needed]
+
+
+\subsubsection{Z-Wave}
+Z-Wave és un protocol utilitzat principalment per domòtica. La comunicació es fa en una xarxa en malla que connecta els electrodomèstics i per tant permet el seu control.
+La principal diferència d'aquest protocol es que utilitza les freqüències ISM de la banda 800/900 MHz (segons continent) i així evita les interferències que hi ha a 2.4 GHz de WIFI o Bluetooth.
+La utilització de freqüències més baixes permet més abast amb menys potència, especialment quant es tracta de penetrar parets.
+Un exemple de dispositius que utilitzen aquesta tecnologia són els productes de la marca Ring principalment coneguts pels seus vídeo-porters intel·ligens.
+
+
+\subsubsection{Insteon}
+\subsubsection{lorawan}
+
 
 \subsection{Comparació}
 Tot i que els protocols tenen molt en comú cada un es diferencia de la resta en els detalls, a continuació veiem una comparació de les capacitats de cada un dels protocols
