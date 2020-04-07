@@ -12,56 +12,64 @@
 %- Evolució
 
 \section{Història de Bluetooth Clàssic}
-El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth va començar al 1989 per part de Ericsson.
-Inicialment la voluntat era utilitzar aquesta tecnologia per a auriculars inal·làmbrics. La tecnologia va ser primer utilitzada en els ordinadors portàtils de IBM (ThinkPad). Inicialment es volia integrar connectivitat de la xarxa de telefonia als ordinadors però no era factible degut al consum d'energia de la tecnologia mòbil.
-IBM i Ericsson van acordar utilitzar aquesta tecnologia de curt abast per permetre a mòbils Ericsson i ordinadors ThinkPad comunicar-se entre si i poder accedir a la xarxa mòbil des d'un ordinador.
-Com que ni Ericsson ni IBM tenien majoria en la quota de mercat dels respectius productes van decidir que la tecnologia fos oberta. Es van unir al grup Intel, Nokia i Toshiba, i totes 5 companyies el 1998 van fundar el \textit{Blueooth Special Interest group}.
-El 2001 van sortir a la venta el primer mòbil amb Bluetooth, el Ericsson T39 i el primer portàtil el IBM ThinkPad A30
+El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth va començar l'any 1989 per part de Ericsson.
+Inicialment la voluntat era utilitzar aquesta tecnologia per a connectar auriculars inal·làmbrics.
+A IBM es volia integrar connectivitat de la xarxa de telefonia als ordinadors portàtils però no era factible degut al consum d'energia que requeria la tecnologia mòbil.
+IBM i Ericsson van acordar utilitzar aquesta tecnologia de curt abast en els seus productes corresponents.
+El resultat va ser que els mòbils Ericsson i ordinadors ThinkPad es podien comunicar entre si i així des del portàtil es podien fer trucades.
+Com que ni Ericsson ni IBM tenien majoria en la quota de mercat dels respectius productes van decidir que la tecnologia fos oberta.
+D'aquesta manera es buscava integrar a més participants en aquesta tecnologia per tal de estendre-la a la majoria de dispositius possible.
+El 1998 es van unir al grup Intel, Nokia i Toshiba i totes 5 companyies  van fundar el SIG  (\textit{Blueooth Special Interest group}).
+Finalment, el 2001 van sortir a la venta el primer mòbil amb Bluetooth, el Ericsson T39 i el primer portàtil el IBM ThinkPad A30.
 
 \section{Història de Bluetooth Low Energy}
-El 2001 a Nokia es va començar a buscar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb el mínim de compromisos possibles.
+Com que el món de les comunicacions estava anant cap als dispositius sense fils i alimentats amb bateria era necessari adaptar les tecnologies existents per a les noves necessitats.
+El 2001 a Nokia es va començar a desenvolupar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb el mínim de compromisos possibles.
 El 2004 es va publicar la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
 Després de més desenvolupament juntament amb Logitech i MIMOSA [citation needed] es va divulgar al 2006 amb el nom de Wibree.
 
-\begin{figure}[h]
+\begin{figure}
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./images/Wibree_Logo.png}
-		\caption{Wibree Logo}
+		\caption{Logo de Wibree }
 	\end{center}
 \end{figure}
 
-Després de negociar amb els membres del SIG es va acordar incloure Wibree al estandard de bluetooth en la especificació 4.0 amb el nom de \textit{Bluetooth ultra low power technology} i publicitat com a Bluetooth Smart. El primer mòbil a incloure'l va ser el iPhone 4S al 2011.
+Els membres del SIG després de negociar entre si van acordar incloure Wibree al estandard de bluetooth en la especificació 4.0 amb el nom de \textit{Bluetooth ultra low power technology} i publicitat com a Bluetooth Smart. El primer mòbil a incloure'l va ser el iPhone 4S al 2011.
 
 \section{Bluetooth vs BLE}
-Bluetooth Low Energy no té cap relació amb Bluetooth Classic pel que fa a l'arquitectura del protocol. Tot i compartir nom queda clar que no estem parlant del mateix amb el simple fet que no son compatibles entre sí. Tot i així comparteixen l'ús de la banda freqüencial de 2,4 GHz igual que altres protocols sense fils.
-
+El Bluetooth Low Energy no té cap relació amb el Bluetooth Classic pel que fa a l'arquitectura de la tecnologia.
+Tot i que comparteixen l'ús de la banda freqüencial de 2,4 GHz igual que altres protocols sense fils i contenen el nom de Bluetooth queda clar que no estem parlant del mateix amb el simple fet que no son compatibles entre sí.
+De fet, quant un dispositiu vol implementar les dues tecnologies (anomenat mode dual)ho ha de fer per separat ja que només comparteixen l'antena, les modulacions i altres blocs són tots diferents.
 
 \section{MANETS}
-Bluetooth clàssic no permetia tenir més d'una connexió establerta amb dispositius i l'arquitectura feia que s'utilitzés bastanta energia per establir i mantenir una connexió encara que es volguessin transmetre molt poques dades.
+Bluetooth clàssic no permetia tenir més d'una connexió establerta amb dispositius i l'arquitectura feia que s'utilitzés bastanta energia per establir i mantenir aquesta connexió encara que es volguessin transmetre molt poques dades.
 Això no era un problema inicialment ja que principalment l'ús era per la transferència de fitxers com contactes o fotografies.
-Junt amb l'arribada dels telèfons intel·ligents els auriculars inal·làmbrics es van fer populars i també es va establir la dominància de Bluetooth per a escoltar música sense cables.
+
+Amb l'arribada dels telèfons intel·ligents els auriculars inal·làmbrics es van fer populars i també es va establir la dominància de Bluetooth per a escoltar música sense cables.
 Amb aquest objectiu es va millorar Bluetooth per tal de ser més resistent a interferències i aconseguir velocitats superiors per poder transmetre música d'alta fidelitat.
 Per un altre costat però va començar a sorgir el Internet of Things, basat en tenir molts dispositius connectats transmetent a taxes molt variades i de forma discontinua i això va generar necessitats que no es podien cobrir amb les tecnologies existents.
-Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i de llarg abast.
+Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i que cobrissin una gran distància.
 
-Amb aquests requeriments van sorgir les MANETS (Mobile Ad-Hoc Networks) i a continuació compararem les característiques de les tecnologies més importants amb BLE per veure on queda situat BLE.
+Amb aquests requeriments van sorgir les MANETS (Mobile Ad-Hoc Networks). A continuació s'explicaran les característiques de les tecnologies més importants amb BLE per veure on queda situat BLE.
 
 \subsection{Versions de BLE}
 En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius \cite{BLE_5_improvement_over_4}.
 
 \subsubsection{LE 2M}
-En la versió de Bluetooth 5 permet a la capa física operar a 2 Msimbols/s enlloc dels 1 Ms/s que es podia anteriorment. L'augment de la velocitat dels símbols permet augmentar la quantitat de dades que es poden transmetre a nivell d'aplicació.
-Aquest canvi està pensat per facilitar la utilització de BLE en situacions més exigents pel que fa a dades com per exemple múltiples mesures del cos humà.
+En la versió de Bluetooth 5 permet a la capa física operar a 2 Msimbols/s enlloc dels 1 Ms/s que es podia anteriorment en la versió 4.0. L'augment de la velocitat dels símbols permet augmentar la quantitat de dades que es poden transmetre a nivell d'aplicació.
+Aquest canvi està pensat per facilitar la utilització de BLE en situacions més exigents pel que fa a volum de dades com per exemple múltiples mesures del cos humà.
 
 \subsubsection{Abast}
-Tot i que la tecnologia BLE ja de per si en la seva versió original (4.0) tenia una distància màxima de transmissió teòrica molt gran.
-Però tenir la possibilitat de més abast en les comunicacions ajuden a cobrir les necessitats generades per sectors com el de les cases intel·ligents.
-El límit del abast ve definit per la potència màxima de transmissió (sigui per protocol o per normativa) i la \textit{Bit Error Ratio} que s'accepta sent el percentatge de bits que es reben incorrectament.
-Bluetooth defineix la BER mínima en 0.1\% per tant quant un de cada mil bits es erroni es considera que la connexió és massa dolenta i que ja s'ha arribat al límit de distància.
+Tot i que la tecnologia BLE ja de per si en la seva versió original (4.0) tenia una distància màxima de transmissió teòrica molt gran (100 metres sense obstacles), no era suficient per a tots els casos.
+Per exemple, era necessari tenir més abast en els sectors com el de les cases intel·ligents.
+El límit de l'abast ve definit per la potència màxima de transmissió (sigui per protocol o per normativa) i per el percentatge de bits que es reben incorrectament BER (\textit{Bit Error Ratio}) que es pot acceptar.
+Bluetooth defineix la BER mínima en 0.1\% per tant quant un de cada mil bits és erroni es considera que la connexió és massa dolenta i que ja s'ha arribat al límit de distància.
+
 Per tractar els errors en transmissió hi ha dues estratègies: detecció d'errors i correcció d'errors.
 En la versió 4.0 de Bluetooth només s'utilitzava la detecció d'errors.
 En Bluetooth 5 s'implementa correcció d'errors d'aquesta manera sense augmentar la potència transmesa es pot incrementar el abast màxim que pot tenir la comunicació.
-El desavantatge és que més bits dels que es transmeten es dediquen a corregir errors per tant queda menys espai per a dades així reduint el \textit{throughput}.
+El desavantatge és que més bits dels que es transmeten es dediquen a corregir errors per tant queda menys espai per a dades de l'aplicació.
 
 
 El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb un codificador convolucional que pot generar a la sortida més bits dels que entren. El codificador pot funcionar amb dos esquemes diferents s'anomenen S=2 i S=8.
