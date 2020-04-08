@@ -51,5 +51,31 @@ Això resulta en que els caràcters hexadecimals queden (per parelles) ordenats 
 
 Al analitzar els atributs es pot veure com aquells que tenen el UUID 0x2800 en el seu valor només tenen un UUID corresponent al les definicions de serveis de LEDs i de botons.
 Seguidament, als atribut amb UUID 0x2803 hi ha les definicions de les característiques, en el seu valor hi ha multiples parts.
-El primer parell hexadecimal correspon a les propietats que defineixen l'accés a les característiques. Just després hi ha dos parells hexadecimals que identifiquen el \textit{Handle} del atribut on hi ha la característica.
+El primer parell hexadecimal correspon a les propietats. Just després hi ha dos parells hexadecimals que identifiquen el \textit{Handle} del atribut on hi ha la característica.
 I per últim la resta de caràcters corresponen al UUID que identifica la característica.
+
+\subsection{Propietats}
+Les propietats d'accés són un valor que identifica quines operacions i procediments es poden fer sobre la característica.
+El camp té 8 bits per defecte i cada un d'ells identifica una operació o procediment.
+Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples opcions.
+
+\begin{center}
+	\begin{tabular}{|c|l|l|}
+		\hline
+		Binary	&	Hex		&	Property	\\	\hline
+		0000 0001	&	0x01	&	Broadcast\\	\hline
+		0000 0010	&	0x02	&	Read	\\	\hline
+		0000 0100	&	0x03	&	Write w/o Response	\\	\hline
+		0000 1000	&	0x04	&	Write	\\	\hline
+		0001 0000	&	0x10	&	Notification w/o ACK	\\	\hline
+		0010 0000	&	0x20	&	Indication with ACK	\\	\hline
+		0100 0000	&	0x30	&	Signed Writes	\\	\hline
+		1000 0000	&	0x40	&	Aditional Characteristics	\\	\hline
+	\end{tabular}
+\end{center}
+
+Primer de tot cal destacar la implementació de comunicacions amb o sense reconeixement. D'aquesta manera si preferim reduir la quantitat de missatges per estalviar bateria enlloc d'assegurar-se que s'ha rebut la informació es dona la opció.
+
+
+
+[Extended properties Descriptor]

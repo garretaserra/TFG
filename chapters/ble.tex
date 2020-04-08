@@ -229,6 +229,7 @@ Com que els calors corresponents al nivell de bateria i la temperatura estan est
 Es pot veure com el servei que està definit per a la temperatura no forma part de l'estàndard ja que té 128 bits. El número que s'ha escollit és un UUID completament aleatori: 706676c8-3e49-4ecc-9379-fa9851444e53. Tot i que no hi ha una coordinació per assegurar-se que diferents desenvolupadors no utilitzen el mateix UUID degut a la longitud (128 bits) es considera improbable. La condició que ha de complir el UUID és que no sigui XXXXXXXX-0000-1000-8000-00805F9B34FB ja que aquest sufix correspon als que estan reservats per a l'estandard. En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també es poden veure tots els que ja s'han reservat per a empreses a questa web \cite{reservedUUIDs}.
 
 En aquest exemple no n'hi ha cap però les característiques poden tenir descriptors \cite{descriptors} que permeten aportar informació addicional sobre la característica que els precedeix.
+Els atributs també tenen propietats d'accés que defineixen quines accions es poden prendre. Es comentaran en un exemple real més endavant [link dinàmic].
 
 \subsubsection{GAP}
 En quant es realitza una connexió els dispositius han de definir-se entre els següents rols: Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}), Esclau (\textit{Slave}) o Mestre (\textit{Master}) i Emissor (\textit{Broadcaster}) o Observador (\textit{Observer}).
