@@ -57,7 +57,8 @@ Amb aquests requeriments van sorgir les MANETS (Mobile Ad-Hoc Networks). A conti
 En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius \cite{BLE_5_improvement_over_4}.
 
 \subsubsection{LE 2M}
-En la versió de Bluetooth 5 permet a la capa física operar a 2 Msimbols/s enlloc dels 1 Ms/s que es podia anteriorment en la versió 4.0. L'augment de la velocitat dels símbols permet augmentar la quantitat de dades que es poden transmetre a nivell d'aplicació.
+LE2M (\textit{Low Energy 2 Mega}) és el nom que te la nova capa física quan opera a 2 Msimbols/s en la versió 5 enlloc dels 1 Ms/s que es podia anteriorment en la versió 4.0.
+L'augment de la velocitat dels símbols permet augmentar la quantitat de dades que es poden transmetre a nivell d'aplicació.
 Aquest canvi està pensat per facilitar la utilització de BLE en situacions més exigents pel que fa a volum de dades com per exemple múltiples mesures del cos humà.
 
 \subsubsection{Abast}
@@ -83,9 +84,30 @@ Amb els diferents esquemes s'utilitza un \textit{code rate} diferent que pot aug
 \end{figure}
 
 \subsubsection{Advertisement Extensions}
-\subsubsection{Slot Availability Masks}
-\subsubsection{Improved Frequency Hopping}
+En Bluetooth 4.0 els paquets d'anunci (\textit{Advertisement Packets}) tenen 6 octets de capçalera i com a molt 31 de dades, és a dir, com a molt es poden transmetre 31 Bytes de cop.
+Normalment aquests paquets es transmeten pels 3 canals d'anuncis el 37, 38 i 39.
 
+En Bluetooth 5 per poder emetre (\textit{broadcast}) més dades el que es fa és enviar un paquet d'anunci on només s'indica la capçalera i un punter cap al canal per on s'enviarà el paquet complet.
+Posteriorment, pel canal per on s'ha indicat s'envia el paquet que pot tenir fins a 255 octets de longitud total.
+Amb aquest sistema s'aconsegueix descarregar els canals d'anunci passant informació als canals secundaris (0-36).
+I d'aquesta manera les dades només es transmeten una vegada ja que abans calia transmetre-les en els tres canals d'anunci. 
+
+Si encara es requereix transmetre més dades el es pot fer utilitzant encadenament de paquets.
+Al final del paquet que s'ha enviat pel canal secundari s'indica el canal per on s'enviara la continuació i això es pot fer múltiples vegades.
+
+En la versió 4.0 sempre hi havia una component aleatòria que marcava en quin moment s'enviava el paquet, això és comú i serveix per evitar col·lisions periòdiques.
+El problema que genera és que les ràdios han d'estar més temps escoltant fins a rebre el paquet per culpa d'aquesta aleatorietat.
+
+En BLE 5 el GAP defineix un mode síncron que permet establir un procediment d'establiment de paquets anunci sincronitzats.
+Existeix una nova capçalera (SyncInfo) on s'indica amb exactitud el interval i variació (per evitar col·lisions) dels paquets.    
+
+\subsubsection{Slot Availability Masks}
+La tecnologia LTE (telefonia) està utilitzant cada vegada més espai freqüencial i en preparació de que s'utilitzi en freqüencials pròximes a la banda de 2.4 GHz ISM s'ha desenvolupat un sistema per indicar disponibilitat en el temps.
+Per evitar les possibles interferències que causin altres tecnologies es defineix la SAM (\textit{Slot Availability Mask}) que permet identificar aquelles ranures de temps hi ha disponibilitat així bloquejant aquells moments on hi hagui interferències i així evitar-les.
+
+\subsubsection{Improved Frequency Hopping}
+Els salts en freqüència que utilitza la versió 4.0 estan definit per 12 seqüències predeterminades.
+En BLE 5 s'utilitza una seqüència pseudo-aleatòria per determinar quins canals s'utilitzen. El algorisme en aquest cas \textit{channel selection algorithm \#2} i és més efectiu a evitar interferències i esvaniments per propagació multi-camí.
 
 \subsection{Altres Protocols}
 Bluetooth Low Energy no és l'únic protocol orientat a la connexió de dispositius amb baix consum energètic. També existeixen els següents protocols:

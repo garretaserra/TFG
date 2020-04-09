@@ -89,5 +89,9 @@ Si el valor és 0 no hi ha transmissions, si el valor és 1 s'envien notificacio
 
 El bit d'extensió de propietats, en cas que sigui 1 indica que existeix un atribut: Descriptor Propietats Esteses de Característica.
 Aquest atribut te el UUID 0x2900 i el que permet és afegir més propietats de les que poden existir amb el espai limitat de 8 bits que hi ha per defecte.
-Aquest sistema permet afegir fins a 16 bits més per indicar propietats, ara per ara estan els dos primers definits segons el estàndard i la resta estan reservats per a ús futur \cite{extended properties}.
+Aquest sistema permet afegir fins a 16 bits més per indicar propietats, actualment estan els dos primers definits segons el estàndard i la resta estan reservats per a ús futur \cite{extended properties}.
+
+Aquests 2 primers que estan definits són escriptura fiable i escriptura auxiliar.
+L'escriptura fiable permet escriure valors amb un procediment diferent al habitual que permet assegurar-se que el valor que es vol modificar s'ha escrit i no hi han hagut errors.
+Pel que fa  al'escriptura auxiliar permet escriptura al descriptor de característica [posar exemple].
 
