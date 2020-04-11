@@ -12,7 +12,7 @@
 %- Evolució
 
 \section{Història de Bluetooth Clàssic}
-El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth va començar l'any 1989 per part de Ericsson.
+El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth Clàssic va començar l'any 1989 per part de Ericsson.
 Inicialment la voluntat era utilitzar aquesta tecnologia per a connectar auriculars inal·làmbrics.
 A IBM es volia integrar connectivitat de la xarxa de telefonia als ordinadors portàtils però no era factible degut al consum d'energia que requeria la tecnologia mòbil.
 IBM i Ericsson van acordar utilitzar aquesta tecnologia de curt abast en els seus productes corresponents.
@@ -35,25 +35,64 @@ Després de més desenvolupament juntament amb Logitech i MIMOSA [citation neede
 	\end{center}
 \end{figure}
 
-Els membres del SIG després de negociar entre si van acordar incloure Wibree al estandard de bluetooth en la especificació 4.0 amb el nom de \textit{Bluetooth ultra low power technology} i publicitat com a Bluetooth Smart. El primer mòbil a incloure'l va ser el iPhone 4S al 2011.
+Els membres del SIG després de negociar entre sí, van acordar incloure Wibree al estandard de Bluetooth en la especificació 4.0 amb el nom de \textit{Bluetooth ultra low power technology} i publicitat com a Bluetooth Smart. El primer mòbil a incloure'l va ser el iPhone 4S al 2011.
+Posteriorment es va canviar el nom per \textit{Bluetooth Low Energy} (BLE d'ara endavant)
 
 \section{Bluetooth vs BLE}
 El Bluetooth Low Energy no té cap relació amb el Bluetooth Classic pel que fa a l'arquitectura de la tecnologia.
-Tot i que comparteixen l'ús de la banda freqüencial de 2,4 GHz igual que altres protocols sense fils i contenen el nom de Bluetooth queda clar que no estem parlant del mateix amb el simple fet que no son compatibles entre sí.
-De fet, quant un dispositiu vol implementar les dues tecnologies (anomenat mode dual)ho ha de fer per separat ja que només comparteixen l'antena, les modulacions i altres blocs són tots diferents.
+Tot i que comparteixen l'ús de la banda freqüencial de 2,4 GHz, igual que altres protocols sense fils, i contenen el nom de Bluetooth queda clar que no estem parlant del mateix amb el simple fet que no son compatibles entre sí.
+De fet, quant un dispositiu vol implementar les dues tecnologies (anomenat mode dual) ho ha de fer per separat ja que només comparteixen l'antena, les modulacions i altres blocs són tots diferents.
 
-\section{MANETS}
-Bluetooth clàssic no permetia tenir més d'una connexió establerta amb dispositius i l'arquitectura feia que s'utilitzés bastanta energia per establir i mantenir aquesta connexió encara que es volguessin transmetre molt poques dades.
-Això no era un problema inicialment ja que principalment l'ús era per la transferència de fitxers com contactes o fotografies.
+\section{MANETS (\textit{Mobile Ad-Hoc Networks})}
+Bluetooth Clàssic no permet tenir més d'una connexió establerta amb dispositius.
+A demés tot i voler transmetre poques dades l'arquitectura fa que es consumeixi bastanta energia per establir i mantenir la connexió.
+Això no suposaven problemes inicialment, ja que principalment l'ús era per la transferència de fitxers com contactes o fotografies.
 
-Amb l'arribada dels telèfons intel·ligents els auriculars inal·làmbrics es van fer populars i també es va establir la dominància de Bluetooth per a escoltar música sense cables.
-Amb aquest objectiu es va millorar Bluetooth per tal de ser més resistent a interferències i aconseguir velocitats superiors per poder transmetre música d'alta fidelitat.
-Per un altre costat però va començar a sorgir el Internet of Things, basat en tenir molts dispositius connectats transmetent a taxes molt variades i de forma discontinua i això va generar necessitats que no es podien cobrir amb les tecnologies existents.
-Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i que cobrissin una gran distància.
+Amb l'arribada dels telèfons intel·ligents, els auriculars inal·làmbrics van esdevenir populars i es va establir la dominància de Bluetooth Clàssic per a escoltar música.
+Per a poder transmetre música d'alta fidelitat es va millorar Bluetooth per ser més resistent a interferències i aconseguir velocitats superiors.
+Per un altre costat però va començar a sorgir el Internet of Things, basat en tenir molts dispositius connectats transmetent a taxes molt variades i de forma discontinua.
+Això va generar necessitats que no es podien cobrir amb les tecnologies existents.
+Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i que cobrissin una gran distància (10-100 metres).
 
-Amb aquests requeriments van sorgir les MANETS (Mobile Ad-Hoc Networks). A continuació s'explicaran les característiques de les tecnologies més importants amb BLE per veure on queda situat BLE.
+Amb aquests requeriments, van sorgir les \textit{Mobile Ad-Hoc Networks} (MANETS d'ara endavant). BLE és una d'elles, però n'hi ha d'altres similars que s'analitzaran a continuació.
 
-\subsection{Versions de BLE}
+\subsection{Altres MANETS}
+
+\subsubsection{Zigbee}
+El estàndard Zigbee està orientat al control i seguiment de dispositius alimentats amb bateria. Zigbee està disenyat per sobre del IEEE 802.15.4 i aconsegueix una taxa màxima  de 250 Kbps i fins a 100 metres en línia de visió (\textit{LOS}).
+Els dispositius de Philips Hue que serveixen per controlar bombetes intel·ligents entre d'altres.
+[citation needed]
+
+\subsubsection{6LoWPAN}
+IPv6 \textit{over Low power Wireless Personal Area Networks} és un protocol que permet enviar paquets de Internet Protocol versió 6 a través de IEEE 802.15.4.
+Aquest protocol està orientat a aportar internet amb connexions sense fils.
+Una de les característiques destacades és la capacitat de comprimir les capçaleres dels paquets per així reduir el sobrecost que suposa.
+La utilització de aquest protocol és majoritàriament coneguda per l'estandardització de Thread que utilitza el 6LoWPAN per a domòtica. [citation needed]
+
+
+\subsubsection{Z-Wave}
+Z-Wave és un protocol utilitzat principalment per domòtica. La comunicació es fa en una xarxa en malla que connecta els electrodomèstics i per tant permet el seu control.
+La principal diferència d'aquest protocol es que utilitza les freqüències ISM de la banda 800/900 MHz (segons continent) i així evita les interferències que hi ha a 2.4 GHz de WIFI o Bluetooth.
+La utilització de freqüències més baixes permet més abast amb menys potència, especialment quant es tracta de penetrar parets.
+Un exemple de dispositius que utilitzen aquesta tecnologia són els productes de la marca Ring principalment coneguts pels seus vídeo-porters intel·ligens.
+
+
+\subsubsection{Insteon}
+Insteon està orientat a domòtica i utilitza conjuntament radiofreqüència i les línies d'alimentació de casa per a la comunicació.
+Aquest sistema s'anomena de malla dual.
+El fet d'estar connectats tots els dispositius a la instal·lació elèctrica permet molt bona sincronització entre els dispositius.
+Això permet, per exemple, que múltiples dispositius puguin retransmetre paquets alhora per tal de millorar la cobertura i reduir les retransmissions.
+SmartLabs és la companyia que fabrica i ven els productes que utilitzen Insteon.
+La tecnologia és pot controlar a través de Cortana, Alexa o Apple Watch entre d'altres.
+
+\subsubsection{LoRa}
+
+
+\subsection{Comparació}
+Tot i que els protocols tenen molt en comú cada un es diferencia de la resta en els detalls, a continuació veiem una comparació de les capacitats de cada un dels protocols
+
+
+\section{Versions de BLE}
 En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius \cite{BLE_5_improvement_over_4}.
 
 \subsubsection{LE 2M}
@@ -90,7 +129,7 @@ Normalment aquests paquets es transmeten pels 3 canals d'anuncis el 37, 38 i 39.
 En Bluetooth 5 per poder emetre (\textit{broadcast}) més dades el que es fa és enviar un paquet d'anunci on només s'indica la capçalera i un punter cap al canal per on s'enviarà el paquet complet.
 Posteriorment, pel canal per on s'ha indicat s'envia el paquet que pot tenir fins a 255 octets de longitud total.
 Amb aquest sistema s'aconsegueix descarregar els canals d'anunci passant informació als canals secundaris (0-36).
-I d'aquesta manera les dades només es transmeten una vegada ja que abans calia transmetre-les en els tres canals d'anunci. 
+I d'aquesta manera les dades només es transmeten una vegada ja que abans, calia transmetre-les en els tres canals d'anunci. 
 
 Si encara es requereix transmetre més dades el es pot fer utilitzant encadenament de paquets.
 Al final del paquet que s'ha enviat pel canal secundari s'indica el canal per on s'enviara la continuació i això es pot fer múltiples vegades.
@@ -112,33 +151,9 @@ En BLE 5 s'utilitza una seqüència pseudo-aleatòria per determinar quins canal
 \subsection{Altres Protocols}
 Bluetooth Low Energy no és l'únic protocol orientat a la connexió de dispositius amb baix consum energètic. També existeixen els següents protocols:
 
-\subsubsection{Zigbee}
-El estàndard Zigbee està orientat al control i seguiment de dispositius alimentats amb bateria. Zigbee està disenyat per sobre del IEEE 802.15.4 i aconsegueix una taxa màxima  de 250 Kbps i fins a 100 metres en línia de visió (\textit{LOS}).
-Els dispositius de Philips Hue que serveixen per controlar bombetes intel·ligents entre d'altres.
-[citation needed]
-
-\subsubsection{6LoWPAN}
-IPv6 \textit{over Low power Wireless Personal Area Networks} és un protocol que permet enviar paquets de Internet Protocol versió 6 a través de IEEE 802.15.4.
-Aquest protocol està orientat a aportar internet amb connexions sense fils.
-Una de les característiques destacades és la capacitat de comprimir les capçaleres dels paquets per així reduir el sobrecost que suposa.
-La utilització de aquest protocol és majoritàriament coneguda per l'estandardització de Thread que utilitza el 6LoWPAN per a domòtica. [citation needed]
 
 
-\subsubsection{Z-Wave}
-Z-Wave és un protocol utilitzat principalment per domòtica. La comunicació es fa en una xarxa en malla que connecta els electrodomèstics i per tant permet el seu control.
-La principal diferència d'aquest protocol es que utilitza les freqüències ISM de la banda 800/900 MHz (segons continent) i així evita les interferències que hi ha a 2.4 GHz de WIFI o Bluetooth.
-La utilització de freqüències més baixes permet més abast amb menys potència, especialment quant es tracta de penetrar parets.
-Un exemple de dispositius que utilitzen aquesta tecnologia són els productes de la marca Ring principalment coneguts pels seus vídeo-porters intel·ligens.
-
-
-\subsubsection{Insteon}
-\subsubsection{lorawan}
-
-
-\subsection{Comparació}
-Tot i que els protocols tenen molt en comú cada un es diferencia de la resta en els detalls, a continuació veiem una comparació de les capacitats de cada un dels protocols
-
-\section{BLE Stack}
+\section{Pila BLE}
 Un cop vistes les característiques generals del protocol cal entendre com funciona per dins.
 En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flexible 
 
@@ -150,52 +165,66 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 	\end{center}
 \end{figure}
 
-La pila pròpia de Bluetooth Low Energy esta dividida en dues parts, el controladors i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol HCI (\textit{Host Controller Interface}) per comunicar-se entre si. Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART. També hi ha la possibilitat d'implementar les dues parts en un mateix xip. L'arquitectura de si està implementat amb un o dos components s'anomena configuració de xip únic o dual.
+La pila pròpia de Bluetooth Low Energy esta dividida en dues parts, el controladors i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
+Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART.
+Les dues parts de la pila poden estar implementades en el mateix xip anomenat configuració única o en xips separats anomenat configuració dual.
 
 
 \subsection{Controller}
 El controlador compren la capa física i la capa d'enllaç.
 
-\subsubsection{PHY}
+\subsubsection{Capa Física}
 La capa física és la que s'encarrega de la comunicació anal·lògica modulant i desmodulant les senyals.
 Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents
 
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/ble_channel_assignment.png}
-		\caption{Pila de BLE \cite{ble_stack}}
-		\label{ble_stack}
+		\caption{Canals BLE}
 	\end{center}
 \end{figure}
 
-Els canals es classifiquen com a dades o d'anunci (\textit{Advertisment}). Els canals d'advertisment que són els que es vol tenir més qualitat coincideixen en els espais freqüencials que minimitzen les interferències amb els canals wifi més comuns (1, 6 i 11).
+Els canals es classifiquen es divideixen en 37 de dades i 3 d'anunci (\textit{Advertisment}).
+En els canals d'anunci es vol tenir més qualitat ja que la informació que s'hi transmet és més important.
+És per això, que els canals d'anunci es troben en el buits que deixen els canals WiFi més comuns (1, 6 i 11).
 
-Tot i que amb aquest protocol l'objectiu és transmetre poca informació de forma eficient, es per això que, tot i estar tractant amb paquets d'informació molt curts cal una tassa de transmissió el més alta possible. D'aquesta manera s'aconsegueix que les radio tant del transmissor com la dels receptors estiguin el mínim temps possible actives.
+Amb BLE l'objectiu és transmetre dades de forma eficient, i és busca poder desactivar la ràdio el major temps possible.
+Quant la ràdio passa menys temps activa s'aconsegueix reduir el consum d'energia.
+Per aconseguir-ho, el millor és una tassa de transmissió el més alta possible.
 
-Pel que fa a la potencia de transmissió es pot controlar de tal manera que si és necessari i no limita la comunicació es pot disminuir per gastar menys energia. Tot i així, en el paquets que s'envien es menciona la potència amb la que s'ha transmès per a que el receptor pugui estimar la distància fins al transmissor(?).
+Pel que fa a la potencia de transmissió es pot controlar, disminuint-la per gastar menys energia.
+Això serà possible sempre que l'entorn ho permeti i el receptor pugui rebre el senyal correctament.
+El paquets que s'envien indiquen la potència amb que s'ha transmès per a que el receptor pugui estimar la distància fins al transmissor.
+Conèixer aquesta distància és útil per a certes aplicacions.
 
-La modulació utilitzada per BLE és la mateixa que pel IEEE 802.11, GFSK (\textit{Gaussian Frequency Shift Keying}). Aquesta modulació és una de les més robustes, simples d'implementar i és el que permet (en part) a BLE tenir un abast molt més gran que Bluetooth Clàssic. Aplicar el filtre gaussià és útil ja que permet reduir el consum pic de energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
-En Bluetooth 4.0 s'utilitza una desviació freqüencial de 185 kHz, en BLE 5 com que augmenta la velocitat de símbols també creix la interferència intersimbòlica. Per mitigar aquest efecte negatiu la desviació de freqüència passa a ser de 370 kHz
+La modulació utilitzada per BLE és la GFSK (\textit{Gaussian Frequency Shift Keying}), la mateixa que la majoria de MANETS que es basen en el IEEE 802.11.
+Aquesta modulació és una de les més robustes, simples d'implementar i és el que permet, en part, a BLE tenir un abast molt més gran que Bluetooth Clàssic.
+Aplicar el filtre gaussià és útil ja que permet reduir el consum pic de energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
+En BLE 4.0 s'utilitza una desviació freqüencial de 185 kHz, en BLE 5 com que augmenta la velocitat de símbols també creix la interferència intersimbòlica.
+Per mitigar aquest efecte negatiu la desviació de freqüència passa a ser de 370 kHz.
 
 
 \subsubsection{Link Layer}
 
 La capa d'enllaç és la encarregada de escanejar, anunciar i gestionar connexions amb altres dispositius
 
-Per mitigar l'efecte de les interferències el protocol utilitza salts en freqüència (\textit{frequency hopping}). Això permet reduir l'impacte d'una interferència estreta (?). Els salts són de entre 5 i 16 canals d'entre els 37 dedicats a dades.
+Per mitigar l'efecte de les interferències el protocol utilitza salts en freqüència (\textit{frequency hopping}).
+Això permet reduir l'impacte d'una interferència estreta (?).
+Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats a dades.
 
-Bluetooth també permet la implementació de salts en freqüència adaptatius on només s'utilitzen canals suficientment bons descartant aquells en que es considera que hi ha masses interferències.
+%Bluetooth també permet la implementació de salts en freqüència adaptatius on només s'utilitzen canals suficientment bons descartant aquells en que es considera que hi ha masses interferències.
 
 \subsection{Host}
-\subsubsection{L2CAP}
-La \textit{Logical Link Control and Adaptation Protocol} és la capa encarregada de l'establiment de la connexió lògica, multiplexament de protocols, segmentació i 'reasembly', control de flux per cada canal L2CAP.
+\subsubsection{L2CAP (\textit{Logical Link Control and Adaptation Protocol})}
+La \textit{Logical Link Control and Adaptation Protocol} és la capa encarregada de l'establiment de la connexió lògica, multiplexament de protocols, segmentació i 'reasembly', control de flux per canal.
 
-La multiplexació de protocols és necessària tal que serveix per identificar quin és el protocol que s'utilitza en les capes superiors.
+La multiplexació de protocols és necessària per aconseguir que BLE sigui flexible.
+Permet que des de capes superiors s'utilitzin els protocols que es vulguin i no només aquells determinats pel estàndard de BLE.
 
-Per limitació física de l'arquitectura existeix una MTU (\textit{Maximum Transmission Unit}) i per tant els paquets de les capes superiors es converteixen en paquets més petits per a les capes inferiors.
-Aquesta MTU es pot definir per cada connexió així flexibilitzant la varietat de dispositius amb els que es pot connectar un mateix dispositiu.
+Per limitació física de l'arquitectura existeix una MTU\footnote{La MTU és la mida màxima que pot tenir un paquet} (\textit{Maximum Transmission Unit}) i per tant els paquets de les capes superiors es converteixen en paquets més petits per a les capes inferiors.
+Aquesta MTU es pot definir per cada connexió així flexibilitzant la manera que s'utilitza el protocol per a cada cas.
 
-QOS Aquesta capa també és la que fa el seguiment de la qualitat de la connexió i dels recursos utilitzats per assegurar-se que les necessitats dels serveis es compleixen.
+La L2CAP també és la que fa el seguiment de la qualitat de la connexió i dels recursos utilitzats per assegurar-se que les necessitats dels serveis es compleixen.
 
 \subsubsection{SMP}
 La capa \textit{Security Management Protocol} proveeix de diferents serveis relacionats amb la seguretat de la connexió.
