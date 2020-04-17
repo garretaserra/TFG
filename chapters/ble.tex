@@ -356,9 +356,27 @@ BLE permet seleccionar qualsevol combinació de canals per on transmetre els anu
 Per consumir menys energia es pot transmetre en un únic canal però això es recomana no fer-ho ja que si el canal és sorollós el dispositius no es podrà detectar.
 Tot i la flexibilitat
 
-Es pot configurar per quins canals d'anunci es vol transmetre els anuncis.
-D'aquesta 
-Interval d'anunci i canal
+L'altre paràmetre molt important que es pot configurar és el interval d'anunci.
+Aquest valor defineix el temps que passa entre que es transmeten anuncis pel mateix canal.
+La especificació de BLE defineix que pot estar entre 20ms i 10.24s amb salts de 0.625ms.
+Aquest paràmetre és crític depenent del servei que es vol oferir.
+Si el valor és molt alt ajudarà a reduir el consum d'energia considerablement però això augmentarà la latència de transmissió de dades i de descobriment de dispositius.
+
+Un cop s'estableix la connexió ja es poden enviar dades ràpidament però per establir la són necessaris múltiples intervals d'anunci i cal considerar que es possible que el receptor no detecti tots els anuncis. 
+És per això que quan es desenvolupen serveis que interaccionen amb persones no és acceptable haver d'esperar desenes de segons per tant habitualment s'utilitzen valors d'entre 100 i 500 ms.
+Per a dispositiu que requereixen la mínima latència possible en les dades s'utilitzen valors entre 20 i 50 ms.
+Per últim, aquells dispositius que proporcionen dades que no varien sovint i que no requereixen interacció utilitzen valors des de 1 fins a 5 segons.
+
+Tot i que es pot definir el valor del interval d'anunci cal tenir en compte que segons la especificació de BLE s'aplica un retard pseudo-aleatori que pot ser de fins a 10 ms i afecta als serveis que requereixen molt poca latència.
+
+Tot i que fins ara s'ha parlat de definir un únic valor d'interval d'anunci habitualment s'estableix un règim on es va canviant aquest valor depenent de la situació.
+Quan el dispositiu s'encén o quan s'espera una connexió es disminueix l'interval d'anunci per tal de que la connexió s'estableixi més ràpid.
+En canvi, quan fa temps que no hi ha cap connexió s'augmenta l'interval d'anunci per reduir el consum d'energia. 
+
 
 \section{Escaneig}
+Quan un dispositius es vol anunciar a part de transmetre anuncis també ho pot fer fent escaneigs a dispositius que s'han anunciat prèviament.
+La especificació de BLE 5 anomena el procés d'escanejar com a \textit{Device Descovery} i es basa en dos tipus, el escaneig actiu i el passiu.
+En cas de fer escaneig passiu només es pot obtenir informació a través dels anuncis d'altres dispositius.
+Si el escaneig és actiu es poden enviar requeriments d'escaneig per demanar informació addicional a la que hi ha als anuncis.
 
