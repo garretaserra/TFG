@@ -127,12 +127,9 @@ En Bluetooth 4.0 els paquets d'anunci (\textit{Advertisement Packets}) tenen 6 o
 Normalment aquests paquets es transmeten pels 3 canals d'anuncis el 37, 38 i 39.
 
 En Bluetooth 5 per poder emetre (\textit{broadcast}) més dades el que es fa és enviar un paquet d'anunci on només s'indica la capçalera i un punter cap al canal per on s'enviarà el paquet complet.
-Posteriorment, pel canal per on s'ha indicat s'envia el paquet que pot tenir fins a 255 octets de longitud total.
-Amb aquest sistema s'aconsegueix descarregar els canals d'anunci passant informació als canals secundaris (0-36).
-I d'aquesta manera les dades només es transmeten una vegada ja que abans, calia transmetre-les en els tres canals d'anunci. 
-
-Si encara es requereix transmetre més dades el es pot fer utilitzant encadenament de paquets.
-Al final del paquet que s'ha enviat pel canal secundari s'indica el canal per on s'enviara la continuació i això es pot fer múltiples vegades.
+Posteriorment, pel canal per on s'ha indicat s'envia el paquet de dades i en cas de necessitar més dades s'encadenen paquets.
+I d'aquesta manera les dades només es transmeten una vegada ja que abans, calia transmetre-les en els tres canals d'anunci.
+Aquest procediment està detallat més endavant \ref{Advertising_Extension_PDU}
 
 En la versió 4.0 sempre hi havia una component aleatòria que marcava en quin moment s'enviava el paquet, això és comú i serveix per evitar col·lisions periòdiques.
 El problema que genera és que les ràdios han d'estar més temps escoltant fins a rebre el paquet per culpa d'aquesta aleatorietat.
@@ -309,4 +306,59 @@ També és possible transmetre informació des d'un dispositiu a tots aquells qu
 		\caption{Establiment de connexió}
 	\end{center}
 \end{figure}
+
+
+\section{Anunciaments}
+Quant els dispositius volen transmetre informació o volen connectar-se entre sí el primer que cal fer és anunciar-se.
+BLE és molt flexible alhora de configurar els paràmetres d'anunci i permet al desenvolupador adaptar el protocol per a les necessitats que tingui.
+A continuació es concretarà quins son aquests paràmetres i com afecten a les prestacions finals del sistema.
+
+Els paquets d'anunci com ja s'ha explicat anteriorment son aquells que serveixen a un dispositiu per donar-se a conèixer i alhora opcionalment transmetre informació \cite{Advertising}.
+
+\subsection{Format}
+
+\subsection{Tipus}
+Hi ha 4 paquets d'aquest tipus i BLE 5 n'afegeix 4 més.
+Els 4 originals es classifiquen segons si permet connexió i si permeten escaneig.
+
+\begin{center}
+	\begin{tabular}{|c|c|l|}
+		\hline
+		Connexió	&	Escaneig	&	Nom	\\	\hline
+		Si			&	Si			&	ADV\_IND	\\	\hline
+		Si			&	No			&	ADV\_DIRECT\_IND	\\	\hline
+		No			&	No			&	ADV\_NONCONN\_IND	\\	\hline
+		No			&	Si			&	ADV\_SCAN\_IND	\\	\hline
+	\end{tabular}
+\end{center}
+
+El ADV\_IND és el genèric, més comú i permet que qualsevol dispositiu pugui connectar-se.
+El ADV\_DIRECT\_IND serveix per a avisar un dispositiu específic, per exemple, si un rellotge intel·ligent que es vol connectar a un telèfon.
+El ADV\_NONCONN\_IND només indica que existeix i no rebrà informació.
+Això és útil per a balises, per exemple, per permetre localització en espais interiors.
+El ADV\_SCAN\_IND també està orientat a balises però estarà escoltant per si rep missatges d'escaneig amb els que pot respondre amb poca informació.
+Això permet una comunicació bidireccional limitada sense necessitat d'establir connexió.
+
+Tots els paquets excepte el ADV\_DIRECT\_IND permeten transmetre 31 bytes de dades pròpies (han de seguir el format establert (?)).
+
+\label{Advertising_Extension_PDU}En BLE 5 s'afegeixen 4 paquets més que permeten augmentar la quantitat de dades que es poden transmetre abans d'haver establert una connexió.
+El ADV\_EXT\_IND és el paquet que s'envia pels canals d'anunci i indica en quin canal secundari s'enviarà el anunci. Aquest paquet no permet transmetre dades.
+Els paquets que s'envien per canals secundaris tenen el prefix "AUX" i permeten enviar fins a 254 bytes de dades pròpies .
+El AUX\_ADV\_IND és el paquet que s'envia per un canal secundari després que s'hagui indicat pel tipus de paquet anterior.
+En aquest paquet es pot configurar si es permet o no connexió i escaneig però no les dues.
+
+El AUX\_SYNC\_IND s'utilitza per indicar que s'enviaran anuncis periòdics pels canals secundaris.
+D'aquesta manera no cal utilitzar els canals d'anunci tant sovint.
+Per últim, el AUX\_CHAIN\_IND permet encadenar múltiples paquets (indicant quin serà el següent) per tal de transmetre encara més informació sense necessitat d'establir connexió.
+
+\subsection{Paràmetres}
+BLE permet seleccionar qualsevol combinació de canals per on transmetre els anuncis.
+Per consumir menys energia es pot transmetre en un únic canal però això es recomana no fer-ho ja que si el canal és sorollós el dispositius no es podrà detectar.
+Tot i la flexibilitat
+
+Es pot configurar per quins canals d'anunci es vol transmetre els anuncis.
+D'aquesta 
+Interval d'anunci i canal
+
+\section{Escaneig}
 
