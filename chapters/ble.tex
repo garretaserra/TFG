@@ -162,13 +162,15 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 	\end{center}
 \end{figure}
 
-La pila pròpia de Bluetooth Low Energy esta dividida en dues parts, el controladors i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
+La pila pròpia de Bluetooth Low Energy esta dividida en dues parts, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
 Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART.
+La idea darrera separar la pila en dos serveix per fer compatible xips fets per diferents fabricants.
 Les dues parts de la pila poden estar implementades en el mateix xip anomenat configuració única o en xips separats anomenat configuració dual.
 
 
 \subsection{Controller}
 El controlador compren la capa física i la capa d'enllaç.
+
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./images/controller.png}
@@ -180,36 +182,39 @@ El controlador compren la capa física i la capa d'enllaç.
 La capa física és la que s'encarrega de la comunicació anal·lògica modulant i desmodulant les senyals.
 Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents
 
-\begin{figure}[h!]
+\begin{figure}[hb]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/ble_channel_assignment.png}
 		\caption{Canals BLE}
+		\label{BLE_Channels}
 	\end{center}
 \end{figure}
 
-Els canals es classifiquen es divideixen en 37 de dades i 3 d'anunci (\textit{Advertisment}).
+Els canals es classifiquen es divideixen en 37 de dades o també anomenats secundaris i 3 d'anunci (\textit{Advertisment} o primaris).
 En els canals d'anunci es vol tenir més qualitat ja que la informació que s'hi transmet és més important.
-És per això, que els canals d'anunci es troben en el buits que deixen els canals WiFi més comuns (1, 6 i 11).
+Per exemple, són els canals que s'utilitzen per descobrir altres dispositius.
+És per això, que els canals d'anunci es troben en el buits que deixen els canals WiFi més comuns (1, 6 i 11), es pot veure a la figura \ref{BLE_Channels}.
 
-Amb BLE l'objectiu és transmetre dades de forma eficient, i és busca poder desactivar la ràdio el major temps possible.
-Quant la ràdio passa menys temps activa s'aconsegueix reduir el consum d'energia.
-Per aconseguir-ho, el millor és una tassa de transmissió el més alta possible.
+El protocol BLE està orientat a consumir el mínim d'energia possible i això s'aconsegueix, principalment, reduint el temps que s'està transmitent o escoltant a través de la ràdio.
+Si no s'ha de rebre o transmetre res, es pot apagar la ràdio i s'estalvia energia.
+La manera de tenir apagada la ràdio més temps és transmetre les dades el més ràpid possible.
+BLE és dels protocols que tenen la tassa de transmissió física \footnote{La tassa de transmissió física és aquella a la que transmeten la ràdio, no confondre amb la tassa de dades d'aplicació \textit{Throughput}} més alta, de fins a 1 Mbps originalment i de 2 Mbps en BLE 5.
 
-Pel que fa a la potencia de transmissió es pot controlar, disminuint-la per gastar menys energia.
+La potencia de transmissió de la ràdio es pot controlar, disminuint-la per consumir menys energia.
+La potència màxima és de 10 dBm (10 mW) segons la especificació\footnote{La placa utilitzada pot transmetre fins a 5 dBm de potència}.
 Això serà possible sempre que l'entorn ho permeti i el receptor pugui rebre el senyal correctament.
-El paquets que s'envien indiquen la potència amb que s'ha transmès per a que el receptor pugui estimar la distància fins al transmissor.
-Conèixer aquesta distància és útil per a certes aplicacions.
+El paquets de BLE indiquen la potència amb que s'han transmès i junt amb el RSSI (\textit{Received Signal Strength Indicator}), la potència rebuda, es pot estimar la distància fins al transmissor.
+Conèixer aquest valor és útil per a certes aplicacions, per exemple, localització en espais interiors.
 
 La modulació utilitzada per BLE és la GFSK (\textit{Gaussian Frequency Shift Keying}), la mateixa que la majoria de MANETS que es basen en el IEEE 802.11.
 Aquesta modulació és una de les més robustes, simples d'implementar i és el que permet, en part, a BLE tenir un abast molt més gran que Bluetooth Clàssic.
-Aplicar el filtre gaussià és útil ja que permet reduir el consum pic de energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
+El filtre gaussià redueix el consum pic d'energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
 En BLE 4.0 s'utilitza una desviació freqüencial de 185 kHz, en BLE 5 com que augmenta la velocitat de símbols també creix la interferència intersimbòlica.
 Per mitigar aquest efecte negatiu la desviació de freqüència passa a ser de 370 kHz.
 
 
 \subsubsection{Link Layer}
-
-La capa d'enllaç és la encarregada de escanejar, anunciar i gestionar connexions amb altres dispositius
+La capa d'enllaç és la encarregada d'escanejar, anunciar i gestionar connexions amb altres dispositius.
 
 Per mitigar l'efecte de les interferències el protocol utilitza salts en freqüència (\textit{frequency hopping}).
 Això permet reduir l'impacte d'una interferència estreta (?).
@@ -248,12 +253,14 @@ El ATT és un protocol dissenyat per a dispositius \textit{Low Energy} amb l'obj
 El \textit{handle} fa la distinció única entre els diferents atributs, ocupa 16 bits i no és obligatori que siguin valors seqüencials. És molt útil ja que s'utilitza per referenciar el atribut amb el mínim de bits possibles.
 El UUID (\textit{Universal Unique IDentifier}) identifica el tipus d'atribut, aquest numero pot ser de 16 bits si s'utilitza algun que ja estandarditzat pel SIG o bé en tindrà 128 bits si està definit pel fabricant.
 En els permisos s'indicarà quin tipus d'accés té el client a la informació (només lectura, lectura i escriptura ...). També pot estar definit si requereix un nivell mínim d'encriptació o si es necessari l'autenticació.
-Per últim el valor del atribut serà on hi ha la informació en si i la seva longitud i interpretació dependrà del UUID tot i que té un limit de 512 bytes.
+Per últim el valor del atribut serà on hi ha la informació, la seva interpretació i longitud (512 bytes com a molt) dependrà del UUID.
 
 Des del punt de vista del protocol els dispositius són clients i servidors, normalment el client pren la iniciativa demanant dades però el servidor també te la capacitat d'iniciar una comunicació per exemple notificant quan un valor ha canviat.
+%TODO referenciar l'explicació en detall
 
 La definició del ATT és massa genèrica per si sola tal que seria comú que per fer el mateix es desenvolupessin múltiples definicions que fossin incompatibles entre sí.
-Per tal de tenir millor definits els serveis s'utilitza el GATT. El GATT permet definir perfils que agrupen múltiples atributs en un sol servei \cite{services}.
+Per tal de tenir millor definits els serveis s'utilitza el GATT.
+El GATT permet definir perfils que agrupen múltiples atributs en un sol servei \cite{services}.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -262,9 +269,14 @@ Per tal de tenir millor definits els serveis s'utilitza el GATT. El GATT permet 
 	\end{center}
 \end{figure}
 
-En un llistat de atributs el GATT identifica els serveis tenint en compte que cada servei comença amb un atribut amb el UUID 0x2800, els següents atributs formaran part del mateix servei fins que es trobi un nou atribut amb UUID 0x2800. En el valor del atribut on es defineix el servei (UUID 0x2800) hi ha un altre UUID que especifica quin tipus de servei és.
+En un llistat de atributs el GATT identifica els serveis tenint en compte que cada servei comença amb un atribut amb el UUID 0x2800.
+Aquest atribut amb UUID 0x2800 s'anomena Declaració de Servei i tots els atributs consecutius fins a una altre declaració de servei formen part d'aquest.
+En la declaració de servei el camp ``valor'' indica el UUID que identifica de quin servei es tracta.
 
-Cada servei té característiques \cite{characteristics} que s'identifiquen perquè el UUID és 0x2803, en aquests atributs en el seu valor hi haurà un nou UUID que identifica la informació que es troba en el atribut amb un cert \textit{handle} que també estarà indicat.
+Cada servei conté característiques \cite{characteristics} definides en els atributs amb UUID 0x2803.
+Aquests tipus atributs s'anomenen Declaració de Característica.
+El valor de la declaració de característica està format per un nou UUID que identifica la característica i per un \textit{handle}.
+Aquest \textit{handle} correspon al atribut on hi ha les dades de la característica.
 
 \begin{center}
 	\begin{tabular}{|l|l|l|l|}
@@ -284,21 +296,30 @@ Cada servei té característiques \cite{characteristics} que s'identifiquen perq
 Exemple de possibles atributs
 \end{center}
 
-En aquest exemple es pot veure que tenim 2 serveis diferents ja que hi ha 2 UUIDs 0x2800 i tenim 3 característiques en total (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
-Com que els calors corresponents al nivell de bateria i la temperatura estan estandarditzats no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
+En aquest exemple es pot veure que hi ha 2 serveis diferents ja que hi ha 2 UUIDs 0x2800.
+També hi ha 3 característiques en total (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
+Com que els valors corresponents al nivell de bateria\cite{Battery_Level} i la temperatura\cite{Temperature_Characteristic} estan estandarditzats no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
 
-Es pot veure com el servei que està definit per a la temperatura no forma part de l'estàndard ja que té 128 bits. El número que s'ha escollit és un UUID completament aleatori: 706676c8-3e49-4ecc-9379-fa9851444e53. Tot i que no hi ha una coordinació per assegurar-se que diferents desenvolupadors no utilitzen el mateix UUID degut a la longitud (128 bits) es considera improbable. La condició que ha de complir el UUID és que no sigui XXXXXXXX-0000-1000-8000-00805F9B34FB ja que aquest sufix correspon als que estan reservats per a l'estandard. En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també es poden veure tots els que ja s'han reservat per a empreses a questa web \cite{reservedUUIDs}.
+Es pot veure com el servei que està definit per a la temperatura no forma part de l'estàndard ja que té 128 bits.
+El número que s'ha escollit és un UUID completament aleatori: 706676c8-3e49-4ecc-9379-fa9851444e53.
+Tot i que no hi ha una coordinació per assegurar-se que diferents desenvolupadors no utilitzen el mateix UUID degut a la longitud (128 bits) es considera improbable.
+La condició que ha de complir el UUID és que no sigui XXXXXXXX-0000-1000-8000-00805F9B34FB ja que aquest sufix correspon als que estan reservats per a l'estàndard.
+En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també es poden veure tots els que ja s'han reservat per a empreses a questa web \cite{reservedUUIDs}.
 
 En aquest exemple no n'hi ha cap però les característiques poden tenir descriptors \cite{descriptors} que permeten aportar informació addicional sobre la característica que els precedeix.
-Els atributs també tenen propietats d'accés que defineixen quines accions es poden prendre. Es comentaran en un exemple real més endavant [link dinàmic].
+Els atributs també tenen propietats d'accés que defineixen quines accions es poden prendre.
+Es comentaran en un exemple real més endavant. %TODO: afegir link dinamic
 
 \subsubsection{GAP}
 En quant es realitza una connexió els dispositius han de definir-se entre els següents rols: Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}), Esclau (\textit{Slave}) o Mestre (\textit{Master}) i Emissor (\textit{Broadcaster}) o Observador (\textit{Observer}).
 Aquests rols són independents per cada connexió per tant un dispositiu pot ser mestre en una connexió i alhora esclau en una altre.
 
-Per iniciar una connexió entre dos dispositius (\textit{Peer-to-Peer}) un dispositiu vol ser descobert i envia missatges anunciant-se. L'altre dispositiu, que es vol connectar passa a ser un escàner. Aquest envia un paquet amb el requeriment de connexió, un cop acceptat, el dispositiu que fa d'escàner passa a ser mestre i el que anunciava passa a ser esclau.
+Per iniciar una connexió entre dos dispositius (\textit{Peer-to-Peer}) un dispositiu vol ser descobert i envia missatges anunciant-se.
+L'altre dispositiu, que es vol connectar passa a ser un escàner.
+Aquest envia un paquet amb el requeriment de connexió, un cop acceptat, el dispositiu que fa d'escàner passa a ser mestre i el que anunciava passa a ser esclau.
 
-També és possible transmetre informació des d'un dispositiu a tots aquells que estiguin escoltant, per tant, una comunicació de un a molts (\textit{One-to-many}). En aquest cas aquell que vol transmetre informació és el emissor i els dispositius que escolten són observadors.
+També és possible transmetre informació des d'un dispositiu a tots aquells que estiguin escoltant, per tant, una comunicació de un a molts (\textit{One-to-many}).
+En aquest cas aquell que vol transmetre informació és el emissor i els dispositius que escolten són observadors.
 
 \begin{figure}[h]
 	\begin{center}
@@ -335,15 +356,16 @@ Els 4 originals es classifiquen segons si permet connexió i si permeten escanei
 El ADV\_IND és el genèric, més comú i permet que qualsevol dispositiu pugui connectar-se.
 El ADV\_DIRECT\_IND serveix per a avisar un dispositiu específic, per exemple, si un rellotge intel·ligent que es vol connectar a un telèfon.
 El ADV\_NONCONN\_IND només indica que existeix i no rebrà informació.
-Això és útil per a balises, per exemple, per permetre localització en espais interiors.
+Això és útil per a balises, per exemple, per permetre localització.
 El ADV\_SCAN\_IND també està orientat a balises però estarà escoltant per si rep missatges d'escaneig amb els que pot respondre amb poca informació.
 Això permet una comunicació bidireccional limitada sense necessitat d'establir connexió.
 
 Tots els paquets excepte el ADV\_DIRECT\_IND permeten transmetre 31 bytes de dades pròpies (han de seguir el format establert (?)).
 
-\label{Advertising_Extension_PDU}En BLE 5 s'afegeixen 4 paquets més que permeten augmentar la quantitat de dades que es poden transmetre abans d'haver establert una connexió.
+\label{Advertising_Extension_PDU}
+En BLE 5 s'afegeixen 4 paquets més que permeten augmentar la quantitat de dades que es poden transmetre abans d'haver establert una connexió.
 El ADV\_EXT\_IND és el paquet que s'envia pels canals d'anunci i indica en quin canal secundari s'enviarà el anunci. Aquest paquet no permet transmetre dades.
-Els paquets que s'envien per canals secundaris tenen el prefix "AUX" i permeten enviar fins a 254 bytes de dades pròpies .
+Els paquets que s'envien per canals secundaris tenen el prefix ``AUX'' i permeten enviar fins a 254 bytes de dades pròpies .
 El AUX\_ADV\_IND és el paquet que s'envia per un canal secundari després que s'hagui indicat pel tipus de paquet anterior.
 En aquest paquet es pot configurar si es permet o no connexió i escaneig però no les dues.
 
@@ -376,9 +398,17 @@ En canvi, quan fa temps que no hi ha cap connexió s'augmenta l'interval d'anunc
 
 \section{Escaneig}
 Quan un dispositius es vol anunciar a part de transmetre anuncis també ho pot fer fent escaneigs a dispositius que s'han anunciat prèviament.
-La especificació de BLE 5 anomena el procés d'escanejar com a \textit{Device Descovery} i es basa en dos tipus, el escaneig actiu i el passiu.
+La especificació de BLE 5 anomena el procés d'escanejar com a \textit{Device Discovery} i es basa en dos tipus, el escaneig actiu i el passiu.
 En cas de fer escaneig passiu només es pot obtenir informació a través dels anuncis d'altres dispositius.
 Si el escaneig és actiu es poden enviar requeriments d'escaneig per demanar informació addicional a la que hi ha als anuncis.
+
+\subsection{Tipus}
+En el cas dels paquets d'escaneig n'hi ha 2 originalment i BLE 5 n'afegeix 2 més.
+El SCAN\_REQ serveix per requerir més informació a un dispositiu que s'està anunciant i que accepta aquest tipus de petició.
+En el paquet no hi van dades pròpies, només s'hi indica el origen i destí.
+El SCAN\_RSP és la resposta al paquet anterior, conté l'adreça pròpia del anunciador i fins a 31 bytes de dades.
+La extensió que aporta BLE 5 defineix 2 nous tipus de paquets, el AUX\_SCAN\_REQ i el AUX\_SCAN\_RSP que tenen la mateixa funcionalitat que els anteriors respectivament.
+La diferència és que serveixen per a quan es comunica a través de canals secundaris i que la quantitat de dades passa a ser de fins a 254 bytes en la resposta.
 
 \subsection{Paràmetres}
 El interval d'escaneig és el temps des de que es comença a escanejar en dos canals consecutius, es pot definir entre 10 ms i 10.24 s.
@@ -387,11 +417,16 @@ Duració d'escaneig, és el temps que el dispositiu estarà escanejant.
 Es pot configurar des de 10 ms fins a 65 segons o escaneig indefinit.
 El període d'escaneig indica el temps entre que comencen les duracions d'escaneig i que serveix per poder fer pauses en que el dispositiu no escaneja. 
 
-\begin{figure}
+%TODO: Refer gràfics
+\begin{figure}[hb]
 	\begin{center}
-		%\begin{subfixmatrix}{2}
-			%\subfigure[Títol subfigura 1]{\includegraphics{./setup/EETAC-positiu-negre}
-			%\subfigure[Títol subfigura 1]{\includegraphics{./setup/EETAC-positiu-negre}
-		%\end{subfixmatrix}
+		\begin{subfigmatrix}{1}
+			\subfigure[Títol subfigura 1]{\includegraphics{./images/scanning_diagram}}
+			\subfigure[Títol subfigura 1]{\includegraphics{./images/scanduationperiod}}
+		\end{subfigmatrix}
 	\end{center}
 \end{figure}
+
+\section{Conexions}
+
+\section{Seguretat}
