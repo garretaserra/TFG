@@ -156,8 +156,8 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.4\textwidth]{./images/BLE_Stack_simplified.png}
-		\caption{Pila de BLE \cite{ble_stack} [refer]}
+		\includegraphics[width=0.4\textwidth]{./diagrames/BLE_Stack_Simplified}
+		\caption{Pila de BLE \cite{ble_stack}}
 		\label{ble_stack}
 	\end{center}
 \end{figure}
@@ -380,3 +380,18 @@ La especificació de BLE 5 anomena el procés d'escanejar com a \textit{Device D
 En cas de fer escaneig passiu només es pot obtenir informació a través dels anuncis d'altres dispositius.
 Si el escaneig és actiu es poden enviar requeriments d'escaneig per demanar informació addicional a la que hi ha als anuncis.
 
+\subsection{Paràmetres}
+El interval d'escaneig és el temps des de que es comença a escanejar en dos canals consecutius, es pot definir entre 10 ms i 10.24 s.
+La finestra d'escaneig és el temps en que s'està escoltant a un canal.
+Duració d'escaneig, és el temps que el dispositiu estarà escanejant.
+Es pot configurar des de 10 ms fins a 65 segons o escaneig indefinit.
+El període d'escaneig indica el temps entre que comencen les duracions d'escaneig i que serveix per poder fer pauses en que el dispositiu no escaneja. 
+
+\begin{figure}
+	\begin{center}
+		%\begin{subfixmatrix}{2}
+			%\subfigure[Títol subfigura 1]{\includegraphics{./setup/EETAC-positiu-negre}
+			%\subfigure[Títol subfigura 1]{\includegraphics{./setup/EETAC-positiu-negre}
+		%\end{subfixmatrix}
+	\end{center}
+\end{figure}
