@@ -298,11 +298,13 @@ Exemple de possibles atributs
 
 En aquest exemple es pot veure que hi ha 2 serveis diferents ja que hi ha 2 UUIDs 0x2800.
 També hi ha 3 característiques en total (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
-Com que els valors corresponents al nivell de bateria\cite{Battery_Level} i la temperatura\cite{Temperature_Characteristic} estan estandarditzats no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
+Com que els valors corresponents al nivell de bateria i la temperatura estan estandarditzats\cite{Battery_Level}\cite{Temperature_Characteristic}, no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
 
-Es pot veure com el servei que està definit per a la temperatura no forma part de l'estàndard ja que té 128 bits.
-El número que s'ha escollit és un UUID completament aleatori: 706676c8-3e49-4ecc-9379-fa9851444e53.
-Tot i que no hi ha una coordinació per assegurar-se que diferents desenvolupadors no utilitzen el mateix UUID degut a la longitud (128 bits) es considera improbable.
+En la declaració de servei de temperatura (\textit{Handle} 0x0103) es pot veure que no forma part de l'estàndard ja que el seu valor té 128 bits.
+Aquest valor correspon a un UUID completament aleatori: 706676c8-3e49-4ecc-9379-fa9851444e53 que he escollit jo.
+Aquest UUID identifica el servei que jo he desenvolupat.
+No es pot saber amb seguretat que algun altre desenvolupador no hagui escollit el mateix UUID i no hi ha una coordinació establerta.
+Tot i no haver-hi cap mecanisme per a evitar col·lisions es considera del tot improbable degut a la longitud  de 128 bits.
 La condició que ha de complir el UUID és que no sigui XXXXXXXX-0000-1000-8000-00805F9B34FB ja que aquest sufix correspon als que estan reservats per a l'estàndard.
 En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també es poden veure tots els que ja s'han reservat per a empreses a questa web \cite{reservedUUIDs}.
 
@@ -335,8 +337,6 @@ BLE és molt flexible alhora de configurar els paràmetres d'anunci i permet al 
 A continuació es concretarà quins son aquests paràmetres i com afecten a les prestacions finals del sistema.
 
 Els paquets d'anunci com ja s'ha explicat anteriorment son aquells que serveixen a un dispositiu per donar-se a conèixer i alhora opcionalment transmetre informació \cite{Advertising}.
-
-\subsection{Format}
 
 \subsection{Tipus}
 Hi ha 4 paquets d'aquest tipus i BLE 5 n'afegeix 4 més.
@@ -430,3 +430,10 @@ El període d'escaneig indica el temps entre que comencen les duracions d'escane
 \section{Conexions}
 
 \section{Seguretat}
+
+\section{Format}
+En aquest apartat s'explicarà com estar format els paquets que s'envien en BLE i de quins camps està format.
+Cal distingir però entre la versió 4 i la 5 de BLE ja que degut a les noves funcionalitats el format canvia considerablement.
+
+\subsection{BLE 4}
+\subsection{BLE 5}
