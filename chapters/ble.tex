@@ -157,7 +157,7 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.4\textwidth]{./diagrames/BLE_Stack_Simplified}
-		\caption{Pila de BLE \cite{ble_stack}}
+		\caption{Pila de BLE}
 		\label{ble_stack}
 	\end{center}
 \end{figure}
@@ -184,7 +184,7 @@ Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals dif
 
 \begin{figure}[hb]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./images/ble_channel_assignment.png}
+		\includegraphics[width=0.8\textwidth]{./diagrames/BLE_WiFi}
 		\caption{Canals BLE}
 		\label{BLE_Channels}
 	\end{center}
@@ -427,7 +427,36 @@ El període d'escaneig indica el temps entre que comencen les duracions d'escane
 	\end{center}
 \end{figure}
 
-\section{Conexions}
+\section{Connexions}
+S'ha vist com es pot transmetre poca informació sense necessitat de establir una connexió però BLE per a moltes aplicacions ha de ser capaç de transferències grans.
+També és necessari que els dispositius puguin establir connexions si la transferència de dades és sovint.
+D'aquesta manera es pot estalviar energia ja que el procés per establir la connexió és costós.
+
+Com que les connexions estan basades en múltiples esdeveniments en instants determinats es considerà una connexió síncrona.
+
+Limit de connexions en BLE 4, a 5 no hi ha limit segons especificació per tant ve definit per les capacitats del dispositiu.
+
+Per crear una connexió és necessari que un dispositiu tingui el rol GAP de central i un altre amb el rol de perifèric (els anunciadors i observadors no poden iniciar connexions).
+%TODO: afegir referencia
+
+El dispositiu central serà el que iniciarà la connexió i el perifèric el que l'acceptarà o no.
+El central serà sempre el mestre i el perifèric serà el esclau de la connexió.
+Per iniciar una connexió el mestre envia un missatge de tipus CONNECT\_IND\footnote{Aquest paquet en la versió 4 de BLE s'anomena CONNECT\_REQ} amb els paràmetres de la connexió.
+En aquests paràmetres, tal i com es veurà més endavant, hi ha la informació necessària per determinar el primer esdeveniment de la connexió.
+En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre i per rebre dades.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{./images/gap_state_diagram.png}
+		\caption{Establiment de connexió}
+	\end{center}
+\end{figure}
+
+
+\subsection{Paràmetres}
+Interval de connexió màxim i mínim de 7.5 ms a 4 s.
+Latència del esclau de 0 a 499 esdeveniments.
+Supervision timeout 100 ms a 32 s.
 
 \section{Seguretat}
 
