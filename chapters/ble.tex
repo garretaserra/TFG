@@ -418,11 +418,11 @@ Es pot configurar des de 10 ms fins a 65 segons o escaneig indefinit.
 El període d'escaneig indica el temps entre que comencen les duracions d'escaneig i que serveix per poder fer pauses en que el dispositiu no escaneja. 
 
 %TODO: Refer gràfics
-\begin{figure}[hb]
+\begin{figure}[!h]
 	\begin{center}
 		\begin{subfigmatrix}{1}
-			\subfigure[Títol subfigura 1]{\includegraphics{./images/scanning_diagram}}
-			\subfigure[Títol subfigura 1]{\includegraphics{./images/scanduationperiod}}
+			\subfigure[Títol subfigura 1]{\includegraphics[width=0.8\textwidth]{./images/scanning_diagram}}
+			\subfigure[Títol subfigura 1]{\includegraphics[width=0.8\textwidth]{./images/scanduationperiod}}
 		\end{subfigmatrix}
 	\end{center}
 \end{figure}
@@ -447,7 +447,7 @@ En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre 
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.4\textwidth]{./images/gap_state_diagram.png}
+		\includegraphics[width=0.2\textwidth]{./images/gap_state_diagram.png}
 		\caption{Establiment de connexió}
 	\end{center}
 \end{figure}
@@ -461,6 +461,14 @@ En cas que es vulgui fixar simplement d'indica el mateix valor per al mínim i a
 
 BLE permet al esclau saltar-se esdeveniments per tal d'estalviar bateria, per exemple si no te dades a transmetre.
 La latència del esclau, que és un dels paràmetres de connexió, defineix la quantitat màxima de esdeveniments que l'esclau es pot saltar i que la connexió segueixi establerta.
+
+%TODO: Refer gràfic
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{./images/slave_latency.jpeg}
+		\caption{Comparació d'esdeveniments amb latència d'esclau}
+	\end{center}
+\end{figure}
 
 L'últim paràmetre és el temps de supervisió, és el temps màxim acceptable que pot passar sense activitat en la connexió.
 Si es supera aquest temps es considera que la connexió s'ha acabat i per tant per comunicar-se s'ha de tornar a iniciar.
