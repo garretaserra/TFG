@@ -255,7 +255,7 @@ El UUID (\textit{Universal Unique IDentifier}) identifica el tipus d'atribut, aq
 En els permisos s'indicarà quin tipus d'accés té el client a la informació (només lectura, lectura i escriptura ...). També pot estar definit si requereix un nivell mínim d'encriptació o si es necessari l'autenticació.
 Per últim el valor del atribut serà on hi ha la informació, la seva interpretació i longitud (512 bytes com a molt) dependrà del UUID.
 
-Des del punt de vista del protocol els dispositius són clients i servidors, normalment el client pren la iniciativa demanant dades però el servidor també te la capacitat d'iniciar una comunicació per exemple notificant quan un valor ha canviat.
+Des del punt de vista del GATT els dispositius són clients i servidors, normalment el client pren la iniciativa demanant dades però el servidor també te la capacitat d'iniciar una comunicació per exemple notificant quan un valor ha canviat.
 %TODO referenciar l'explicació en detall
 
 La definició del ATT és massa genèrica per si sola tal que seria comú que per fer el mateix es desenvolupessin múltiples definicions que fossin incompatibles entre sí.
@@ -313,23 +313,18 @@ Els atributs també tenen propietats d'accés que defineixen quines accions es p
 Es comentaran en un exemple real més endavant. %TODO: afegir link dinamic
 
 \subsubsection{GAP}
-En quant es realitza una connexió els dispositius han de definir-se entre els següents rols: Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}), Esclau (\textit{Slave}) o Mestre (\textit{Master}) i Emissor (\textit{Broadcaster}) o Observador (\textit{Observer}).
-Aquests rols són independents per cada connexió per tant un dispositiu pot ser mestre en una connexió i alhora esclau en una altre.
+La \textit{Generic Access Profile} és la capa encarregada de la funcionalitat de les connexions.
+Depenent d'el moment en la connexió els dispositius estan en diferents estats..
+Els estats son: Espera (\textit{Idle}), Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner})i Iniciador (\textit{Initiator}), Esclau (\textit{Slave}) o Mestre (\textit{Master}).
 
-Per iniciar una connexió entre dos dispositius (\textit{Peer-to-Peer}) un dispositiu vol ser descobert i envia missatges anunciant-se.
-L'altre dispositiu, que es vol connectar passa a ser un escàner.
-Aquest envia un paquet amb el requeriment de connexió, un cop acceptat, el dispositiu que fa d'escàner passa a ser mestre i el que anunciava passa a ser esclau.
-
-També és possible transmetre informació des d'un dispositiu a tots aquells que estiguin escoltant, per tant, una comunicació de un a molts (\textit{One-to-many}).
-En aquest cas aquell que vol transmetre informació és el emissor i els dispositius que escolten són observadors.
-
-\begin{figure}[h]
+\begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
-		\caption{Establiment de connexió}
+		\includegraphics[width=0.5\textwidth]{./images/gap_state_diagram.png}
+		\caption{Estats de connexió}
 	\end{center}
 \end{figure}
 
+A part dels estats segons la especificació el dispositiu sempre està en un\footnote{En BLE 5.1 es permet certes combinacions de rols} dels quatre rols: Emissor, Observador, Perifèric o Central.
 
 \section{Anunciaments}
 Quant els dispositius volen transmetre informació o volen connectar-se entre sí el primer que cal fer és anunciar-se.
@@ -445,13 +440,12 @@ Per iniciar una connexió el mestre envia un missatge de tipus CONNECT\_IND\foot
 En aquests paràmetres, tal i com es veurà més endavant, hi ha la informació necessària per determinar el primer esdeveniment de la connexió.
 En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre i per rebre dades.
 
-\begin{figure}[!h]
+\begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=0.2\textwidth]{./images/gap_state_diagram.png}
+		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
 		\caption{Establiment de connexió}
 	\end{center}
 \end{figure}
-
 
 \subsection{Paràmetres}
 El interval de connexió és un dels paràmetres més importants en la connexió BLE, estableix com de sovint es comuniquen els dispositius.
