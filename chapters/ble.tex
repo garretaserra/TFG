@@ -445,7 +445,7 @@ Per iniciar una connexió el mestre envia un missatge de tipus CONNECT\_IND\foot
 En aquests paràmetres, tal i com es veurà més endavant, hi ha la informació necessària per determinar el primer esdeveniment de la connexió.
 En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre i per rebre dades.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=0.4\textwidth]{./images/gap_state_diagram.png}
 		\caption{Establiment de connexió}
@@ -454,9 +454,17 @@ En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre 
 
 
 \subsection{Paràmetres}
-Interval de connexió màxim i mínim de 7.5 ms a 4 s.
-Latència del esclau de 0 a 499 esdeveniments.
-Supervision timeout 100 ms a 32 s.
+El interval de connexió és un dels paràmetres més importants en la connexió BLE, estableix com de sovint es comuniquen els dispositius.
+És el temps que hi ha entre esdeveniments de la connexió i va entre 7.5 ms i 4 s.
+Com que el que es configuren són preferències es determina l'interval mínim i el màxim que es vol.
+En cas que es vulgui fixar simplement d'indica el mateix valor per al mínim i al màxim.
+
+BLE permet al esclau saltar-se esdeveniments per tal d'estalviar bateria, per exemple si no te dades a transmetre.
+La latència del esclau, que és un dels paràmetres de connexió, defineix la quantitat màxima de esdeveniments que l'esclau es pot saltar i que la connexió segueixi establerta.
+
+L'últim paràmetre és el temps de supervisió, és el temps màxim acceptable que pot passar sense activitat en la connexió.
+Si es supera aquest temps es considera que la connexió s'ha acabat i per tant per comunicar-se s'ha de tornar a iniciar.
+Això pot passar per exemple en entorns molt sorollosos o més sovint quant els dispositius surten del seu abast i la senyal no és detectable.
 
 \section{Seguretat}
 
