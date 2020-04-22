@@ -475,4 +475,31 @@ En aquest apartat s'explicarà com estar format els paquets que s'envien en BLE 
 Cal distingir però entre la versió 4 i la 5 de BLE ja que degut a les noves funcionalitats el format canvia considerablement.
 
 \subsection{BLE 4}
+En la versió de BLE 4 els paquets que es transmeten tenen el següent format:
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=1\textwidth]{./images/Packet_format_4_2.png}
+		\caption{Format del paquet en BLE 4}
+	\end{center}
+\end{figure}
+
+El preàmbul és una seqüència predefinida i que serveix per sincronisme.
+L'adreça d'accés identifica a quina connexió pertany aquest paquet, en cas de ser d'anunci i no pertànyer a cap connexió el valor és 0x8E89BED6.
+Aquest camp serveix al receptor per filtrar els paquets i només tractar aquells que interessa.
+El CRC s'utilitza per detectar errors en el paquet. 
+
+EN la PDU és on hi ha la informació pròpia del paquet i depenent de si és un paquet en un canal d'anunci o en un de dades té un format lleugerament diferent.
+
+\begin{figure}[!h]
+	\begin{center}
+		\begin{subfigmatrix}{1}
+			\subfigure[Format PDU d'anunci]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_adv.png}}
+			\subfigure[Format PDU de dades]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_data.png}}
+		\end{subfigmatrix}
+	\end{center}
+\end{figure}
+
+
 \subsection{BLE 5}
+
