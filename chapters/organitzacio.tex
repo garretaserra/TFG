@@ -95,15 +95,26 @@ Aquests 2 primers que estan definits són escriptura fiable i escriptura auxilia
 L'escriptura fiable permet escriure valors amb un procediment diferent al habitual que permet assegurar-se que el valor que es vol modificar s'ha escrit i no hi han hagut errors.
 Pel que fa  al'escriptura auxiliar permet escriptura al descriptor de característica [posar exemple].
 
-\section{Experimentació}
-Per comprendre millor com afecten els diferents paràmetres configurables corresponents a BLE i també les prestacions dels perifèrics de la placa es realitzaran els següents escenaris.
-
-\subsection{ADC}
-La placa té un convertidor analògic-digital que ens permetrà enviar senyals analògiques un cop s'han mostreajat.
-Aquest ADC té x canals i una freqüència de mostreig de 200 Kmostres per segon.
-Com que té x canals es poden 
 
 
-\subsection{Range}
-\subsection{Throughput}
-\subsection{Consum d'Energia}
+\section{Client BLE}
+Per poder interactuar amb un servidor de BLE és necessari tenir una implementació de client.
+Com que els mòbils intel·ligents tots tenen BLE hi ha moltes aplicacions que permeten visualitzar els serveis amb les seves corresponents característiques.
+També interactuar, escrivint o llegint aquells valors en que es pot.
+Tot i així, no totes les aplicacions permeten rebre notificacions o utilitzar seguretat.
+I les aplicacions no permeten interactuar directament amb el controlador (a través de HCI), per exemple, no poden canviar la potència de transmissió. 
+
+Per poder tenir un control total del sistema el kit de desenvolupament que proporciona Texas Instruments conté l'aplicació BTool.
+S'utilitza conjuntament amb el projecte Host Test del mateix kit per convertir la placa en un client BLE.
+El projecte Host Test permet controlar les diferents capes de la pila BLE del xip a través de la interfície sèrie.
+Totes les possibles peticions, tant del servidor GAP com els missatges HCI.
+
+\subsection{Btool}
+L'aplicació BTool utilitza l'API de Host Test per executar les crides a les diferents capes BLE.
+Primer de tot, BTool necessita saber per quina interfície ha d'interactuar amb la placa.
+Al administrador de dispositius de Windows es poden trobar els ports utilitzats per la placa i els paràmetres de la comunicació els indica Texas Instruments %TODO afegir referencia
+Un cop s'inicia la comunicació entre BTool i la placa es pot escanejar, iniciar connexió i descobrir la taula d'atributs del servidor.
+En tot moment es poden veure tots els paquets que s'envien per la interfície amb la seva corresponent interpretació en la consola.
+Un cop s'ha establert la connexió es pot interactuar amb la taula d'atributs directament.
+I també es pot veure si es reben notificacions a través de la consola.
+
