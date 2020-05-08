@@ -53,10 +53,10 @@ Per a poder transmetre música d'alta fidelitat es va millorar Bluetooth per ser
 Per un altre costat però va començar a sorgir el Internet of Things, basat en tenir molts dispositius connectats transmetent a taxes molt variades i de forma discontinua.
 Això va generar necessitats que no es podien cobrir amb les tecnologies existents.
 Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i que cobrissin una gran distància (10-100 metres).
-
-Amb aquests requeriments, van sorgir les \textit{Mobile Ad-Hoc Networks} (MANETS d'ara endavant). BLE és una d'elles, però n'hi ha d'altres similars que s'analitzaran a continuació.
+Amb aquests requeriments, van sorgir les \textit{Mobile Ad-Hoc Networks} (MANETS d'ara endavant).
 
 \subsection{Altres MANETS}
+ BLE és una de les MANETs més imporatnts però n'hi ha d'altres que competeixen i que s'analitzaran a continuació.
 
 \subsubsection{Zigbee}
 El estàndard Zigbee està orientat al control i seguiment de dispositius alimentats amb bateria. Zigbee està disenyat per sobre del IEEE 802.15.4 i aconsegueix una taxa màxima  de 250 Kbps i fins a 100 metres en línia de visió (\textit{LOS}).
@@ -79,17 +79,28 @@ Un exemple de dispositius que utilitzen aquesta tecnologia són els productes de
 
 \subsubsection{Insteon}
 Insteon està orientat a domòtica i utilitza conjuntament radiofreqüència i les línies d'alimentació de casa per a la comunicació.
-Aquest sistema s'anomena de malla dual.
+Aquest tipus de sistema s'anomena de malla dual.
 El fet d'estar connectats tots els dispositius a la instal·lació elèctrica permet molt bona sincronització entre els dispositius.
 Això permet, per exemple, que múltiples dispositius puguin retransmetre paquets alhora per tal de millorar la cobertura i reduir les retransmissions.
 SmartLabs és la companyia que fabrica i ven els productes que utilitzen Insteon.
 La tecnologia és pot controlar a través de Cortana, Alexa o Apple Watch entre d'altres.
 
 \subsubsection{LoRa}
+El Long Range desenvolupat per Semtech està orientat a cobrir les distàncies més grans d'entre les MANETs.
+Ho aconsegueix reduint la tassa de transmissió de dades reals així augmentant el temps dedicat a cada símbol donant més oportunitats al receptor per detectar correctament el senyal.
+Aquesta tècnica s'anomena espectre eixamplat i LoRa la implementa amb \textit{Chirps}.
+Els \textit{Chirps} són polsos que es transmeten, s'envien més \textit{Chirps} que bits i la relació ve definida pel factor d'eixamplat o \textit{Spreading Factor}.
+LoRa permet configurar aquest paràmetre que defineix l'equilibri entre la tassa de dades i la distància, pot prendre valors entre 7 i 12.
+El LoRa també implementa protecció contra errors o FEC (\textit{Forward Error Correction}) per incrementar encara més el abast.
+
+LoRa defineix les capes inferiors, la LoRa Alliance va definir el LoRaWAN que és un dels protocols que es poden utilitzar per a les capes superiors. El LoRaWAN està basat en un Control d'Accés al Medi (MAC en anglès).
 
 
 \subsection{Comparació}
 Tot i que els protocols tenen molt en comú cada un es diferencia de la resta en els detalls, a continuació veiem una comparació de les capacitats de cada un dels protocols
+
+
+Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva versió 4 i en la 5. En el següent apartat es veurà perquè és així.
 
 
 \section{Versions de BLE}
@@ -144,11 +155,6 @@ Per evitar les possibles interferències que causin altres tecnologies es define
 \subsubsection{Improved Frequency Hopping}
 Els salts en freqüència que utilitza la versió 4.0 estan definit per 12 seqüències predeterminades.
 En BLE 5 s'utilitza una seqüència pseudo-aleatòria per determinar quins canals s'utilitzen. El algorisme en aquest cas \textit{channel selection algorithm \#2} i és més efectiu a evitar interferències i esvaniments per propagació multi-camí.
-
-\subsection{Altres Protocols}
-Bluetooth Low Energy no és l'únic protocol orientat a la connexió de dispositius amb baix consum energètic. També existeixen els següents protocols:
-
-
 
 \section{Pila BLE}
 Un cop vistes les característiques generals del protocol cal entendre com funciona per dins.
