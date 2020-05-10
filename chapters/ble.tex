@@ -53,7 +53,7 @@ Per a poder transmetre música d'alta fidelitat es va millorar Bluetooth per ser
 Per un altre costat però va començar a sorgir el Internet of Things, basat en tenir molts dispositius connectats transmetent a taxes molt variades i de forma discontinua.
 Això va generar necessitats que no es podien cobrir amb les tecnologies existents.
 Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i que cobrissin una gran distància (10-100 metres).
-Amb aquests requeriments, van sorgir les \textit{Mobile Ad-Hoc Networks} (MANETS d'ara endavant).
+Amb aquests requeriments, van sorgir les xarxes ad hoc o \textit{Mobile Ad-Hoc Networks} (MANETS d'ara endavant).
 
 \subsection{Altres MANETS}
  BLE és una de les MANETs més imporatnts però n'hi ha d'altres que competeixen i que s'analitzaran a continuació.
@@ -99,6 +99,19 @@ LoRa defineix les capes inferiors, la LoRa Alliance va definir el LoRaWAN que é
 \subsection{Comparació}
 Tot i que els protocols tenen molt en comú cada un es diferencia de la resta en els detalls, a continuació veiem una comparació de les capacitats de cada un dels protocols
 
+\begin{table}[]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{rccccccc}
+			\multicolumn{1}{l}{}    & BLE 4                                                  & BLE 5   & 6LoWPAN & Zigbee      & Z-Wave      & Insteon & LoRa            \\
+			Abast (m)               & 50                                                     & 200     & 100     & 100         & 90          & 120     & 10Km            \\
+			Velocitat Física (Kbps) & 1000                                                   & 2000    & 250     & 250         & 100         & 4,5     & 27              \\
+			Tasa de dades (Kbps)    & \begin{tabular}[c]{@{}c@{}}300\\ 4.2: 800\end{tabular} & 1430    & 162     & 162         & 40          & 2,8     & 5               \\
+			Consum                  & 15                                                     & 15      & 15      & 30          & 23          &         & 18              \\
+			Banda                   & 2.4 GHz                                                & 2.4 GHz & ISM     & 800-900 MHz & 800-900 MHz & 915 KHz & 400/800-900 MHz
+		\end{tabular}%
+	}
+\end{table}
 
 Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva versió 4 i en la 5. En el següent apartat es veurà perquè és així.
 
@@ -124,7 +137,7 @@ El desavantatge és que més bits dels que es transmeten es dediquen a corregir 
 
 
 El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb un codificador convolucional que pot generar a la sortida més bits dels que entren. El codificador pot funcionar amb dos esquemes diferents s'anomenen S=2 i S=8.
-Amb els diferents esquemes s'utilitza un \textit{code rate} diferent que pot augmentar la capacitat de correcció i augmentar el abast però disminuir la quantitat de dades que es poden transmetre.
+Amb els diferents esquemes s'utilitza una taxa de codi diferent que pot augmentar la capacitat de correcció i augmentar el abast però disminuir la quantitat de dades que es poden transmetre.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -137,7 +150,7 @@ Amb els diferents esquemes s'utilitza un \textit{code rate} diferent que pot aug
 En Bluetooth 4.0 els paquets d'anunci (\textit{Advertisement Packets}) tenen 6 octets de capçalera i com a molt 31 de dades, és a dir, com a molt es poden transmetre 31 Bytes de cop.
 Normalment aquests paquets es transmeten pels 3 canals d'anuncis el 37, 38 i 39.
 
-En Bluetooth 5 per poder emetre (\textit{broadcast}) més dades el que es fa és enviar un paquet d'anunci on només s'indica la capçalera i un punter cap al canal per on s'enviarà el paquet complet.
+En Bluetooth 5 per poder difondre (\textit{broadcast}) més dades el que es fa és enviar un paquet d'anunci on només s'indica la capçalera i un punter cap al canal per on s'enviarà el paquet complet.
 Posteriorment, pel canal per on s'ha indicat s'envia el paquet de dades i en cas de necessitar més dades s'encadenen paquets.
 I d'aquesta manera les dades només es transmeten una vegada ja que abans, calia transmetre-les en els tres canals d'anunci.
 Aquest procediment està detallat més endavant \ref{Advertising_Extension_PDU}
