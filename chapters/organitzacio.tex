@@ -16,7 +16,7 @@ La radio multibanda que té te un receptor amb sensibilitat de -121 dBm per a su
 
 
 \section{Software}
-Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio. El software és el SimpleLink(TM) CC13X2.
+Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. El software és el SimpleLink(TM) CC13X2.
 [Comentar tema versió]
 
 \section{Project 0}
@@ -110,11 +110,11 @@ El projecte Host Test permet controlar les diferents capes de la pila BLE del xi
 Totes les possibles peticions, tant del servidor GAP com els missatges HCI.
 
 \subsection{Btool}
-L'aplicació BTool utilitza l'API de Host Test per executar les crides a les diferents capes BLE.
+L'aplicació BTool utilitza l'API del projecte Host Test per executar les crides a les diferents capes BLE.
 Primer de tot, BTool necessita saber per quina interfície ha d'interactuar amb la placa.
-Al administrador de dispositius de Windows es poden trobar els ports utilitzats per la placa i els paràmetres de la comunicació els indica Texas Instruments %TODO afegir referencia
+Al administrador de dispositius de Windows es poden trobar els ports utilitzats per la placa i els paràmetres de la conexió els indica Texas Instruments\cite{serial_params}.
 Un cop s'inicia la comunicació entre BTool i la placa es pot escanejar, iniciar connexió i descobrir la taula d'atributs del servidor.
 En tot moment es poden veure tots els paquets que s'envien per la interfície amb la seva corresponent interpretació en la consola.
+Com que en aquesta consola apareixen tots els esdeveniments de BLE 5, permet veure quan es reben notificacions.
 Un cop s'ha establert la connexió es pot interactuar amb la taula d'atributs directament.
-I també es pot veure si es reben notificacions a través de la consola.
 
