@@ -14,19 +14,19 @@
 \section{Història de Bluetooth Clàssic}
 El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth Clàssic va començar l'any 1989 per part de Ericsson.
 Inicialment la voluntat era utilitzar aquesta tecnologia per a connectar auriculars inal·làmbrics.
-A IBM es volia integrar connectivitat de la xarxa de telefonia als ordinadors portàtils però no era factible degut al consum d'energia que requeria la tecnologia mòbil.
+D'altra banda a IBM es volia integrar connectivitat de la xarxa de telefonia als ordinadors portàtils però no era factible degut al consum d'energia que requeria la tecnologia mòbil.
 IBM i Ericsson van acordar utilitzar aquesta tecnologia de curt abast en els seus productes corresponents.
-El resultat va ser que els mòbils Ericsson i ordinadors ThinkPad es podien comunicar entre si i així des del portàtil es podien fer trucades.
+El resultat va ser que els mòbils Ericsson i ordinadors ThinkPad es podrien comunicar entre si i així des del portàtil seria possible fer trucades.
 Com que ni Ericsson ni IBM tenien majoria en la quota de mercat dels respectius productes van decidir que la tecnologia fos oberta.
-D'aquesta manera es buscava integrar a més participants en aquesta tecnologia per tal de estendre-la a la majoria de dispositius possible.
-El 1998 es van unir al grup Intel, Nokia i Toshiba i totes 5 companyies  van fundar el SIG  (\textit{Blueooth Special Interest group}).
-Finalment, el 2001 van sortir a la venta el primer mòbil amb Bluetooth, el Ericsson T39 i el primer portàtil el IBM ThinkPad A30.
+D'aquesta manera es buscava integrar a més participants en aquesta tecnologia per tal d'estendre-la a la majoria de dispositius possibles.
+El 1998 es van unir al grup Intel, Nokia i Toshiba i totes 5 companyies  van fundar el Bluetooth SIG (\textit{Bluetooth Special Interest group}, d'ara endavant SIG).
+Finalment, al 2001 van sortir a la venta els primers dispositius amb Bluetooth, el terminal Ericsson T39 i el portàtil IBM ThinkPad A30.
 
 \section{Història de Bluetooth Low Energy}
-Com que el món de les comunicacions estava anant cap als dispositius sense fils i alimentats amb bateria era necessari adaptar les tecnologies existents per a les noves necessitats.
-El 2001 a Nokia es va començar a desenvolupar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb el mínim de compromisos possibles.
-El 2004 es va publicar la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
-Després de més desenvolupament juntament amb Logitech i MIMOSA [citation needed] es va divulgar al 2006 amb el nom de Wibree.
+Com que el món de les comunicacions estava anant cap als dispositius sense fils i alimentats amb bateria, era necessari adaptar les tecnologies existents per a les noves necessitats.
+L'any 2001 a Nokia es va començar a desenvolupar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb els compromisos mínims possibles.
+Aquest desenvoluapment va culminar l'any 2004 amb la publicació de la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
+Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en el projecte d'investigació per part de la Unió Europea MIMOSA \cite{MIMOSA}. El resultat del projecte es va anunciar al 2006 amb el nom de Wibree.
 
 \begin{figure}
 	\begin{center}
@@ -235,8 +235,10 @@ Per mitigar aquest efecte negatiu la desviació de freqüència passa a ser de 3
 \subsubsection{Link Layer}
 La capa d'enllaç és la encarregada d'escanejar, anunciar i gestionar connexions amb altres dispositius.
 
-Per mitigar l'efecte de les interferències el protocol utilitza salts en freqüència (\textit{frequency hopping}).
-Això permet reduir l'impacte d'una interferència estreta (?).
+Per mitigar l'efecte de les interferències el protocol utilitza salt en freqüència (\textit{frequency hopping}).
+Això permet reduir l'impacte d'una interferència estreta.
+Si s'utilitzes només un dels canals BLE i en aquell canal hi haguessin interferències no es podria establir comunicació.
+Al alternar múltiples canals, encara que hi hagui interferències en algun d'ells es considera que no n'hi haurà en tots i per tant hi podrà haver una comunicació bona.
 Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats a dades.
 
 %Bluetooth també permet la implementació de salts en freqüència adaptatius on només s'utilitzen canals suficientment bons descartant aquells en que es considera que hi ha masses interferències.
