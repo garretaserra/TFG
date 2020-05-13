@@ -35,18 +35,18 @@ Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en e
 	\end{center}
 \end{figure}
 
-Els membres del SIG després de negociar entre sí, van acordar incloure Wibree al estandard de Bluetooth en la especificació 4.0 amb el nom de \textit{Bluetooth ultra low power technology} i publicitat com a Bluetooth Smart. El primer mòbil a incloure'l va ser el iPhone 4S al 2011.
+Els membres del SIG després de negociar entre sí, van acordar incloure Wibree al estandard de Bluetooth en l'especificació 4.0 amb el nom de \textit{Bluetooth ultra low power technology} i publicitat com a Bluetooth Smart. El primer mòbil a incloure'l va ser el iPhone 4S al 2011.
 Posteriorment es va canviar el nom per \textit{Bluetooth Low Energy} (BLE d'ara endavant)
 
 \section{Bluetooth vs BLE}
-El Bluetooth Low Energy no té cap relació amb el Bluetooth Classic pel que fa a l'arquitectura de la tecnologia.
+El Bluetooth Low Energy no té cap relació amb el Bluetooth Clàssic pel que fa a l'arquitectura de la tecnologia.
 Tot i que comparteixen l'ús de la banda freqüencial de 2,4 GHz, igual que altres protocols sense fils, i contenen el nom de Bluetooth queda clar que no estem parlant del mateix amb el simple fet que no son compatibles entre sí.
-De fet, quant un dispositiu vol implementar les dues tecnologies (anomenat mode dual) ho ha de fer per separat ja que només comparteixen l'antena, les modulacions i altres blocs són tots diferents.
+De fet, quant un dispositiu vol implementar les dues tecnologies (anomenat mode dual) ho ha de fer per separat ja que només comparteixen l'antena; les modulacions i altres blocs són tots diferents.
 
 \section{MANETS (\textit{Mobile Ad-Hoc Networks})}
 Bluetooth Clàssic no permet tenir més d'una connexió establerta amb dispositius.
 A demés tot i voler transmetre poques dades l'arquitectura fa que es consumeixi bastanta energia per establir i mantenir la connexió.
-Això no suposaven problemes inicialment, ja que principalment l'ús era per la transferència de fitxers com contactes o fotografies.
+Això no suposava problemes inicialment, ja que principalment l'ús era per la transferència de fitxers com contactes o fotografies.
 
 Amb l'arribada dels telèfons intel·ligents, els auriculars inal·làmbrics van esdevenir populars i es va establir la dominància de Bluetooth Clàssic per a escoltar música.
 Per a poder transmetre música d'alta fidelitat es va millorar Bluetooth per ser més resistent a interferències i aconseguir velocitats superiors.
@@ -56,26 +56,25 @@ Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i que cobr
 Amb aquests requeriments, van sorgir les xarxes ad hoc o \textit{Mobile Ad-Hoc Networks} (MANETS d'ara endavant).
 
 \subsection{Altres MANETS}
- BLE és una de les MANETs més imporatnts però n'hi ha d'altres que competeixen i que s'analitzaran a continuació.
+BLE és una de les MANETs més importants però n'hi ha d'altres que competeixen i que s'analitzaran a continuació.
 
 \subsubsection{Zigbee}
-El estàndard Zigbee està orientat al control i seguiment de dispositius alimentats amb bateria. Zigbee està disenyat per sobre del IEEE 802.15.4 i aconsegueix una taxa màxima  de 250 Kbps i fins a 100 metres en línia de visió (\textit{LOS}).
-Els dispositius de Philips Hue que serveixen per controlar bombetes intel·ligents entre d'altres.
-[citation needed]
+El estàndard Zigbee s'utilitza en entorns per a automatització de la casa, xarxes de sensors, col·lecció de dades mèdiques entre d'altres.
+Zigbee està dissenyat per sobre del IEEE 802.15.4 i per tant només defineix les capes superiors.
+No està pensat per a situacions amb gran mobilitat entre nodes sinó per a desplegaments més estàtics.
+Zigbee s'utilitza en els dispositius de Philips Hue que serveixen per controlar bombetes intel·ligents entre d'altres.
 
 \subsubsection{6LoWPAN}
-IPv6 \textit{over Low power Wireless Personal Area Networks} és un protocol que permet enviar paquets de Internet Protocol versió 6 a través de IEEE 802.15.4.
+IPv6 \textit{over Low power Wireless Personal Area Networks} és un protocol que permet enviar paquets d'Internet Protocol versió 6 a través de IEEE 802.15.4.
 Aquest protocol està orientat a aportar internet amb connexions sense fils.
 Una de les característiques destacades és la capacitat de comprimir les capçaleres dels paquets per així reduir el sobrecost que suposa.
-La utilització de aquest protocol és majoritàriament coneguda per l'estandardització de Thread que utilitza el 6LoWPAN per a domòtica. [citation needed]
-
+La utilització de aquest protocol és majoritàriament coneguda per l'estandardització de Thread que utilitza el 6LoWPAN per a domòtica.
 
 \subsubsection{Z-Wave}
 Z-Wave és un protocol utilitzat principalment per domòtica. La comunicació es fa en una xarxa en malla que connecta els electrodomèstics i per tant permet el seu control.
-La principal diferència d'aquest protocol es que utilitza les freqüències ISM de la banda 800/900 MHz (segons continent) i així evita les interferències que hi ha a 2.4 GHz de WIFI o Bluetooth.
+La principal diferència d'aquest protocol es que utilitza únicament les freqüències ISM de la banda 800 o 900 MHz (segons continent) i així evita les interferències que hi ha a 2.4 GHz de WIFI o Bluetooth.
 La utilització de freqüències més baixes permet més abast amb menys potència, especialment quant es tracta de penetrar parets.
 Un exemple de dispositius que utilitzen aquesta tecnologia són els productes de la marca Ring principalment coneguts pels seus vídeo-porters intel·ligens.
-
 
 \subsubsection{Insteon}
 Insteon està orientat a domòtica i utilitza conjuntament radiofreqüència i les línies d'alimentació de casa per a la comunicació.
@@ -108,10 +107,12 @@ Tot i que els protocols tenen molt en comú cada un es diferencia de la resta en
 			Velocitat Física (Kbps) & 1000                                                   & 2000    & 250     & 250         & 100         & 4,5     & 27              \\
 			Tasa de dades (Kbps)    & \begin{tabular}[c]{@{}c@{}}300\\ 4.2: 800\end{tabular} & 1430    & 162     & 162         & 40          & 2,8     & 5               \\
 			Consum                  & 15                                                     & 15      & 15      & 30          & 23          &         & 18              \\
-			Banda                   & 2.4 GHz                                                & 2.4 GHz & ISM     & 800-900 MHz & 800-900 MHz & 915 KHz & 400/800-900 MHz
+			Banda                   & 2.4 GHz                                                & 2.4 GHz & 800-900 i 2.4 GHZ     & 800-900 i 2.4 GHZ & 800-900 MHz & 915 KHz & 400/800-900 MHz
 		\end{tabular}
 	}
 \end{table}
+
+
 
 Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva versió 4 i en la 5. En el següent apartat es veurà perquè és així.
 
@@ -120,15 +121,15 @@ Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva ve
 En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius \cite{BLE_5_improvement_over_4}.
 
 \subsubsection{LE 2M}
-LE2M (\textit{Low Energy 2 Mega}) és el nom que te la nova capa física quan opera a 2 Msimbols/s en la versió 5 enlloc dels 1 Ms/s que es podia anteriorment en la versió 4.0.
+LE2M (\textit{Low Energy 2 Mega}) és el nom que te la nova capa física quan opera a 2 MBd\footnote{Baud: Unitat de mesura de la velocitat de modulació, que correspon al nombre de canvis de l'estat d'un senyal en un segon \cite{Baud_definition}.} en la versió 5 enlloc dels 1 MBd que es podia anteriorment en la versió 4.0.
 L'augment de la velocitat dels símbols permet augmentar la quantitat de dades que es poden transmetre a nivell d'aplicació.
 Aquest canvi està pensat per facilitar la utilització de BLE en situacions més exigents pel que fa a volum de dades com per exemple múltiples mesures del cos humà.
 
 \subsubsection{Abast}
 Tot i que la tecnologia BLE ja de per si en la seva versió original (4.0) tenia una distància màxima de transmissió teòrica molt gran (100 metres sense obstacles), no era suficient per a tots els casos.
 Per exemple, era necessari tenir més abast en els sectors com el de les cases intel·ligents.
-El límit de l'abast ve definit per la potència màxima de transmissió (sigui per protocol o per normativa) i per el percentatge de bits que es reben incorrectament BER (\textit{Bit Error Ratio}) que es pot acceptar.
-Bluetooth defineix la BER mínima en 0.1\% per tant quant un de cada mil bits és erroni es considera que la connexió és massa dolenta i que ja s'ha arribat al límit de distància.
+El límit de l'abast ve definit per la potència màxima de transmissió (sigui per protocol o per normativa) i per la probabilitat d'error de bit BER (\textit{Bit Error Ratio}) que es pot acceptar.
+Bluetooth defineix la BER màxima en 0.1\% per tant quant un de cada mil bits és erroni es considera que la connexió és massa dolenta i que ja s'ha arribat al límit de distància.
 
 Per tractar els errors en transmissió hi ha dues estratègies: detecció d'errors i correcció d'errors.
 En la versió 4.0 de Bluetooth només s'utilitzava la detecció d'errors.
