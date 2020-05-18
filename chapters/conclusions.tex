@@ -2,4 +2,36 @@
 \phantomsection
 \chapter*{Conclusions}
 
-Escriure aquí les conclusions del projecte. 
+Aquest projecte serveix per considerar si BLE és la tecnologia adequada per a les aplicacions de mesures medioambientals o biològiques.
+
+\section{Tassa de dades necessaria}
+
+La tassa de dades que proporciona BLE és més que suficient per a l'ús que es considera en aquest cas.
+La situació on la tassa de dades seria major és en mesures biològiques en temps real.
+
+\section{Abast}
+
+Pel que fa a la mesures biològiques no hi haurà problemes d'abast ja que el terminal i els sensors estaran sempre a menys de 10 metres.
+En canvi per a mesures ambientals si considerem instal·lacions privades en habitatges, BLE té l'abast suficient fins i tot tenint en compte la penetració de parets per interiors.
+
+\section{Energia Consumida}
+
+BLE és dels protocols que permet consumir menys energia per a transmetre informació.
+Això només serà un avantatge quan els sensors estiguin alimentats per bateria i la transmissió sigui el que consumeix més energia de tot el sistema.
+Si els sensors tenen pantalles, s'alimenten de la instal·lació electèctrica, fan un processament de les dades dels sensors o emmagatzemen les dades localment, és possible que el consum de la transmissió no sigui significant.
+En aquests casos no s'ha d'escollir el protocol de transmisió segons el consum ja que el temps entre recàrregues no es veu afectat pel protocol.
+
+\section{Penetració del mercat}
+
+És evident que la presencia de BLE en tots els mòbils interl·ligents facilita l'ús i simplifica la arquitectura d'un desplegament.
+En cas de no utilitzar BLE no hi ha cap tecnologia de baix consum que es pugui connectar directament amb els telefons dels usuaris.
+Per tant, és necessari un dispositiu intermig entre els sensors i els usuaris que s'anomena concentrador o \textit{hub}.
+En arquitectures simples suposa un cost extra però si es fa un desplegament extens, el cost és marginal.
+
+En el cas de connexió directa fins al terminal del usuari BLE és perfecte
+
+\section{Interferències}
+
+El protocol BLE només utilitza la banda de 2.4 GHz que és la més saturada de totes.
+La previsió és que en el futur encara s'utilitzi més i per tant hi hagui més interferències que limitin la capcitat i latència de BLE.
+Altres protocols 

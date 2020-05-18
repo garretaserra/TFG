@@ -118,3 +118,35 @@ En tot moment es poden veure tots els paquets que s'envien per la interfície am
 Com que en aquesta consola apareixen tots els esdeveniments de BLE 5, permet veure quan es reben notificacions.
 Un cop s'ha establert la connexió es pot interactuar amb la taula d'atributs directament.
 
+
+\section{Crear un Perfil propietari}
+
+Per poder implementar una xarxa de sensors amb BLE serà necessari disenyar un esquema pròpi en el servidor GATT.
+Tal i com s'ha comentat anteriorment el servidor GATT està format per perfils que alhora agrupen serveis.
+Aquests serveis son els que contenen les característiques amb les que s'interacturarà per intercanviar informació.
+A continuació s'explicarà com es poden implementar perfils en l'entorn de Texas Instruments BLE Stack.
+
+\subsection{Generar Fitxers}
+Texas Instruments proporciona un Generador de Fitxers \cite{Service_Generator} que evita haver de començar de zero.
+En aquesta eina s'han de definir el nom del servei, els noms de les característiques amb la seva longitud i les propietats i els corresponents UUIDs.
+Aquesta eina està pensada per a ser utilitzada junt amb el Project Zero, per tant, aquest serà el projecte base per al meu cas.
+Un cop s'han generat els fitxers cal copiar-los dins de Application/services en el projecte.
+
+A parts dels fitxers generats (font i capçalera\footnote{Els fitxers de capçalera en C s'identifiquen per l'extensió .h i contenen les declaracions de funcions que es poden compartir entre múltiples fitxers font}) també cal que l'aplicació cridi a la funció que incialitza el servei registrant-los al GATT.
+Aquesta és la funció [Perfil]\_AddService(..) que cal afegir dins la funció ProjectZero\_init() en la secció Inicialitació de Serveis.
+
+Tot i que aquest generador de fitxers és molt útil alhora de tenir una estructura bàsica del projecte cal analitzar les parts importants per entendre com funciona per dins i quina relació te cada part amb BLE.
+
+\subsection{title}
+
+Definir UUIDs/Logitud del valor
+
+Definir Propietats
+
+Taula de atributs
+
+Callbacks (get/set write/read)
+
+Notificacions
+
+Descriptors
