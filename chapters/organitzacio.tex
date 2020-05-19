@@ -140,13 +140,21 @@ Tot i que aquest generador de fitxers és molt útil alhora de tenir una estruct
 \subsection{title}
 
 Definir UUIDs/Logitud del valor
-
-Definir Propietats
+Els UUIDs poden tenir diferents longituds depenent si corresponen a un estandard o si son propietaris.
+Quedaran definits al fitxer capçalera.
 
 Taula de atributs
+La taula d'atributs esta formada per un llistat d'atributs, la estructura d'aquest ve definida en el gatt.h i s'anomena gattAttribute\_t.
+Inclou el tipus d'UUID (de 16 o 128 bits), els permisos, el handle (cal deixar-lo a 0 ja que s'asigna internament pel servidor) i el valor (logitud màxima 512 bytes).
+
+Quan sindiquen les propietats dels atributs que corresponen s'utilitzar l'operador OR (en C correspon al simbol |).
+El fitxer gatt.h s'inclou dins del fitxer font i conté les definicions de tots els possibles permisos amb els seus valors en bits corresponents.
+
+Descriptors
+
 
 Callbacks (get/set write/read)
 
 Notificacions
 
-Descriptors
+
