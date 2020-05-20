@@ -1,17 +1,25 @@
-\chapter{Origens del Bluetooth Low Energy}\label{C:compaginacio}
+\chapter{Orígens del Bluetooth Low Energy}\label{C:compaginacio}
 
-%\section{Ús lliure de RF}
-%Amb l'establiment de les bandes ISM (Afegir referencia) es crea la possibilitat per el públic general utilitzar comunicació inal·làmbrica amb molta facilitat. Això es deu a que l'establiment de les bandes ISM està acceptat de manera (mes o menys(?)) de la mateixa manera internacionalment.
-%Això facilita el disseny de productes per al consumidor habitual que ràpidament veu els avantatges de la comunicació inal·làmbrica entre dispositius.
-%En aquest entorn sorgeix la necessitat d'establir estandards entre le companyies principals dels sectors. Per definir els estandards s'agrupen les companyies i formen grups com al WIFI Alliance o ...
+\section{Ús lliure de RF}
+En tot el espai radioelèctric hi ha bandes que estan assignades per a un ús privat però lliure.
+Per utilitzar-les es necessari respectar la normativa nacional que normalment assimila la normativa comuna segons la ITU.
+Aquestes bandes es designen ISM, acrònim de Industrial, Scientific i Medical, que són els usos pel que s'havia pensat que serviria originalment, avui en dia els usos són més diversos.
 
-%\subsection{Wifi}
-%La tecnologia de comunicació més popular avui en dia és la WIFI, dissenyada originalment als anys (?) i establerta als anys (?) orientada a permetre una connexió (* bona) i sense consideració per les interferències entre si mateixa que no es podien preveure llavors.  
+Com que l'es bandes ISM estan suficientment establertes arreu del món es crea la possibilitat per el públic general utilitzar comunicació inal·làmbrica amb molta facilitat.
+Això facilita el disseny de productes per al consumidor habitual que ràpidament veu els avantatges de la comunicació inal·làmbrica entre dispositius.
+En aquest entorn sorgeix la necessitat d'establir estàndards entre les companyies principals dels sectors corresponents.
+Per definir els estàndards s'agrupen les companyies i formen grups com al WI-FI Alliance o el NFC Forum.
+
+\subsection{Wifi}
+La tecnologia de comunicació més popular avui en dia és la WIFI, dissenyada originalment als anys (?) i establerta als anys (?) orientada a permetre una connexió (* bona) i sense consideració per les interferències entre si mateixa que no es podien preveure llavors.  
 %- Avantatges
 %- Innovació
 %- Evolució
 
-\section{Història de Bluetooth Clàssic}
+\section{Bluetoooth}
+Bluetooth és una
+
+\subsection{Història de Bluetooth Clàssic}
 El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth Clàssic va començar l'any 1989 per part de Ericsson.
 Inicialment la voluntat era utilitzar aquesta tecnologia per a connectar auriculars inal·làmbrics.
 D'altra banda a IBM es volia integrar connectivitat de la xarxa de telefonia als ordinadors portàtils però no era factible degut al consum d'energia que requeria la tecnologia mòbil.
@@ -22,10 +30,10 @@ D'aquesta manera es buscava integrar a més participants en aquesta tecnologia p
 El 1998 es van unir al grup Intel, Nokia i Toshiba i totes 5 companyies  van fundar el Bluetooth SIG (\textit{Bluetooth Special Interest group}, d'ara endavant SIG).
 Finalment, al 2001 van sortir a la venta els primers dispositius amb Bluetooth, el terminal Ericsson T39 i el portàtil IBM ThinkPad A30.
 
-\section{Història de Bluetooth Low Energy}
+\subsection{Història de Bluetooth Low Energy}
 Com que el món de les comunicacions estava anant cap als dispositius sense fils i alimentats amb bateria, era necessari adaptar les tecnologies existents per a les noves necessitats.
 L'any 2001 a Nokia es va començar a desenvolupar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb els compromisos mínims possibles.
-Aquest desenvoluapment va culminar l'any 2004 amb la publicació de la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
+Aquest desenvolupament va culminar l'any 2004 amb la publicació de la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
 Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en el projecte d'investigació per part de la Unió Europea MIMOSA \cite{MIMOSA}. El resultat del projecte es va anunciar al 2006 amb el nom de Wibree.
 
 \begin{figure}
@@ -182,7 +190,7 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 	\end{center}
 \end{figure}
 
-La pila pròpia de Bluetooth Low Energy esta dividida en dues parts, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
+La pila pròpia de Bluetooth Low Energy està dividida en dues parts, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
 Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART.
 La idea darrera separar la pila en dos serveix per fer compatible xips fets per diferents fabricants.
 Les dues parts de la pila poden estar implementades en el mateix xip anomenat configuració única o en xips separats anomenat configuració dual.
@@ -445,13 +453,14 @@ El període d'escaneig indica el temps entre que comencen les duracions d'escane
 \end{figure}
 
 \section{Connexions}
-S'ha vist com es pot transmetre poca informació sense necessitat de establir una connexió però BLE per a moltes aplicacions ha de ser capaç de transferències grans.
-També és necessari que els dispositius puguin establir connexions si la transferència de dades és sovint.
-D'aquesta manera es pot estalviar energia ja que el procés per establir la connexió és costós.
+S'ha vist com no cal establir una connexió per a transmetre poca informació.
+Això permet desenvolupar implementacions molt simples per a situacions on es transmet amb molt poca freqüència. Tot i així, BLE també permet transmetre moltes més dades quan s'estableix una connexió.
+
+Un cop s'hagui establert la connexió es podrà transmetre la informació molt eficientment, però establir la connexió suposa un cost energètic considerable.
+Per tant alhora de definir els paràmetres de la connexió és important evitar, a ser possible, establir connexió cada vegada que es vol transmetre informació.
 
 Com que les connexions estan basades en múltiples esdeveniments en instants determinats es considerà una connexió síncrona.
-
-Limit de connexions en BLE 4, a 5 no hi ha limit segons especificació per tant ve definit per les capacitats del dispositiu.
+No hi ha limit de connexions segons l'especificació de BLE i per tant ve definit per les capacitats del dispositiu amb el que es treballa.
 
 Per crear una connexió és necessari que un dispositiu tingui el rol GAP de central i un altre amb el rol de perifèric (els anunciadors i observadors no poden iniciar connexions).
 %TODO: afegir referencia
@@ -468,6 +477,19 @@ En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre 
 		\caption{Establiment de connexió}
 	\end{center}
 \end{figure}
+
+
+En aquesta figura es pot veure el procediment en que dos dispositius estableixen una connexió.
+Tenim el dispositiu A que inicialment està coma observador i el dispositiu B que s'està anunciant.
+Cal recordar que els anuncis no es detecten tots ja que no sempre s'està transmetent i escoltant en el mateix canal.
+
+El dispositiu A decideix establir una connexió amb el dispositiu B i envia un requeriment de connexió en l'últim canal en que s'ha escoltat l'anunci.
+El dispositiu B després de transmetre un anunci per un canal escolta durant un temps determinat en el mateix canal a l'espera de requeriments de connexió.
+Quan el dispositiu B rep el requeriment decideix acceptar la connexió respon al requeriment de connexió.
+
+En aquest moment el dispositiu A passa a ser el mestre amb els rols Central i Client i el dispositiu B passa a ser l'esclau amb rols de perifèric i servidor.
+La connexió està establerta i ja es possible transmetre dades entre ambdós dispositius durant els esdeveniments de connexió. 
+
 
 \subsection{Paràmetres}
 El interval de connexió és un dels paràmetres més importants en la connexió BLE, estableix com de sovint es comuniquen els dispositius.
