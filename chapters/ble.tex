@@ -6,18 +6,14 @@ Per utilitzar-les es necessari respectar la normativa nacional que normalment as
 Aquestes bandes es designen ISM, acrònim de Industrial, Scientific i Medical, que són els usos pel que s'havia pensat que serviria originalment, avui en dia els usos són més diversos.
 
 Com que l'es bandes ISM estan suficientment establertes arreu del món es crea la possibilitat per el públic general utilitzar comunicació inal·làmbrica amb molta facilitat.
-Això facilita el disseny de productes per al consumidor habitual que ràpidament veu els avantatges de la comunicació inal·làmbrica entre dispositius.
+Aquesta situació proporciona el disseny de productes per al consumidor habitual que ràpidament veu els avantatges de la comunicació inal·làmbrica entre dispositius.
 En aquest entorn sorgeix la necessitat d'establir estàndards entre les companyies principals dels sectors corresponents.
 Per definir els estàndards s'agrupen les companyies i formen grups com al WI-FI Alliance o el NFC Forum.
 
-\subsection{Wifi}
-La tecnologia de comunicació més popular avui en dia és la WIFI, dissenyada originalment als anys (?) i establerta als anys (?) orientada a permetre una connexió (* bona) i sense consideració per les interferències entre si mateixa que no es podien preveure llavors.  
-%- Avantatges
-%- Innovació
-%- Evolució
-
 \section{Bluetoooth}
-Bluetooth és una
+Bluetooth és una estàndard per l'intercanvi de dades de curt abast que utilitza la banda ISM de 2.4 GHz.
+És un dels protocols més coneguts i utilitzats, sobretot a través dels dispositius mòbils.
+A continuació s'explicarà l'origen d'aquesta tecnologia.
 
 \subsection{Història de Bluetooth Clàssic}
 El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth Clàssic va començar l'any 1989 per part de Ericsson.
@@ -253,11 +249,11 @@ Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats 
 %Bluetooth també permet la implementació de salts en freqüència adaptatius on només s'utilitzen canals suficientment bons descartant aquells en que es considera que hi ha masses interferències.
 
 \subsection{Host}
-\begin{figure}[h!]
-	\begin{center}
-		\includegraphics[width=0.6\textwidth]{./images/host.png}
-		\caption{Host Stack}
-\end{center}
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[width=0.6\textwidth]{./images/host.png}
+			\caption{Host Stack}
+	\end{center}
 \end{figure}
 
 \subsubsection{L2CAP (\textit{Logical Link Control and Adaptation Protocol})}
@@ -307,24 +303,25 @@ Cada servei conté característiques \cite{characteristics} definides en els atr
 Aquests tipus atributs s'anomenen Declaració de Característica.
 El valor de la declaració de característica està format per un nou UUID que identifica la característica i per un \textit{handle}.
 Aquest \textit{handle} correspon al atribut on hi ha les dades de la característica.
-
-\begin{center}
-	\begin{tabular}{|l|l|l|l|}
-		\hline
-		Handle	&	UUID	&	Descripció						&	Valor		\\ 	\hline
-		0x0100	&	0x2800	&	Battery Service					&	UUID 0x180F	\\		\hline
-		0x0101	&	0x2803	&	Characteristic: Battery Level	&	\parbox[t]{4cm}{UUID 0x2A19	\\ Value handle: 0x0102}	\\	\hline
-		0x0102	&	0x2A2B	&	Battery Value					&	20	\\	\hline
-		0x0103	&	0x2800	&	Custom Temperature Service		&	UUID 	706676c8-3e49...	\\	\hline
-		0x0104	&	0x2803	&	Characteristic: Temperature		&	\parbox[t]{4cm}{UUID 0x2A6E	\\ Value handle: 0x0105}	\\		\hline
-		0x0105	&	0x2A6E	&	Temperature Value				&	25.45	\\	\hline
-		0x0106	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0107}	\\		\hline
-		0x0107	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
-		\hline
-	\end{tabular}
-
-Exemple de possibles atributs
-\end{center}
+\begin{table}
+	\begin{center}
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			Handle	&	UUID	&	Descripció						&	Valor		\\ 	\hline
+			0x0100	&	0x2800	&	Battery Service					&	UUID 0x180F	\\		\hline
+			0x0101	&	0x2803	&	Characteristic: Battery Level	&	\parbox[t]{4cm}{UUID 0x2A19	\\ Value handle: 0x0102}	\\	\hline
+			0x0102	&	0x2A2B	&	Battery Value					&	20	\\	\hline
+			0x0103	&	0x2800	&	Custom Temperature Service		&	UUID 	706676c8-3e49...	\\	\hline
+			0x0104	&	0x2803	&	Characteristic: Temperature		&	\parbox[t]{4cm}{UUID 0x2A6E	\\ Value handle: 0x0105}	\\		\hline
+			0x0105	&	0x2A6E	&	Temperature Value				&	25.45	\\	\hline
+			0x0106	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0107}	\\		\hline
+			0x0107	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
+			\hline
+		\end{tabular}
+		
+		Exemple de possibles atributs
+	\end{center}
+\end{table}
 
 En aquest exemple es pot veure que hi ha 2 serveis diferents ja que hi ha 2 UUIDs 0x2800.
 També hi ha 3 característiques en total (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
@@ -340,7 +337,7 @@ En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també
 
 En aquest exemple no n'hi ha cap però les característiques poden tenir descriptors \cite{descriptors} que permeten aportar informació addicional sobre la característica que els precedeix.
 Els atributs també tenen propietats d'accés que defineixen quines accions es poden prendre.
-Es comentaran en un exemple real més endavant. %TODO: afegir link dinamic
+Es comentaran en un exemple real més endavant \ref{sec:properties}.
 
 \subsubsection{GAP}
 La \textit{Generic Access Profile} és la capa encarregada de la funcionalitat de les connexions.

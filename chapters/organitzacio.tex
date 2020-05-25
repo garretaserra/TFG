@@ -16,8 +16,7 @@ La radio multibanda que té te un receptor amb sensibilitat de -121 dBm per a su
 
 
 \section{Software}
-Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. El software és el SimpleLink(TM) CC13X2.
-[Comentar tema versió]
+Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. El software és el SimpleLink\texttrademark CC13X2 versió 2.30.00.45\footnote{La versió utilitzada és antiga per a que sigui compatible amb la revisió C del xip que s'està utilitzant.}.
 
 \section{Project 0}
 El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica. Aquest projecte exposa certs serveis a través de BLE i et permet veure una comunicació simple entre la placa i un dispositiu mòbil.
@@ -55,6 +54,7 @@ El primer parell hexadecimal correspon a les propietats. Just després hi ha dos
 I per últim la resta de caràcters corresponen al UUID que identifica la característica.
 
 \subsection{Propietats}
+\label{sec:properties}
 Les propietats d'accés són un valor que identifica quines operacions i procediments es poden fer sobre la característica.
 El camp té 8 bits per defecte i cada un d'ells identifica una operació o procediment.
 Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples opcions.
@@ -140,7 +140,7 @@ Tot i que aquest generador de fitxers és molt útil alhora de tenir una estruct
 \subsection{title}
 
 Definir UUIDs/Logitud del valor
-Els UUIDs poden tenir diferents longituds depenent si corresponen a un estandard o si son propietaris.
+Tal i com s'ha comentat anteriorment els UUIDs poden tenir diferents longituds depenent si corresponen a un estandard o si son propietaris.
 Quedaran definits al fitxer capçalera.
 
 Taula de atributs
@@ -154,6 +154,7 @@ Descriptors
 
 
 Callbacks (get/set write/read)
+
 
 Notificacions
 
