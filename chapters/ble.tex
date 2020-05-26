@@ -102,21 +102,21 @@ LoRa defineix les capes inferiors, la LoRa Alliance va definir el LoRaWAN que é
 \subsection{Comparació}
 Tot i que els protocols tenen molt en comú cada un es diferencia de la resta en els detalls, a continuació veiem una comparació de les capacitats de cada un dels protocols
 
-\begin{table}[]
+\begin{table}[!h]
 	\centering
 	\resizebox{\textwidth}{!}{
-		\begin{tabular}{rccccccc}
-			\multicolumn{1}{l}{}    & BLE 4                                                  & BLE 5   & 6LoWPAN & Zigbee      & Z-Wave      & Insteon & LoRa            \\
-			Abast (m)               & 50                                                     & 200     & 100     & 100         & 90          & 120     & 10Km            \\
-			Velocitat Física (Kbps) & 1000                                                   & 2000    & 250     & 250         & 100         & 4,5     & 27              \\
-			Tasa de dades (Kbps)    & \begin{tabular}[c]{@{}c@{}}300\\ 4.2: 800\end{tabular} & 1430    & 162     & 162         & 40          & 2,8     & 5               \\
-			Consum                  & 15                                                     & 15      & 15      & 30          & 23          &         & 18              \\
-			Banda                   & 2.4 GHz                                                & 2.4 GHz & 800-900 i 2.4 GHZ     & 800-900 i 2.4 GHZ & 800-900 MHz & 915 KHz & 400/800-900 MHz
+		\begin{tabular}{|r|c|c|c|c|c|c|c|}
+			\hline
+			    & BLE 4                                                  & BLE 5   & 6LoWPAN & Zigbee      & Z-Wave      & Insteon & LoRa            \\ \hline
+			Abast (m)               & 50                                                     & 200     & 100     & 100         & 90          & 120     & 10Km            \\	\hline
+			Velocitat Física (Kbps) & 1000                                                   & 2000    & 250     & 250         & 100         & 4,5     & 27              \\	\hline
+			Tasa de dades (Kbps)    &	800 & 1430    & 162     & 162         & 40          & 2,8     & 5               \\	\hline
+			Consum                  & 15                                                     & 15      & 15      & 30          & 23          &         & 18              \\	\hline
+			Banda                   & 2.4                                                 & 2.4  & 800-900 i 2.4      & 800-900 i 2.4 & 800-900 & 915 & 400/800-900	\\	\hline
 		\end{tabular}
 	}
+\caption{Comparació entre MANETs}
 \end{table}
-
-
 
 Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva versió 4 i en la 5. En el següent apartat es veurà perquè és així.
 
@@ -158,7 +158,7 @@ Normalment aquests paquets es transmeten pels 3 canals d'anuncis el 37, 38 i 39.
 En Bluetooth 5 per poder difondre (\textit{broadcast}) més dades el que es fa és enviar un paquet d'anunci on només s'indica la capçalera i un punter cap al canal per on s'enviarà el paquet complet.
 Posteriorment, pel canal per on s'ha indicat s'envia el paquet de dades i en cas de necessitar més dades s'encadenen paquets.
 I d'aquesta manera les dades només es transmeten una vegada ja que abans, calia transmetre-les en els tres canals d'anunci.
-Aquest procediment està detallat més endavant \ref{Advertising_Extension_PDU}
+Aquest procediment està detallat més endavant en l'apartat  \ref{Advertising_Extension_PDU}
 
 En la versió 4.0 sempre hi havia una component aleatòria que marcava en quin moment s'enviava el paquet, això és comú i serveix per evitar col·lisions periòdiques.
 El problema que genera és que les ràdios han d'estar més temps escoltant fins a rebre el paquet per culpa d'aquesta aleatorietat.
@@ -252,7 +252,7 @@ Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats 
 	\begin{figure}[h!]
 		\begin{center}
 			\includegraphics[width=0.6\textwidth]{./images/host.png}
-			\caption{Host Stack}
+			\caption{Pila del Host}
 	\end{center}
 \end{figure}
 
@@ -319,7 +319,7 @@ Aquest \textit{handle} correspon al atribut on hi ha les dades de la caracterís
 			\hline
 		\end{tabular}
 		
-		Exemple de possibles atributs
+		\caption{Exemple de possibles atributs}
 	\end{center}
 \end{table}
 
@@ -364,25 +364,29 @@ Els paquets d'anunci com ja s'ha explicat anteriorment son aquells que serveixen
 Hi ha 4 paquets d'aquest tipus i BLE 5 n'afegeix 4 més.
 Els 4 originals es classifiquen segons si permet connexió i si permeten escaneig.
 
-\begin{center}
-	\begin{tabular}{|c|c|l|}
-		\hline
-		Connexió	&	Escaneig	&	Nom	\\	\hline
-		Si			&	Si			&	ADV\_IND	\\	\hline
-		Si			&	No			&	ADV\_DIRECT\_IND	\\	\hline
-		No			&	No			&	ADV\_NONCONN\_IND	\\	\hline
-		No			&	Si			&	ADV\_SCAN\_IND	\\	\hline
-	\end{tabular}
-\end{center}
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{|c|c|l|}
+			\hline
+			Connexió	&	Escaneig	&	Nom	\\	\hline
+			Si			&	Si			&	ADV\_IND	\\	\hline
+			Si			&	No			&	ADV\_DIRECT\_IND	\\	\hline
+			No			&	No			&	ADV\_NONCONN\_IND	\\	\hline
+			No			&	Si			&	ADV\_SCAN\_IND	\\	\hline
+		\end{tabular}
+	\end{center}
+\caption{Tipus d'anunciaments}
+\end{table}
+
 
 El ADV\_IND és el genèric, més comú i permet que qualsevol dispositiu pugui connectar-se.
-El ADV\_DIRECT\_IND serveix per a avisar un dispositiu específic, per exemple, si un rellotge intel·ligent que es vol connectar a un telèfon.
+El ADV\_DIRECT\_IND serveix per a avisar un dispositiu específic, per exemple, si un rellotge intel·ligent que es vol connectar a el telèfon al que està associat.
 El ADV\_NONCONN\_IND només indica que existeix i no rebrà informació.
 Això és útil per a balises, per exemple, per permetre localització.
 El ADV\_SCAN\_IND també està orientat a balises però estarà escoltant per si rep missatges d'escaneig amb els que pot respondre amb poca informació.
 Això permet una comunicació bidireccional limitada sense necessitat d'establir connexió.
 
-Tots els paquets excepte el ADV\_DIRECT\_IND permeten transmetre 31 bytes de dades pròpies (han de seguir el format establert (?)).
+Tots els paquets excepte el ADV\_DIRECT\_IND permeten transmetre 31 bytes de dades pròpies que han de seguir el format establert que s'explicarà a l'apartat \ref{sec:format}.
 
 \label{Advertising_Extension_PDU}
 En BLE 5 s'afegeixen 4 paquets més que permeten augmentar la quantitat de dades que es poden transmetre abans d'haver establert una connexió.
@@ -510,8 +514,26 @@ Si es supera aquest temps es considera que la connexió s'ha acabat i per tant p
 Això pot passar per exemple en entorns molt sorollosos o més sovint quant els dispositius surten del seu abast i la senyal no és detectable.
 
 \section{Seguretat}
+Com que l'ús de BLE és molt flexible per poder-lo utilitzar en certes aplicacions es requereix que l'intercanvi de dades sigui segur.
+Això significa que la connexió tingui resistència a atacs de \textit{eavesdrop} passiu i de \textit{man in the middle}.
+BLE utilitza l'encriptació simètrica AES-CCM, però la seguretat rau en com s'intercanvien la clau.
+
+Hi ha diferents maneres que el desenvolupador pot escollir utilitzar i que varien en seguretat i facilitat d'ús.
+Hi ha el mètode sense seguretat anomenat \textit{Just Works}.
+Aquest mètode és útil en casos en que no es requereix seguretat o que no es possible tenir-ne per les limitacions del dispositiu amb el que es vol establir connexió.
+
+Un altre mètode es el \textit{Out of Band} aquest permet utilitzar una altre tecnologia per l'intercanvi de claus.
+Un exemple seria utilitzar NFC (comú en auriculars d'alta gama).
+La seguretat d'aquest mètode depèn completament en el nou sistema per l'intercanvi de claus.
+
+El més habitual és el \textit{Passkey} en que l'intercanvi de claus es bassa en una contrasenya de 4 a 6 dígits.
+Cal tenir en compte que degut al baix número de combinacions depenent de la implementació aquest mètode serà sensible a atacs d'\textit{eavesdroping} passiu.
+
+Finalment un mètode similar al anterior és el de Comparació Numèrica, enlloc de ser l'usuari qui introdueix el codi es genera automàticament i es mostra en els dos dispositius.
+Cal comprovar que sigui el mateix número en els dos casos i això permet prevenir atacs de \textit{Man in the Middle} però de nou, no protegeix contra el \textit{Eavesdropping}.
 
 \section{Format}
+\label{sec:format}
 En aquest apartat s'explicarà com estar format els paquets que s'envien en BLE i de quins camps està format.
 Cal distingir però entre la versió 4 i la 5 de BLE ja que degut a les noves funcionalitats el format canvia considerablement.
 
