@@ -158,8 +158,31 @@ Descriptors
 
 
 Callbacks (get/set write/read)
+En cada servei hi ha quatre funcions de \textit{callback}.
+Les funcions get i set s'utilitzen per llegir o modificar els valors que s'exposen a través de BLE.
+Quant en algun punt del codi és necessari interactuar amb aquests valors es farà amb aquestes funcions.
+Com que s'està treballant amb C és important posar comprobacions quant es modifiquen els valors per tal d'evitar problemes com el desbordament de memòria intermèdia\footnote{En anglès Buffer Overflow} que podern ocòrrer si s'escriuen valors no vàlids.
 
+Les funcions write i read són les que s'utilitzen per interceptar les peticions de lectura i escriptura del servidor GATT.
+
+En aquestes funcions cal identificar en cada cas a quin atribut o valor s'esta modificant i després de comprobacions o altres funcionalitats es copia la memòria entre els arguments.
+
+Butons
+La placa que s'esta utilitzant té dos butons que s'utilitzen com a entrades de senyals.
+En el fitxer principal project\_zero.c hi ha la funció ProjectZero\_handleButtonPress() que es crida quan es presiona o es deixa de presionar qualsevol dels butons.
 
 Notificacions
+CCCD
+
+
+Temporitzadors
+Tal i com s'ha comentat anteriorment la placa que s'esta utilitzan inclou rellotges.
+Xips...
+El entorn ja ens dona directament classes amb les que pot treballar amb els rellotges així facilitant el seu ús.
+
+%Generador flux aleatori (perli noise?)
+%Per a poder fer una simulació de com funciona BLE al transmetre les mesures mediambientals i biològiques és necessari tenir alguna font d'aquesta informació.
+%Les dades es generaran aleatoriament i per tant cal entendre com s'han de generar les senyals simulades en l'entorn de desenvolupament.
+
 
 
