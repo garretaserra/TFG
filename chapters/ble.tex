@@ -122,6 +122,7 @@ Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva ve
 
 
 \section{Versions de BLE}
+\label{Versions_BLE}
 En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius \cite{BLE_5_improvement_over_4}.
 
 \subsubsection{LE 2M}
@@ -152,6 +153,7 @@ Amb els diferents esquemes s'utilitza una taxa de codi diferent que pot augmenta
 \end{figure}
 
 \subsubsection{Advertisement Extensions}
+\label{Advertisement_Extensions}
 En Bluetooth 4.0 els paquets d'anunci (\textit{Advertisement Packets}) tenen 6 octets de capçalera i com a molt 31 de dades, és a dir, com a molt es poden transmetre 31 Bytes de cop.
 Normalment aquests paquets es transmeten pels 3 canals d'anuncis el 37, 38 i 39.
 
@@ -537,13 +539,13 @@ Cal comprovar que sigui el mateix número en els dos casos i això permet preven
 En aquest apartat s'explicarà com estar format els paquets que s'envien en BLE i de quins camps està format.
 Cal distingir però entre la versió 4 i la 5 de BLE ja que degut a les noves funcionalitats el format canvia considerablement.
 
-\subsection{BLE 4}
-En la versió de BLE 4 els paquets que es transmeten tenen el següent format:
+\subsection{BLE 4.2}
+En la versió de BLE 4.2\footnote{En les versions 4 i 4.1 la PDU tenia una mida màxima de 39 bytes.} els paquets que es transmeten tenen el següent format:
 
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=1\textwidth]{./images/Packet_format_4_2.png}
-		\caption{Format del paquet en BLE 4}
+		\caption{Format del paquet en BLE 4.2 \cite{BLE_4.2_packet_format}}
 	\end{center}
 \end{figure}
 
@@ -557,12 +559,39 @@ EN la PDU és on hi ha la informació pròpia del paquet i depenent de si és un
 \begin{figure}[!h]
 	\begin{center}
 		\begin{subfigmatrix}{1}
-			\subfigure[Format PDU d'anunci]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_adv.png}}
-			\subfigure[Format PDU de dades]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_data.png}}
+			\subfigure[Format PDU d'anunci \cite{BLE_4.2_Advertising_PDU}]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_adv.png}}
+			\subfigure[Format PDU de dades \cite{BLE_4.2_Data_PDU}]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_data.png}}
 		\end{subfigmatrix}
 	\end{center}
 \end{figure}
 
+Pel que fa a la PDU d'anunci és diferent segons el tipus de paquet.
+En el cas del ADV\_IND està format per la adreça del anunciant seguit de un llistat d'estructures de dades d'anunci.
+Aquestes estan formades per la longitud de la estructura, el tipus i les dades en si.
+Hi ha molts tipus d'estructura que estan definits en el estàndard \cite{AD_Types}.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{./images/adv-ind-packet.png}
+		\caption{Payload de ADV\_IND}
+	\end{center}
+\end{figure}
+
+En canvi en el cas del ADV\_DIRECT\_IND simplement s'indica l'adreça del anunciador i la del dispositiu al que va dirigit el paquet.
 
 \subsection{BLE 5}
+Els canvis per a BLE 5 corresponen a les noves possibilitats que s'han comentat a \ref{Versions_BLE}.
+Primer, la funcionalitat per poder transmetre anuncis als canals secundaris que s'ha comentat a \ref{Advertisement_Extensions} i enumerat els tipus de paquets a \ref{Advertising_Extension_PDU}.
 
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{./images/Common_Extended_Advertising_Payload_Format.png}
+		\caption{Format de la Extended Advertising Payload \cite{BLE_5_Extended_Advertising}}
+	\end{center}
+\end{figure}
+
+Tots els paquets nous de BLE 5 d'anunci es basen en aquest format flexible.
+El \textit{Extended Header Length} defineix la longitud del \textit{Extended Header}.
+El \textit{AdvMode} defineix una sèrie de valors que identifiquen si el anunciador accepta connexions o es pot escanejar.
+El \textit{Extended Header} indica informació similar a la versió 4.2 com adreça del anunciador.
+Però també indica tot allò necessari per BLE 5, com en quin canal secundari es transmetrà part de la informació del paquet o amb quin tipus de capa física es transmetrà aquesta informació (LE 1M, LE 2M o LE Coded) entre d'altres.
