@@ -16,7 +16,7 @@ La radio multibanda que té te un receptor amb sensibilitat de -121 dBm per a su
 
 
 \section{Software}
-Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. El software és el SimpleLink\texttrademark\ CC13X2 versió 2.30.00.45\footnote{La versió utilitzada és antiga per a que sigui compatible amb la revisió C del xip que s'està utilitzant.}.
+Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. El software és el SimpleLink\texttrademark\ CC13X2 versió 2.30.00.45\footnote{La versió utilitzada no és més nova per a que sigui compatible amb la revisió C del xip que s'està utilitzant.}.
 
 \section{Project 0}
 El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica. Aquest projecte exposa certs serveis a través de BLE i et permet veure una comunicació simple entre la placa i un dispositiu mòbil.
@@ -25,7 +25,7 @@ La comunicació es fa a través del control dels dos LEDs que te la placa (els L
 
 Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arquitectura dels serveis amb les seves característiques amb una relativa simple funcionalitat. A continuació s'analitzaran diferents parts dels atributs.
 
-\subsection{Serveis de Butons i LEDs}
+\subsection{Serveis de Botons i LEDs}
 
 En la següent taula es poden veure tots els valors que hi ha tal i com estan en la taula d'atributs del servidor GATT.
 Per facilitar la visualització de les dades s'han tret els zeros finals dels UUIDs propis però cal recordar que en total tenen 16 parells (128 bits en representació hexadecimal) i no només els 9 parells que surten a la taula.
@@ -43,9 +43,10 @@ Per poder entendre els atributs, al tenir UUID propis és necessari tenir en com
 		\includegraphics[width=\textwidth]{./images/Project_0_UUID.png}
 		\caption{Definició dels UUIDs}
 	\end{center}
+	\label{project0_table}
 \end{figure}
 
-El primer que cal tenir clar és que en taula anterior (afegir link dinàmic) els valors estan representats amb l'ordre en que es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitza \textit{little-endian} per enviar la informació.
+El primer que cal tenir clar és que en taula \ref{project0_table} els valors estan representats amb l'ordre en que es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitza \textit{little-endian} per enviar la informació.
 Això resulta en que els caràcters hexadecimals queden (per parelles) ordenats al revés.
 
 Al analitzar els atributs es pot veure com aquells que tenen el UUID 0x2800 en el seu valor només tenen un UUID corresponent al les definicions de serveis de LEDs i de botons.
@@ -144,14 +145,14 @@ Tot i que aquest generador de fitxers és molt útil alhora de tenir una estruct
 \subsection{title}
 
 Definir UUIDs/Logitud del valor
-Tal i com s'ha comentat anteriorment els UUIDs poden tenir diferents longituds depenent si corresponen a un estandard o si son propietaris.
+Tal i com s'ha comentat anteriorment els UUIDs poden tenir diferents longituds depenent si corresponen a un estàndard o si son propietaris.
 Quedaran definits al fitxer capçalera.
 
 Taula de atributs
-La taula d'atributs esta formada per un llistat d'atributs, la estructura d'aquest ve definida en el gatt.h i s'anomena gattAttribute\_t.
-Inclou el tipus d'UUID (de 16 o 128 bits), els permisos, el handle (cal deixar-lo a 0 ja que s'asigna internament pel servidor) i el valor (logitud màxima 512 bytes).
+La taula d'atributs està formada per un llistat d'atributs, la estructura d'aquest ve definida en el gatt.h i s'anomena gattAttribute\_t.
+Inclou el tipus d'UUID (de 16 o 128 bits), els permisos, el handle (cal deixar-lo a 0 ja que s'assigna internament pel servidor) i el valor (longitud màxima 512 bytes).
 
-Quan sindiquen les propietats dels atributs que corresponen s'utilitzar l'operador OR (en C correspon al simbol |).
+Quan sindiquen les propietats dels atributs que corresponen s'utilitzar l'operador OR (en C correspon al símbol |).
 El fitxer gatt.h s'inclou dins del fitxer font i conté les definicions de tots els possibles permisos amb els seus valors en bits corresponents.
 
 Descriptors
@@ -161,15 +162,15 @@ Callbacks (get/set write/read)
 En cada servei hi ha quatre funcions de \textit{callback}.
 Les funcions get i set s'utilitzen per llegir o modificar els valors que s'exposen a través de BLE.
 Quant en algun punt del codi és necessari interactuar amb aquests valors es farà amb aquestes funcions.
-Com que s'està treballant amb C és important posar comprobacions quant es modifiquen els valors per tal d'evitar problemes com el desbordament de memòria intermèdia\footnote{En anglès Buffer Overflow} que podern ocòrrer si s'escriuen valors no vàlids.
+Com que s'està treballant amb C és important posar comprovacions quant es modifiquen els valors per tal d'evitar problemes com el desbordament de memòria intermèdia\footnote{En anglès Buffer Overflow} que poden ocórrer si s'escriuen valors no vàlids.
 
 Les funcions write i read són les que s'utilitzen per interceptar les peticions de lectura i escriptura del servidor GATT.
 
-En aquestes funcions cal identificar en cada cas a quin atribut o valor s'esta modificant i després de comprobacions o altres funcionalitats es copia la memòria entre els arguments.
+En aquestes funcions cal identificar en cada cas a quin atribut o valor s'esta modificant i després de comprovacions o altres funcionalitats es copia la memòria entre els arguments.
 
 Butons
 La placa que s'esta utilitzant té dos butons que s'utilitzen com a entrades de senyals.
-En el fitxer principal project\_zero.c hi ha la funció ProjectZero\_handleButtonPress() que es crida quan es presiona o es deixa de presionar qualsevol dels butons.
+En el fitxer principal project\_zero.c hi ha la funció ProjectZero\_handleButtonPress() que es crida quan es pressiona o es deixa de pressionar qualsevol dels botons.
 
 Notificacions
 Les notificacions serveixen per indicar al client que un valor ha canviat en el servidor.
@@ -178,7 +179,7 @@ CCCD
 
 
 Temporitzadors
-Tal i com s'ha comentat anteriorment la placa que s'esta utilitzan inclou rellotges.
+Tal i com s'ha comentat anteriorment la placa que s'està utilitzant inclou rellotges.
 Xips...
 El entorn ja ens dona directament classes amb les que pot treballar amb els rellotges així facilitant el seu ús.
 
