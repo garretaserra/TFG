@@ -30,12 +30,14 @@ Finalment, al 2001 van sortir a la venta els primers dispositius amb Bluetooth, 
 Com que el món de les comunicacions estava anant cap als dispositius sense fils i alimentats amb bateria, era necessari adaptar les tecnologies existents per a les noves necessitats.
 L'any 2001 a Nokia es va començar a desenvolupar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb els compromisos mínims possibles.
 Aquest desenvolupament va culminar l'any 2004 amb la publicació de la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
-Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en el projecte d'investigació per part de la Unió Europea MIMOSA \cite{MIMOSA}. El resultat del projecte es va anunciar al 2006 amb el nom de Wibree.
+Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en el projecte d'investigació per part de la Unió Europea MIMOSA \cite{MIMOSA}.
+El resultat del projecte es va anunciar al 2006 amb el nom de Wibree, es pot veure el logo a la figura \ref{wibree_logo}.
 
-\begin{figure}
+\begin{figure}[hb]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./images/Wibree_Logo.png}
-		\caption{Logo de Wibree }
+		\caption{Logo de Wibree}
+		\label{wibree_logo}
 	\end{center}
 \end{figure}
 
@@ -142,15 +144,17 @@ En Bluetooth 5 s'implementa correcció d'errors d'aquesta manera sense augmentar
 El desavantatge és que més bits dels que es transmeten es dediquen a corregir errors per tant queda menys espai per a dades de l'aplicació.
 
 
-El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb un codificador convolucional que pot generar a la sortida més bits dels que entren. El codificador pot funcionar amb dos esquemes diferents s'anomenen S=2 i S=8.
+El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb un codificador convolucional que pot generar a la sortida més bits dels que entren. El codificador pot funcionar amb dos esquemes diferents s'anomenen $S=2$ i $S=8$.
 Amb els diferents esquemes s'utilitza una taxa de codi diferent que pot augmentar la capacitat de correcció i incrementar el abast però disminuir la quantitat de dades que es poden transmetre.
+Es poden veure les diferents esquemes a la taula \ref{FEC} 
 
-\begin{figure}[h!]
+\begin{table}[h!]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/LE_PHY.png}
 		\caption{Comparació de diferents capes físiques}
+		\label{FEC}
 	\end{center}
-\end{figure}
+\end{table}
 
 \subsubsection{Advertisement Extensions}
 \label{Advertisement_Extensions}
@@ -178,7 +182,7 @@ En BLE 5 s'utilitza una seqüència pseudo-aleatòria per determinar quins canal
 
 \section{Pila BLE}
 Un cop vistes les característiques generals del protocol cal entendre com funciona per dins.
-En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flexible 
+En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flexible.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -188,7 +192,7 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 	\end{center}
 \end{figure}
 
-La pila pròpia de Bluetooth Low Energy està dividida en dues parts, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
+La pila pròpia de Bluetooth Low Energy està dividida en dues parts, tal i com es pot veure a la figura \ref{ble_stack}, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
 Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART.
 La idea darrera separar la pila en dos serveix per fer compatible xips fets per diferents fabricants.
 Les dues parts de la pila poden estar implementades en el mateix xip anomenat configuració única o en xips separats anomenat configuració dual.
@@ -206,7 +210,7 @@ El controlador compren la capa física i la capa d'enllaç.
 
 \subsubsection{Capa Física}
 La capa física és la que s'encarrega de la comunicació anal·lògica modulant i desmodulant les senyals.
-Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents
+Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents tal i com es mostra a la figura \ref{BLE_Channels}.
 
 \begin{figure}[hb]
 	\begin{center}
