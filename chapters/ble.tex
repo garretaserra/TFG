@@ -30,12 +30,14 @@ Finalment, al 2001 van sortir a la venta els primers dispositius amb Bluetooth, 
 Com que el món de les comunicacions estava anant cap als dispositius sense fils i alimentats amb bateria, era necessari adaptar les tecnologies existents per a les noves necessitats.
 L'any 2001 a Nokia es va començar a desenvolupar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb els compromisos mínims possibles.
 Aquest desenvolupament va culminar l'any 2004 amb la publicació de la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
-Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en el projecte d'investigació per part de la Unió Europea MIMOSA \cite{MIMOSA}. El resultat del projecte es va anunciar al 2006 amb el nom de Wibree.
+Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en el projecte d'investigació per part de la Unió Europea MIMOSA \cite{MIMOSA}.
+El resultat del projecte es va anunciar al 2006 amb el nom de Wibree, es pot veure el logo a la figura \ref{wibree_logo}.
 
-\begin{figure}
+\begin{figure}[hb]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./images/Wibree_Logo.png}
-		\caption{Logo de Wibree }
+		\caption{Logo de Wibree}
+		\label{wibree_logo}
 	\end{center}
 \end{figure}
 
@@ -142,15 +144,17 @@ En Bluetooth 5 s'implementa correcció d'errors d'aquesta manera sense augmentar
 El desavantatge és que més bits dels que es transmeten es dediquen a corregir errors per tant queda menys espai per a dades de l'aplicació.
 
 
-El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb un codificador convolucional que pot generar a la sortida més bits dels que entren. El codificador pot funcionar amb dos esquemes diferents s'anomenen S=2 i S=8.
+El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb un codificador convolucional que pot generar a la sortida més bits dels que entren. El codificador pot funcionar amb dos esquemes diferents s'anomenen $S=2$ i $S=8$.
 Amb els diferents esquemes s'utilitza una taxa de codi diferent que pot augmentar la capacitat de correcció i incrementar el abast però disminuir la quantitat de dades que es poden transmetre.
+Es poden veure les diferents esquemes a la taula \ref{FEC} 
 
-\begin{figure}[h!]
+\begin{table}[h!]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/LE_PHY.png}
 		\caption{Comparació de diferents capes físiques}
+		\label{FEC}
 	\end{center}
-\end{figure}
+\end{table}
 
 \subsubsection{Advertisement Extensions}
 \label{Advertisement_Extensions}
@@ -178,7 +182,7 @@ En BLE 5 s'utilitza una seqüència pseudo-aleatòria per determinar quins canal
 
 \section{Pila BLE}
 Un cop vistes les característiques generals del protocol cal entendre com funciona per dins.
-En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flexible 
+En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flexible.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -188,7 +192,7 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 	\end{center}
 \end{figure}
 
-La pila pròpia de Bluetooth Low Energy està dividida en dues parts, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
+La pila pròpia de Bluetooth Low Energy està dividida en dues parts, tal i com es pot veure a la figura \ref{ble_stack}, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
 Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART.
 La idea darrera separar la pila en dos serveix per fer compatible xips fets per diferents fabricants.
 Les dues parts de la pila poden estar implementades en el mateix xip anomenat configuració única o en xips separats anomenat configuració dual.
@@ -206,7 +210,7 @@ El controlador compren la capa física i la capa d'enllaç.
 
 \subsubsection{Capa Física}
 La capa física és la que s'encarrega de la comunicació anal·lògica modulant i desmodulant les senyals.
-Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents
+Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals diferents tal i com es mostra a la figura \ref{BLE_Channels}.
 
 \begin{figure}[hb]
 	\begin{center}
@@ -241,6 +245,18 @@ Per mitigar aquest efecte negatiu la desviació de freqüència passa a ser de 3
 
 \subsubsection{Link Layer}
 La capa d'enllaç és la encarregada d'escanejar, anunciar i gestionar connexions amb altres dispositius.
+
+Depenent d'el moment en la connexió els dispositius estan en diferents estats.
+Els estats son: Espera (\textit{Idle}), Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner})i Iniciador (\textit{Initiator}), Esclau (\textit{Slave}) o Mestre (\textit{Master}).
+A la figura \ref{Link_State_Diagram} s'hi pot veure el flux d'estats per arribar a ua connexió.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{./images/gap_state_diagram.png}
+		\caption{Estats de la capa d'enllaç \cite{Link_Layer_states}}
+		\label{Link_State_Diagram}
+	\end{center}
+\end{figure}
 
 Per mitigar l'efecte de les interferències el protocol utilitza salt en freqüència (\textit{frequency hopping}).
 Això permet reduir l'impacte d'una interferència estreta.
@@ -288,12 +304,13 @@ Des del punt de vista del GATT els dispositius són clients i servidors, normalm
 
 La definició del ATT és massa genèrica per si sola tal que seria comú que per fer el mateix es desenvolupessin múltiples definicions que fossin incompatibles entre sí.
 Per tal de tenir millor definits els serveis s'utilitza el GATT.
-El GATT permet definir perfils que agrupen múltiples atributs en un sol servei \cite{services}.
+El GATT permet definir perfils que agrupen múltiples atributs en un sol servei \cite{services} tal i com es mostra en la figura \ref{fig:Gatt_Hierarchy}.
 
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.4\textwidth]{./images/GATT_Hierarchy.png}
 		\caption{Jerarquia de GATT \cite{GATT_Hierarchy}}
+		\label{fig:Gatt_Hierarchy}
 	\end{center}
 \end{figure}
 
@@ -305,7 +322,7 @@ Cada servei conté característiques \cite{characteristics} definides en els atr
 Aquests tipus atributs s'anomenen Declaració de Característica.
 El valor de la declaració de característica està format per un nou UUID que identifica la característica i per un \textit{handle}.
 Aquest \textit{handle} correspon al atribut on hi ha les dades de la característica.
-\begin{table}
+\begin{table}[h]
 	\begin{center}
 		\begin{tabular}{|l|l|l|l|}
 			\hline
@@ -319,13 +336,13 @@ Aquest \textit{handle} correspon al atribut on hi ha les dades de la caracterís
 			0x0106	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0107}	\\		\hline
 			0x0107	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
 			\hline
-		\end{tabular}
-		
+		\end{tabular}	
 		\caption{Exemple de possibles atributs}
+		\label{Attribute_Table}
 	\end{center}
 \end{table}
 
-En aquest exemple es pot veure que hi ha 2 serveis diferents ja que hi ha 2 UUIDs 0x2800.
+En aquest exemple de la taula \ref{Attribute_Table} es pot veure que hi ha 2 serveis diferents ja que hi ha 2 UUIDs 0x2800.
 També hi ha 3 característiques en total (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
 Com que els valors corresponents al nivell de bateria i la temperatura estan estandarditzats\cite{Battery_Level}\cite{Temperature_Characteristic}, no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
 
@@ -343,15 +360,6 @@ Es comentaran en un exemple real més endavant \ref{sec:properties}.
 
 \subsubsection{GAP}
 La \textit{Generic Access Profile} és la capa encarregada de la funcionalitat de les connexions.
-Depenent d'el moment en la connexió els dispositius estan en diferents estats..
-Els estats son: Espera (\textit{Idle}), Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner})i Iniciador (\textit{Initiator}), Esclau (\textit{Slave}) o Mestre (\textit{Master}).
-
-\begin{figure}[!h]
-	\begin{center}
-		\includegraphics[width=0.5\textwidth]{./images/gap_state_diagram.png}
-		\caption{Estats de connexió}
-	\end{center}
-\end{figure}
 
 A part dels estats segons la especificació el dispositiu sempre està en un\footnote{En BLE 5.1 es permet certes combinacions de rols} dels quatre rols: Emissor, Observador, Perifèric o Central.
 
@@ -364,7 +372,7 @@ Els paquets d'anunci com ja s'ha explicat anteriorment son aquells que serveixen
 
 \subsection{Tipus}
 Hi ha 4 paquets d'aquest tipus i BLE 5 n'afegeix 4 més.
-Els 4 originals es classifiquen segons si permet connexió i si permeten escaneig.
+Els 4 originals es classifiquen segons si permet connexió i si permeten escaneig, tal i com mostra la taula \ref{tab:Advertisment_Types}.
 
 \begin{table}[!h]
 	\begin{center}
@@ -378,6 +386,7 @@ Els 4 originals es classifiquen segons si permet connexió i si permeten escanei
 		\end{tabular}
 	\end{center}
 \caption{Tipus d'anunciaments}
+\label{tab:Advertisment_Types}
 \end{table}
 
 
@@ -559,8 +568,8 @@ EN la PDU és on hi ha la informació pròpia del paquet i depenent de si és un
 \begin{figure}[!h]
 	\begin{center}
 		\begin{subfigmatrix}{1}
-			\subfigure[Format PDU d'anunci \cite{BLE_4.2_Advertising_PDU}]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_adv.png}}
-			\subfigure[Format PDU de dades \cite{BLE_4.2_Data_PDU}]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_data.png}}
+			\subfigure[Format PDU d'anunci \cite{BLE_4.2_packet_format}]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_adv.png}}
+			\subfigure[Format PDU de dades \cite{BLE_4.2_packet_format}]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_data.png}}
 		\end{subfigmatrix}
 	\end{center}
 \end{figure}
