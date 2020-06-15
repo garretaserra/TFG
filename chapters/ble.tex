@@ -1,6 +1,6 @@
 \chapter{Orígens del Bluetooth Low Energy}\label{C:compaginacio}
 
-\section{Ús lliure de RF}
+\section{Ús lliure de radiofreqüència}
 En tot el espai radioelèctric hi ha bandes que estan assignades per a un ús privat però lliure.
 Per utilitzar-les es necessari respectar la normativa nacional que normalment assimila la normativa comuna segons la ITU.
 Aquestes bandes es designen ISM, acrònim de Industrial, Scientific i Medical, que són els usos pel que s'havia pensat que serviria originalment, avui en dia els usos són més diversos.
@@ -148,7 +148,7 @@ El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb 
 Amb els diferents esquemes s'utilitza una taxa de codi diferent que pot augmentar la capacitat de correcció i incrementar el abast però disminuir la quantitat de dades que es poden transmetre.
 Es poden veure les diferents esquemes a la taula \ref{FEC} 
 
-\begin{table}[h!]
+\begin{table}[htb]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/LE_PHY.png}
 		\caption{Comparació de diferents capes físiques}
@@ -283,7 +283,7 @@ Permet que des de capes superiors s'utilitzin els protocols que es vulguin i no 
 Per limitació física de l'arquitectura existeix una MTU\footnote{La MTU és la mida màxima que pot tenir un paquet} (\textit{Maximum Transmission Unit}) i per tant els paquets de les capes superiors es converteixen en paquets més petits per a les capes inferiors.
 Aquesta MTU es pot definir per cada connexió així flexibilitzant la manera que s'utilitza el protocol per a cada cas.
 
-La L2CAP també és la que fa el seguiment de la qualitat de la connexió i dels recursos utilitzats per assegurar-se que les necessitats dels serveis es compleixen.
+La L2CAP també és la capa que fa el seguiment de la qualitat de la connexió i dels recursos utilitzats per assegurar-se que les necessitats dels serveis es compleixen.
 
 \subsubsection{SMP}
 La capa \textit{Security Management Protocol} proveeix de diferents serveis relacionats amb la seguretat de la connexió.
@@ -291,10 +291,10 @@ Aquests serveis són: autenticació i autorització de dispositius i també inte
 El protocol té tipus d'emparellament i generació de claus flexible per aconseguir reduir els requeriments de memòria i energia.
 
 \subsubsection{ATT \& GATT}
-El \textit{Attribute Protocol} és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} defineix com utilitzar el protocol per oferir serveis a capes superiors.
+El \textit{Attribute Protocol} (ATT d'ara endavant) és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} defineix com utilitzar el protocol per oferir serveis a capes superiors.
 El ATT és un protocol dissenyat per a dispositius \textit{Low Energy} amb l'objectiu de minimitzar la quantitat de dades transmeses. El atribut està format per 4 elements, \textit{handle}, UUID, permisos  i \textit{value}.
 
-El \textit{handle} fa la distinció única entre els diferents atributs, ocupa 16 bits i no és obligatori que siguin valors seqüencials. És molt útil ja que s'utilitza per referenciar el atribut amb el mínim de bits possibles.
+El \textit{handle} fa la distinció única entre els diferents atributs, ocupa 16 bits i és comú que siguin valors seqüencials però no obligatori. És molt útil ja que s'utilitza per referenciar el atribut amb el mínim de bits possibles.
 El UUID (\textit{Universal Unique IDentifier}) identifica el tipus d'atribut, aquest numero pot ser de 16 bits si s'utilitza algun que ja estandarditzat pel SIG o bé en tindrà 128 bits si està definit pel fabricant.
 En els permisos s'indicarà quin tipus d'accés té el client a la informació (només lectura, lectura i escriptura ...). També pot estar definit si requereix un nivell mínim d'encriptació o si es necessari l'autenticació.
 Per últim el valor del atribut serà on hi ha la informació, la seva interpretació i longitud (512 bytes com a molt) dependrà del UUID.
@@ -322,17 +322,20 @@ Cada servei conté característiques \cite{characteristics} definides en els atr
 Aquests tipus atributs s'anomenen Declaració de Característica.
 El valor de la declaració de característica està format per un nou UUID que identifica la característica i per un \textit{handle}.
 Aquest \textit{handle} correspon al atribut on hi ha les dades de la característica.
+
 \begin{table}[h]
 	\begin{center}
+		\definecolor{lightred}{RGB}{255, 128, 128}
+		\definecolor{lightyellow}{RGB}{238, 232, 170}
 		\begin{tabular}{|l|l|l|l|}
 			\hline
-			Handle	&	UUID	&	Descripció						&	Valor		\\ 	\hline
-			0x0100	&	0x2800	&	Battery Service					&	UUID 0x180F	\\		\hline
+			Handle	&	UUID	&	Descripció						&	Valor		\\ 	\hline \rowcolor{lightred}
+			0x0100	&	0x2800	&	Battery Service					&	UUID 0x180F	\\		\hline \rowcolor{lightyellow}
 			0x0101	&	0x2803	&	Characteristic: Battery Level	&	\parbox[t]{4cm}{UUID 0x2A19	\\ Value handle: 0x0102}	\\	\hline
-			0x0102	&	0x2A2B	&	Battery Value					&	20	\\	\hline
-			0x0103	&	0x2800	&	Custom Temperature Service		&	UUID 	706676c8-3e49...	\\	\hline
-			0x0104	&	0x2803	&	Characteristic: Temperature		&	\parbox[t]{4cm}{UUID 0x2A6E	\\ Value handle: 0x0105}	\\		\hline
-			0x0105	&	0x2A6E	&	Temperature Value				&	25.45	\\	\hline
+			0x0102	&	0x2A2B	&	Battery Value					&	20	\\	\hline	\rowcolor{lightred}
+			0x0103	&	0x2800	&	Custom Temperature Service		&	UUID 	706676c8-3e49...	\\	\hline	\rowcolor{lightyellow}
+			0x0104	&	0x2803	&	Characteristic: Temperature		&	\parbox[t]{4cm}{UUID 0x2A6E	\\ Value handle: 0x0105}	\\		\hline	
+			0x0105	&	0x2A6E	&	Temperature Value				&	25.45	\\	\hline \rowcolor{lightyellow}
 			0x0106	&	0x2803	&	Characteristic: date/time		&	\parbox[t]{4cm}{UUID 0x2A08	\\ Value handle: 0x0107}	\\		\hline
 			0x0107	&	0x2A08	&	Date/Time						&	1/1/1980 12:00	\\
 			\hline
@@ -342,8 +345,8 @@ Aquest \textit{handle} correspon al atribut on hi ha les dades de la caracterís
 	\end{center}
 \end{table}
 
-En aquest exemple de la taula \ref{Attribute_Table} es pot veure que hi ha 2 serveis diferents ja que hi ha 2 UUIDs 0x2800.
-També hi ha 3 característiques en total (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
+En aquest exemple de la taula \ref{Attribute_Table} es pot veure que hi ha 2 serveis diferents, marcats en vermell, ja que hi ha 2 UUIDs 0x2800.
+També hi ha 3 característiques en total, marcades en groc, (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
 Com que els valors corresponents al nivell de bateria i la temperatura estan estandarditzats\cite{Battery_Level}\cite{Temperature_Characteristic}, no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
 
 En la declaració de servei de temperatura (\textit{Handle} 0x0103) es pot veure que no forma part de l'estàndard ja que el seu valor té 128 bits.
@@ -352,7 +355,7 @@ Aquest UUID identifica el servei que jo he desenvolupat.
 No es pot saber amb seguretat que algun altre desenvolupador no hagui escollit el mateix UUID i no hi ha una coordinació establerta.
 Tot i no haver-hi cap mecanisme per a evitar col·lisions es considera del tot improbable degut a la longitud  de 128 bits.
 La condició que ha de complir el UUID és que no sigui XXXXXXXX-0000-1000-8000-00805F9B34FB ja que aquest sufix correspon als que estan reservats per a l'estàndard.
-En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també es poden veure tots els que ja s'han reservat per a empreses a questa web \cite{reservedUUIDs}.
+En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també es poden veure tots els que ja s'han reservat per a empreses (veure \cite{reservedUUIDs}).
 
 En aquest exemple no n'hi ha cap però les característiques poden tenir descriptors \cite{descriptors} que permeten aportar informació addicional sobre la característica que els precedeix.
 Els atributs també tenen propietats d'accés que defineixen quines accions es poden prendre.
@@ -452,16 +455,19 @@ El interval d'escaneig és el temps des de que es comença a escanejar en dos ca
 La finestra d'escaneig és el temps en que s'està escoltant a un canal.
 Duració d'escaneig, és el temps que el dispositiu estarà escanejant.
 Es pot configurar des de 10 ms fins a 65 segons o escaneig indefinit.
-El període d'escaneig indica el temps entre que comencen les duracions d'escaneig i que serveix per poder fer pauses en que el dispositiu no escaneja. 
+El període d'escaneig indica el temps entre que comencen les duracions d'escaneig i que serveix per poder fer pauses en que el dispositiu no escaneja.
+Aquests paràmetres es poden identificar en la figura \ref{fig:escaneig_canals}.
 
 %TODO: Refer gràfics
 \begin{figure}[!h]
 	\begin{center}
 		\begin{subfigmatrix}{1}
-			\subfigure[Títol subfigura 1]{\includegraphics[width=0.8\textwidth]{./images/scanning_diagram}}
-			\subfigure[Títol subfigura 1]{\includegraphics[width=0.8\textwidth]{./images/scanduationperiod}}
+			\subfigure[Escaneig de canals]{\includegraphics[width=0.8\textwidth]{./images/scanning_diagram}}
+			\subfigure[Periodes de escaneig]{\includegraphics[width=0.8\textwidth]{./images/scanduationperiod}}
 		\end{subfigmatrix}
 	\end{center}
+	\caption{Paràmetres d'escaneig}
+	\label{fig:escaneig_canals}
 \end{figure}
 
 \section{Connexions}
