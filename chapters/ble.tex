@@ -409,10 +409,20 @@ El ADV\_EXT\_IND és el paquet que s'envia pels canals d'anunci i indica en quin
 Els paquets que s'envien per canals secundaris tenen el prefix ``AUX'' i permeten enviar fins a 254 bytes de dades pròpies .
 El AUX\_ADV\_IND és el paquet que s'envia per un canal secundari després que s'hagui indicat pel tipus de paquet anterior.
 En aquest paquet es pot configurar si es permet o no connexió i escaneig però no les dues.
-
 El AUX\_SYNC\_IND s'utilitza per indicar que s'enviaran anuncis periòdics pels canals secundaris.
 D'aquesta manera no cal utilitzar els canals d'anunci tant sovint.
-Per últim, el AUX\_CHAIN\_IND permet encadenar múltiples paquets (indicant quin serà el següent) per tal de transmetre encara més informació sense necessitat d'establir connexió.
+
+Per poder enviar moltes dades sense necessitat d'establir una connexió es pot fer utilitzant el paquet AUX\_CHAIN\_IND.
+Amb aquest tipus de paquet un cop s'ha enviat l'anunci pel canal primari es poden enviar múltiples paquets d'anunci per canals secundaris tal i com es veu a la figura \ref{fig:aux_chain_ind}.
+En cada capçalera s'indica en quin moment i per quin canal es transmetrà el següent paquet.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{./images/aux_chain_ind.png}
+		\caption{Exemple de AUX\_CHAIN\_IND \cite{aux_chain_ind}}
+		\label{fig:aux_chain_ind}
+	\end{center}
+\end{figure}
 
 \subsection{Paràmetres}
 BLE permet seleccionar qualsevol combinació de canals per on transmetre els anuncis.
@@ -429,6 +439,14 @@ Un cop s'estableix la connexió ja es poden enviar dades ràpidament però per e
 És per això que quan es desenvolupen serveis que interaccionen amb persones no és acceptable haver d'esperar desenes de segons per tant habitualment s'utilitzen valors d'entre 100 i 500 ms.
 Per a dispositiu que requereixen la mínima latència possible en les dades s'utilitzen valors entre 20 i 50 ms.
 Per últim, aquells dispositius que proporcionen dades que no varien sovint i que no requereixen interacció utilitzen valors des de 1 fins a 5 segons.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics{./images/advertisement_params.png}
+		\caption{Paràmetres d'anunci \cite{advertisment_params}}
+		\label{fig:advertisment_params}
+	\end{center}
+\end{figure}
 
 Tot i que es pot definir el valor del interval d'anunci cal tenir en compte que segons la especificació de BLE s'aplica un retard pseudo-aleatori que pot ser de fins a 10 ms i afecta als serveis que requereixen molt poca latència.
 
