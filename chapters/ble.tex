@@ -289,6 +289,7 @@ La L2CAP també és la capa que fa el seguiment de la qualitat de la connexió i
 La capa \textit{Security Management Protocol} proveeix de diferents serveis relacionats amb la seguretat de la connexió.
 Aquests serveis són: autenticació i autorització de dispositius i també integritat, confidencialitat i privacitat de les dades.
 El protocol té tipus d'emparellament i generació de claus flexible per aconseguir reduir els requeriments de memòria i energia.
+Es comentarà en més profunditat a l'apartat \ref{sec:security}
 
 \subsubsection{ATT \& GATT}
 El \textit{Attribute Protocol} (ATT d'ara endavant) és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} defineix com utilitzar el protocol per oferir serveis a capes superiors.
@@ -540,8 +541,8 @@ La latència del esclau, que és un dels paràmetres de connexió, defineix la q
 %TODO: Refer gràfic
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{./images/slave_latency.jpeg}
-		\caption{Comparació d'esdeveniments amb latència d'esclau}
+		\includegraphics{./images/slave_latency_new.png}
+		\caption{Comparació d'esdeveniments amb latència d'esclau \cite{slave_latency}}
 	\end{center}
 \end{figure}
 
@@ -550,6 +551,7 @@ Si es supera aquest temps es considera que la connexió s'ha acabat i per tant p
 Això pot passar per exemple en entorns molt sorollosos o més sovint quant els dispositius surten del seu abast i la senyal no és detectable.
 
 \section{Seguretat}
+\label{sec:security}
 Com que l'ús de BLE és molt flexible per poder-lo utilitzar en certes aplicacions es requereix que l'intercanvi de dades sigui segur.
 Això significa que la connexió tingui resistència a atacs de \textit{eavesdrop} passiu i de \textit{man in the middle}.
 BLE utilitza l'encriptació simètrica AES-CCM, però la seguretat rau en com s'intercanvien la clau.
