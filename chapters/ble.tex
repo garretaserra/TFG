@@ -131,7 +131,7 @@ En quant al estàndard Bluetooth Low Energy cal diferenciar les característique
 LE2M (\textit{Low Energy 2 Mega}) és el nom que te la nova capa física quan opera a 2 MBd\footnote{Baud: Unitat de mesura de la velocitat de modulació, que correspon al nombre de canvis de l'estat d'un senyal en un segon \cite{Baud_definition}.} en la versió 5 enlloc dels 1 MBd que es podia anteriorment en la versió 4.0.
 L'augment de la velocitat dels símbols permet augmentar la quantitat de dades que es poden transmetre a nivell d'aplicació.
 Aquest canvi està pensat per facilitar la utilització de BLE en situacions més exigents pel que fa a volum de dades com per exemple múltiples mesures del cos humà.
-
+ 
 \subsubsection{Abast}
 Tot i que la tecnologia BLE ja de per si en la seva versió original (4.0) tenia una distància màxima de transmissió teòrica molt gran (100 metres sense obstacles), no era suficient per a tots els casos.
 Per exemple, era necessari tenir més abast en els sectors com el de les cases intel·ligents.
@@ -427,19 +427,18 @@ En cada capçalera s'indica en quin moment i per quin canal es transmetrà el se
 
 \subsection{Paràmetres}
 BLE permet seleccionar qualsevol combinació de canals per on transmetre els anuncis.
-Per consumir menys energia es pot transmetre en un únic canal però això es recomana no fer-ho ja que si el canal és sorollós el dispositius no es podrà detectar.
-Tot i la flexibilitat
+Per consumir menys energia es pot transmetre en un únic canal però això es recomana no fer-ho ja que si el canal és sorollós els dispositius no el podran detectar.
 
-L'altre paràmetre molt important que es pot configurar és el interval d'anunci.
-Aquest valor defineix el temps que passa entre que es transmeten anuncis pel mateix canal.
+Un paràmetre molt important que es pot configurar és el interval d'anunci.
+Aquest valor defineix el temps que passa entre que es transmeten anuncis pel mateix canal tal i com es pot veure en la figura \ref{fig:advertisment_params}.
 La especificació de BLE defineix que pot estar entre 20ms i 10.24s amb salts de 0.625ms.
 Aquest paràmetre és crític depenent del servei que es vol oferir.
-Si el valor és molt alt ajudarà a reduir el consum d'energia considerablement però això augmentarà la latència de transmissió de dades i de descobriment de dispositius.
+Si el valor és molt alt ajudarà a reduir el consum d'energia considerablement però això augmentarà la latència de descobriment de dispositius.
 
 Un cop s'estableix la connexió ja es poden enviar dades ràpidament però per establir la són necessaris múltiples intervals d'anunci i cal considerar que es possible que el receptor no detecti tots els anuncis. 
 És per això que quan es desenvolupen serveis que interaccionen amb persones no és acceptable haver d'esperar desenes de segons per tant habitualment s'utilitzen valors d'entre 100 i 500 ms.
-Per a dispositiu que requereixen la mínima latència possible en les dades s'utilitzen valors entre 20 i 50 ms.
-Per últim, aquells dispositius que proporcionen dades que no varien sovint i que no requereixen interacció utilitzen valors des de 1 fins a 5 segons.
+En canvi, per a dispositiu que requereixen la mínima latència possible en les dades s'utilitzen valors entre 20 i 50 ms.
+Finalment, aquells dispositius que proporcionen dades que no varien sovint i que no requereixen interacció utilitzen valors des de 1 fins a 5 segons.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -450,6 +449,7 @@ Per últim, aquells dispositius que proporcionen dades que no varien sovint i qu
 \end{figure}
 
 Tot i que es pot definir el valor del interval d'anunci cal tenir en compte que segons la especificació de BLE s'aplica un retard pseudo-aleatori que pot ser de fins a 10 ms i afecta als serveis que requereixen molt poca latència.
+Aquest retard aleatori s'implementa per evitar col·lisions entre dispositius que s'han sincronitzat involuntàriament i tenen el mateix interval o un múltiple entre si.
 
 Tot i que fins ara s'ha parlat de definir un únic valor d'interval d'anunci habitualment s'estableix un règim on es va canviant aquest valor depenent de la situació.
 Quan el dispositiu s'encén o quan s'espera una connexió es disminueix l'interval d'anunci per tal de que la connexió s'estableixi més ràpid.
@@ -458,25 +458,26 @@ En canvi, quan fa temps que no hi ha cap connexió s'augmenta l'interval d'anunc
 
 \section{Escaneig}
 Quan un dispositius es vol anunciar a part de transmetre anuncis també ho pot fer fent escaneigs a dispositius que s'han anunciat prèviament.
-La especificació de BLE 5 anomena el procés d'escanejar com a \textit{Device Discovery} i es basa en dos tipus, el escaneig actiu i el passiu.
+El procés d'escanejar en la especificació de BLE 5 s'anomena \textit{Device Discovery} i es basa en dos tipus, el escaneig actiu i el passiu.
 En cas de fer escaneig passiu només es pot obtenir informació a través dels anuncis d'altres dispositius.
 Si el escaneig és actiu es poden enviar requeriments d'escaneig per demanar informació addicional a la que hi ha als anuncis.
 
 \subsection{Tipus}
-En el cas dels paquets d'escaneig n'hi ha 2 originalment i BLE 5 n'afegeix 2 més.
+Per a l'escaneig actiu hi ha dos paquets 2 en la versió 4.0 i BLE 5 n'afegeix 2 més.
 El SCAN\_REQ serveix per requerir més informació a un dispositiu que s'està anunciant i que accepta aquest tipus de petició.
 En el paquet no hi van dades pròpies, només s'hi indica el origen i destí.
 El SCAN\_RSP és la resposta al paquet anterior, conté l'adreça pròpia del anunciador i fins a 31 bytes de dades.
-La extensió que aporta BLE 5 defineix 2 nous tipus de paquets, el AUX\_SCAN\_REQ i el AUX\_SCAN\_RSP que tenen la mateixa funcionalitat que els anteriors respectivament.
-La diferència és que serveixen per a quan es comunica a través de canals secundaris i que la quantitat de dades passa a ser de fins a 254 bytes en la resposta.
+L'extensió que aporta BLE 5 defineix 2 nous tipus de paquets, el AUX\_SCAN\_REQ i el AUX\_SCAN\_RSP que tenen la mateixa funcionalitat que els anteriors respectivament.
+La diferència és que serveixen per a les comunicacions a través de canals secundaris.
+Conseqüentement la quantitat de dades passa a ser de fins a 254 bytes en la resposta.
 
 \subsection{Paràmetres}
-El interval d'escaneig és el temps des de que es comença a escanejar en dos canals consecutius, es pot definir entre 10 ms i 10.24 s.
+L'interval d'escaneig és el temps des de que es comença a escanejar en dos canals consecutius, es pot definir entre 10 ms i 10.24 s.
 La finestra d'escaneig és el temps en que s'està escoltant a un canal.
 Duració d'escaneig, és el temps que el dispositiu estarà escanejant.
 Es pot configurar des de 10 ms fins a 65 segons o escaneig indefinit.
 El període d'escaneig indica el temps entre que comencen les duracions d'escaneig i que serveix per poder fer pauses en que el dispositiu no escaneja.
-Aquests paràmetres es poden identificar en la figura \ref{fig:escaneig_canals}.
+Tots aquests paràmetres es poden identificar en la figura \ref{fig:escaneig_canals}.
 
 %TODO: Refer gràfics
 \begin{figure}[!h]
@@ -513,13 +514,14 @@ En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre 
 	\begin{center}
 		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
 		\caption{Establiment de connexió}
+		\label{fig:unicast_roles}
 	\end{center}
 \end{figure}
 
 
-En aquesta figura es pot veure el procediment en que dos dispositius estableixen una connexió.
+En la figura \ref{fig:unicast_roles} es pot veure el procediment en que dos dispositius estableixen una connexió.
 Tenim el dispositiu A que inicialment està coma observador i el dispositiu B que s'està anunciant.
-Cal recordar que els anuncis no es detecten tots ja que no sempre s'està transmetent i escoltant en el mateix canal.
+Cal recordar que els anuncis no es detecten tots ja que els dispositius no sempre estan transmetent i escoltant en el mateix canal.
 
 El dispositiu A decideix establir una connexió amb el dispositiu B i envia un requeriment de connexió en l'últim canal en que s'ha escoltat l'anunci.
 El dispositiu B després de transmetre un anunci per un canal escolta durant un temps determinat en el mateix canal a l'espera de requeriments de connexió.
@@ -537,12 +539,14 @@ En cas que es vulgui fixar simplement d'indica el mateix valor per al mínim i a
 
 BLE permet al esclau saltar-se esdeveniments per tal d'estalviar bateria, per exemple si no te dades a transmetre.
 La latència del esclau, que és un dels paràmetres de connexió, defineix la quantitat màxima de esdeveniments que l'esclau es pot saltar i que la connexió segueixi establerta.
+En la figura \ref{fig:slave_latency} es pot veure la comparació quan s'utilitza la latència d'esclau.
+Quant s'utilitza aquest paràmetre permet tenir una connexió amb una latència baixa pero amb un consum igualment reduït mentre no s'haguin de transmetre dades molt sovint.
 
-%TODO: Refer gràfic
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics{./images/slave_latency_new.png}
 		\caption{Comparació d'esdeveniments amb latència d'esclau \cite{slave_latency}}
+		\label{fig:slave_latency}
 	\end{center}
 \end{figure}
 
@@ -554,14 +558,13 @@ Això pot passar per exemple en entorns molt sorollosos o més sovint quant els 
 \label{sec:security}
 Com que l'ús de BLE és molt flexible per poder-lo utilitzar en certes aplicacions es requereix que l'intercanvi de dades sigui segur.
 Això significa que la connexió tingui resistència a atacs de \textit{eavesdrop} passiu i de \textit{man in the middle}.
-BLE utilitza l'encriptació simètrica AES-CCM, però la seguretat rau en com s'intercanvien la clau.
+BLE utilitza l'encriptació simètrica AES-CCM, però la seguretat rau en com els nodes s'intercanvien la clau.
 
 Hi ha diferents maneres que el desenvolupador pot escollir utilitzar i que varien en seguretat i facilitat d'ús.
 Hi ha el mètode sense seguretat anomenat \textit{Just Works}.
 Aquest mètode és útil en casos en que no es requereix seguretat o que no es possible tenir-ne per les limitacions del dispositiu amb el que es vol establir connexió.
 
-Un altre mètode es el \textit{Out of Band} aquest permet utilitzar una altre tecnologia per l'intercanvi de claus.
-Un exemple seria utilitzar NFC (comú en auriculars d'alta gama).
+Un altre mètode es el \textit{Out of Band} aquest permet utilitzar una altre tecnologia per l'intercanvi de claus, com per exemple NFC (comú en auriculars d'alta gama).
 La seguretat d'aquest mètode depèn completament en el nou sistema per l'intercanvi de claus.
 
 El més habitual és el \textit{Passkey} en que l'intercanvi de claus es bassa en una contrasenya de 4 a 6 dígits.
