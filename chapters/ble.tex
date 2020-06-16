@@ -247,7 +247,7 @@ Per mitigar aquest efecte negatiu la desviació de freqüència passa a ser de 3
 La capa d'enllaç és la encarregada d'escanejar, anunciar i gestionar connexions amb altres dispositius.
 
 Depenent d'el moment en la connexió els dispositius estan en diferents estats.
-Els estats son: Espera (\textit{Idle}), Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner})i Iniciador (\textit{Initiator}), Esclau (\textit{Slave}) o Mestre (\textit{Master}).
+Els estats son: Espera (\textit{Idle}), Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}) i Iniciador (\textit{Initiator}), Esclau (\textit{Slave}) o Mestre (\textit{Master}).
 A la figura \ref{Link_State_Diagram} s'hi pot veure el flux d'estats per arribar a ua connexió.
 
 \begin{figure}[!h]
@@ -347,19 +347,20 @@ Aquest \textit{handle} correspon al atribut on hi ha les dades de la caracterís
 
 En aquest exemple de la taula \ref{Attribute_Table} es pot veure que hi ha 2 serveis diferents, marcats en vermell, ja que hi ha 2 UUIDs 0x2800.
 També hi ha 3 característiques en total, marcades en groc, (una pel primer servei i dues pel segon) ja que hi ha 3 atributs amb UUID 0x2803.
-Com que els valors corresponents al nivell de bateria i la temperatura estan estandarditzats\cite{Battery_Level}\cite{Temperature_Characteristic}, no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
+Com que els valors corresponents al nivell de bateria i la temperatura estan estandarditzats (veure \cite{Battery_Level}\cite{Temperature_Characteristic}, respectivament), no cal especificar a que es refereixen a percentatge de bateria restant i a graus Celsius.
 
 En la declaració de servei de temperatura (\textit{Handle} 0x0103) es pot veure que no forma part de l'estàndard ja que el seu valor té 128 bits.
 Aquest valor correspon a un UUID completament aleatori: 706676c8-3e49-4ecc-9379-fa9851444e53 que he escollit jo.
-Aquest UUID identifica el servei que jo he desenvolupat.
+Aquest UUID identifica el servei que jo he desenvolupat in ten teoria hauria de ser únic.
 No es pot saber amb seguretat que algun altre desenvolupador no hagui escollit el mateix UUID i no hi ha una coordinació establerta.
-Tot i no haver-hi cap mecanisme per a evitar col·lisions es considera del tot improbable degut a la longitud  de 128 bits.
+Tot i així es considera del tot improbable que hi hagui col·lisions degut a la longitud de 128 bits.
+
 La condició que ha de complir el UUID és que no sigui XXXXXXXX-0000-1000-8000-00805F9B34FB ja que aquest sufix correspon als que estan reservats per a l'estàndard.
-En cas de voler tenir un UUID global reservat es pot fer pagant \$2.500 i també es poden veure tots els que ja s'han reservat per a empreses (veure \cite{reservedUUIDs}).
+En cas de voler tenir un UUID global reservat es pot, amb \$2.500 de cost i també es poden veure tots els que ja s'han reservat per a empreses (veure \cite{reservedUUIDs}).
 
 En aquest exemple no n'hi ha cap però les característiques poden tenir descriptors \cite{descriptors} que permeten aportar informació addicional sobre la característica que els precedeix.
 Els atributs també tenen propietats d'accés que defineixen quines accions es poden prendre.
-Es comentaran en un exemple real més endavant \ref{sec:properties}.
+Les propietats es comentaran en un exemple real més endavant \ref{sec:properties}.
 
 \subsubsection{GAP}
 La \textit{Generic Access Profile} és la capa encarregada de la funcionalitat de les connexions.
@@ -400,7 +401,7 @@ Això és útil per a balises, per exemple, per permetre localització.
 El ADV\_SCAN\_IND també està orientat a balises però estarà escoltant per si rep missatges d'escaneig amb els que pot respondre amb poca informació.
 Això permet una comunicació bidireccional limitada sense necessitat d'establir connexió.
 
-Tots els paquets excepte el ADV\_DIRECT\_IND permeten transmetre 31 bytes de dades pròpies que han de seguir el format establert que s'explicarà a l'apartat \ref{sec:format}.
+Tots els paquets excepte el ADV\_DIRECT\_IND permeten transmetre 31 bytes de dades pròpies que han de seguir el format establert que s'explicarà a l'apartat \ref{sec:format}
 
 \label{Advertising_Extension_PDU}
 En BLE 5 s'afegeixen 4 paquets més que permeten augmentar la quantitat de dades que es poden transmetre abans d'haver establert una connexió.
