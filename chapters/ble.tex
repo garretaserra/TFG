@@ -94,7 +94,7 @@ La tecnologia és pot controlar a través de Cortana, Alexa o Apple Watch entre 
 El Long Range desenvolupat per Semtech està orientat a cobrir les distàncies més grans d'entre les MANETs.
 Ho aconsegueix reduint la tassa de transmissió de dades reals així augmentant el temps dedicat a cada símbol donant més oportunitats al receptor per detectar correctament el senyal.
 Aquesta tècnica s'anomena espectre eixamplat i LoRa la implementa amb \textit{Chirps}.
-Els \textit{Chirps} són polsos que es transmeten, s'envien més \textit{Chirps} que bits i la relació ve definida pel factor d'eixamplat o \textit{Spreading Factor}.
+Els \textit{Chirps} són els polsos que es transmeten, sempre s'envien més \textit{Chirps} que bits i la relació ve definida pel factor d'eixamplat o \textit{Spreading Factor}.
 LoRa permet configurar aquest paràmetre que defineix l'equilibri entre la tassa de dades i la distància, pot prendre valors entre 7 i 12.
 El LoRa també implementa protecció contra errors o FEC (\textit{Forward Error Correction}) per incrementar encara més el abast.
 
@@ -126,6 +126,7 @@ Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva ve
 \section{Versions de BLE}
 \label{Versions_BLE}
 En quant al estàndard Bluetooth Low Energy cal diferenciar les característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius \cite{BLE_5_improvement_over_4}.
+les novetats que aporta la nova versió principalment tenen l'objectiu de millorar les capacitats del protocol, quan l'entorn és favorable i quan no s'estableix connexió.
 
 \subsubsection{LE 2M}
 LE2M (\textit{Low Energy 2 Mega}) és el nom que te la nova capa física quan opera a 2 MBd\footnote{Baud: Unitat de mesura de la velocitat de modulació, que correspon al nombre de canvis de l'estat d'un senyal en un segon \cite{Baud_definition}.} en la versió 5 enlloc dels 1 MBd que es podia anteriorment en la versió 4.0.
@@ -146,7 +147,7 @@ El desavantatge és que més bits dels que es transmeten es dediquen a corregir 
 
 El esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb un codificador convolucional que pot generar a la sortida més bits dels que entren. El codificador pot funcionar amb dos esquemes diferents s'anomenen $S=2$ i $S=8$.
 Amb els diferents esquemes s'utilitza una taxa de codi diferent que pot augmentar la capacitat de correcció i incrementar el abast però disminuir la quantitat de dades que es poden transmetre.
-Es poden veure les diferents esquemes a la taula \ref{FEC} 
+Es poden veure les capacitats dels diferents esquemes a la taula \ref{FEC} 
 
 \begin{table}[htb]
 	\begin{center}
@@ -192,7 +193,7 @@ En entrar en detall queda clar com el protocol s'ha dissenyat de forma molt flex
 	\end{center}
 \end{figure}
 
-La pila pròpia de Bluetooth Low Energy està dividida en dues parts, tal i com es pot veure a la figura \ref{ble_stack}, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre si.
+La pila pròpia de Bluetooth Low Energy està dividida en dues parts, tal i com es pot veure a la figura \ref{ble_stack}, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre elles.
 Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART.
 La idea darrera separar la pila en dos serveix per fer compatible xips fets per diferents fabricants.
 Les dues parts de la pila poden estar implementades en el mateix xip anomenat configuració única o en xips separats anomenat configuració dual.
@@ -220,24 +221,24 @@ Tal i com ja s'ha comentat abans treballa a la banda de 2.4 GHz en 40 canals dif
 	\end{center}
 \end{figure}
 
-Els canals es classifiquen es divideixen en 37 de dades o també anomenats secundaris i 3 d'anunci (\textit{Advertisment} o primaris).
+Els canals es classifiquen en 37 de dades o també anomenats secundaris i 3 d'anunci (\textit{Advertisment}) o primaris.
 En els canals d'anunci es vol tenir més qualitat ja que la informació que s'hi transmet és més important.
 Per exemple, són els canals que s'utilitzen per descobrir altres dispositius.
 És per això, que els canals d'anunci es troben en el buits que deixen els canals WiFi més comuns (1, 6 i 11), es pot veure a la figura \ref{BLE_Channels}.
 
-El protocol BLE està orientat a consumir el mínim d'energia possible i això s'aconsegueix, principalment, reduint el temps que s'està transmitent o escoltant a través de la ràdio.
+El protocol BLE té l'objectiu de consumir el mínim d'energia possible i això s'aconsegueix, principalment, reduint el temps que s'està transmitent o escoltant a través de la ràdio.
 Si no s'ha de rebre o transmetre res, es pot apagar la ràdio i s'estalvia energia.
 La manera de tenir apagada la ràdio més temps és transmetre les dades el més ràpid possible.
 BLE és dels protocols que tenen la tassa de transmissió física \footnote{La tassa de transmissió física és aquella a la que transmeten la ràdio, no confondre amb la tassa de dades d'aplicació \textit{Throughput}} més alta, de fins a 1 Mbps originalment i de 2 Mbps en BLE 5.
 
-La potencia de transmissió de la ràdio es pot controlar, disminuint-la per consumir menys energia.
-La potència màxima és de 10 dBm (10 mW) segons la especificació\footnote{La placa utilitzada pot transmetre fins a 5 dBm de potència}.
-Això serà possible sempre que l'entorn ho permeti i el receptor pugui rebre el senyal correctament.
+La potència màxima de transmissió és de 10 dBm (10 mW) segons la especificació\footnote{La placa utilitzada pot transmetre fins a 5 dBm de potència}.
+Aquesta potència de la ràdio es pot controlar, disminuint-la per consumir menys energia.
+Tot i que això, només serà possible sempre si l'entorn ho permet i el receptor pot rebre el senyal correctament.
 El paquets de BLE indiquen la potència amb que s'han transmès i junt amb el RSSI (\textit{Received Signal Strength Indicator}), la potència rebuda, es pot estimar la distància fins al transmissor.
 Conèixer aquest valor és útil per a certes aplicacions, per exemple, localització en espais interiors.
 
 La modulació utilitzada per BLE és la GFSK (\textit{Gaussian Frequency Shift Keying}), la mateixa que la majoria de MANETS que es basen en el IEEE 802.11.
-Aquesta modulació és una de les més robustes, simples d'implementar i és el que permet, en part, a BLE tenir un abast molt més gran que Bluetooth Clàssic.
+Aquesta modulació és una de les més robustes, simples d'implementar i és el que permet a BLE, en part, tenir un abast molt més gran que Bluetooth Clàssic.
 El filtre gaussià redueix el consum pic d'energia \cite{BLE_Review} i també redueix les interferències en freqüències veïnes.
 En BLE 4.0 s'utilitza una desviació freqüencial de 185 kHz, en BLE 5 com que augmenta la velocitat de símbols també creix la interferència intersimbòlica.
 Per mitigar aquest efecte negatiu la desviació de freqüència passa a ser de 370 kHz.
@@ -248,7 +249,7 @@ La capa d'enllaç és la encarregada d'escanejar, anunciar i gestionar connexion
 
 Depenent d'el moment en la connexió els dispositius estan en diferents estats.
 Els estats son: Espera (\textit{Idle}), Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}) i Iniciador (\textit{Initiator}), Esclau (\textit{Slave}) o Mestre (\textit{Master}).
-A la figura \ref{Link_State_Diagram} s'hi pot veure el flux d'estats per arribar a ua connexió.
+A la figura \ref{Link_State_Diagram} s'hi pot veure el flux d'estats per arribar a una connexió.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -258,8 +259,7 @@ A la figura \ref{Link_State_Diagram} s'hi pot veure el flux d'estats per arribar
 	\end{center}
 \end{figure}
 
-Per mitigar l'efecte de les interferències el protocol utilitza salt en freqüència (\textit{frequency hopping}).
-Això permet reduir l'impacte d'una interferència estreta.
+Aquesta capa és l'encarregada d'implementar el salt en freqüència (\textit{frequency hopping}) que permet mitigar l'impacte de les interferències estretes.
 Si s'utilitzes només un dels canals BLE i en aquell canal hi haguessin interferències no es podria establir comunicació.
 Al alternar múltiples canals, encara que hi hagui interferències en algun d'ells es considera que no n'hi haurà en tots i per tant hi podrà haver una comunicació bona.
 Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats a dades.
@@ -275,13 +275,13 @@ Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats 
 \end{figure}
 
 \subsubsection{L2CAP (\textit{Logical Link Control and Adaptation Protocol})}
-La \textit{Logical Link Control and Adaptation Protocol} és la capa encarregada de l'establiment de la connexió lògica, multiplexament de protocols, segmentació i 'reasembly', control de flux per canal.
+La \textit{Logical Link Control and Adaptation Protocol} és la capa encarregada de l'establiment de la connexió lògica, multiplexament de protocols, segmentació i reassemblatge de paquets, i control de flux individual per canal.
 
 La multiplexació de protocols és necessària per aconseguir que BLE sigui flexible.
-Permet que des de capes superiors s'utilitzin els protocols que es vulguin i no només aquells determinats pel estàndard de BLE.
+Permet que des de capes superiors s'utilitzin els protocols que es necessitin i no només aquells determinats pel estàndard de BLE.
 
-Per limitació física de l'arquitectura existeix una MTU\footnote{La MTU és la mida màxima que pot tenir un paquet} (\textit{Maximum Transmission Unit}) i per tant els paquets de les capes superiors es converteixen en paquets més petits per a les capes inferiors.
-Aquesta MTU es pot definir per cada connexió així flexibilitzant la manera que s'utilitza el protocol per a cada cas.
+Per limitació física de l'arquitectura existeix una MTU\footnote{La MTU és la mida màxima que pot tenir un paquet} (\textit{Maximum Transmission Unit}) i per tant és necessari segmentar els paquets de les capes superiors que es converteixen en paquets més petits per a les capes inferiors.
+Aquesta MTU es pot definir (dins dels límits establerts) per cada connexió així flexibilitzant la manera que s'utilitza el protocol per a cada cas.
 
 La L2CAP també és la capa que fa el seguiment de la qualitat de la connexió i dels recursos utilitzats per assegurar-se que les necessitats dels serveis es compleixen.
 
@@ -289,7 +289,7 @@ La L2CAP també és la capa que fa el seguiment de la qualitat de la connexió i
 La capa \textit{Security Management Protocol} proveeix de diferents serveis relacionats amb la seguretat de la connexió.
 Aquests serveis són: autenticació i autorització de dispositius i també integritat, confidencialitat i privacitat de les dades.
 El protocol té tipus d'emparellament i generació de claus flexible per aconseguir reduir els requeriments de memòria i energia.
-Es comentarà en més profunditat a l'apartat \ref{sec:security}
+Els diferents mètodes de seguretat es comentaran en més profunditat a l'apartat \ref{sec:security}
 
 \subsubsection{ATT \& GATT}
 El \textit{Attribute Protocol} (ATT d'ara endavant) és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} defineix com utilitzar el protocol per oferir serveis a capes superiors.
@@ -483,8 +483,8 @@ Tots aquests paràmetres es poden identificar en la figura \ref{fig:escaneig_can
 \begin{figure}[!h]
 	\begin{center}
 		\begin{subfigmatrix}{1}
-			\subfigure[Escaneig de canals]{\includegraphics[width=0.8\textwidth]{./images/scanning_diagram}}
-			\subfigure[Periodes de escaneig]{\includegraphics[width=0.8\textwidth]{./images/scanduationperiod}}
+			\subfigure[Escaneig de canals]{\includegraphics[width=0.9\textwidth]{./images/scanning_diagram}}
+			\subfigure[Periodes de escaneig]{\includegraphics[width=0.9\textwidth]{./images/scanduationperiod}}
 		\end{subfigmatrix}
 	\end{center}
 	\caption{Paràmetres d'escaneig}
@@ -512,7 +512,7 @@ En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre 
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
+		\includegraphics[width=1.2\textwidth]{./images/rols_unicast.png}
 		\caption{Establiment de connexió}
 		\label{fig:unicast_roles}
 	\end{center}
