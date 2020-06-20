@@ -5,21 +5,24 @@ En tot el espai radioelèctric hi ha bandes que estan assignades per a un ús pr
 Per utilitzar-les es necessari respectar la normativa nacional que normalment assimila la normativa comuna segons la ITU.
 Aquestes bandes es designen ISM, acrònim de Industrial, Scientific i Medical, que són els usos pel que s'havia pensat que serviria originalment, avui en dia els usos són més diversos.
 
-Com que l'es bandes ISM estan suficientment establertes arreu del món es crea la possibilitat per el públic general utilitzar comunicació inal·làmbrica amb molta facilitat.
+Com que les bandes ISM estan suficientment establertes arreu del món es crea la possibilitat pel públic general utilitzar comunicació inal·làmbrica amb molta facilitat.
 Aquesta situació proporciona el disseny de productes per al consumidor habitual que ràpidament veu els avantatges de la comunicació inal·làmbrica entre dispositius.
 En aquest entorn sorgeix la necessitat d'establir estàndards entre les companyies principals dels sectors corresponents.
-Per definir els estàndards s'agrupen les companyies i formen grups com al WI-FI Alliance o el NFC Forum.
+Per definir els estàndards s'agrupen les companyies i formen grups com la WI-FI Alliance o el NFC Forum.
 
 \section{Bluetoooth}
-Bluetooth és una estàndard per l'intercanvi de dades de curt abast que utilitza la banda ISM de 2.4 GHz.
+Bluetooth és un estàndard per l'intercanvi de dades de curt abast que utilitza la banda ISM de 2.4 GHz.
 És un dels protocols més coneguts i utilitzats, sobretot a través dels dispositius mòbils.
 A continuació s'explicarà l'origen d'aquesta tecnologia.
 
 \subsection{Història de Bluetooth Clàssic}
-El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth Clàssic va començar l'any 1989 per part de Ericsson.
-Inicialment la voluntat era utilitzar aquesta tecnologia per a connectar auriculars inal·làmbrics.
-D'altra banda a IBM es volia integrar connectivitat de la xarxa de telefonia als ordinadors portàtils però no era factible degut al consum d'energia que requeria la tecnologia mòbil.
-IBM i Ericsson van acordar utilitzar aquesta tecnologia de curt abast en els seus productes corresponents.
+El desenvolupament de tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth Clàssic va començar l'any 1989 per part d'Ericsson.
+Inicialment l'objectiu d'aquesta tecnologia era poder connectar auriculars i ordinadors sense necessitat de una connexió per cables.
+D'altra banda a IBM es volia integrar la connectivitat de la xarxa de telefonia als ordinadors portàtils per poder realitzar i rebre trucades des d'aquests mateixos.
+El problema era que això suposava un consum d'energia significatiu per als ordinadors portàtils de l'època.
+
+IBM va veure que la tecnologia que estava desenvolupant Ericsson podria servir per tenir connectivitat de telefonia en els portàtils si es connectava el telefon mòbil amb l'ordinador.
+Les dues empreses van acordar utilitzar aquesta tecnologia de curt abast en els seus productes corresponents.
 El resultat va ser que els mòbils Ericsson i ordinadors ThinkPad es podrien comunicar entre si i així des del portàtil seria possible fer trucades.
 Com que ni Ericsson ni IBM tenien majoria en la quota de mercat dels respectius productes van decidir que la tecnologia fos oberta.
 D'aquesta manera es buscava integrar a més participants en aquesta tecnologia per tal d'estendre-la a la majoria de dispositius possibles.
@@ -364,9 +367,16 @@ Els atributs també tenen propietats d'accés que defineixen quines accions es p
 Les propietats es comentaran en un exemple real més endavant \ref{sec:properties}.
 
 \subsubsection{GAP}
-La \textit{Generic Access Profile} és la capa encarregada de la funcionalitat de les connexions.
+La \textit{Generic Access Profile} és la capa superior de la pila BLE.
+Aquesta capa és la que interactua amb la aplicació i per tant ofereix la Interfície de Programació d'Aplicacions (API en anglès) amb la funcionalitat que aporta BLE.
 
-A part dels estats segons la especificació el dispositiu sempre està en un\footnote{En BLE 5.1 es permet certes combinacions de rols} dels quatre rols: Emissor, Observador, Perifèric o Central.
+El dispositiu sempre està en un\footnote{En BLE 5.1 es permet certes combinacions de rols} dels quatre rols: Emissor, Observador, Perifèric o Central.
+Si el rol és emissor, s'enviaran anuncis per poder ser descobert.
+Si és Observador s'escoltaran els canals per obtenir informació dels anuncis.
+Un cop s'estigui en una connexió el perifèric serà el node amb menys capacitats de processament o de bateria i és requerirà menys d'ell per matenir la connexió, per exemple a un rellotge intel·ligent
+En canvi el node Central serà el que tingui més recursos com pot ser un telefon intel·ligent o un ordinador.
+Amb aquests rols i la especificació del GAP existeix el estandàrd que permet els dispositius descobrir-se, connectar-se  i emparellar-se entre d'altres.
+
 
 \section{Anunciaments}
 Quant els dispositius volen transmetre informació o volen connectar-se entre sí el primer que cal fer és anunciar-se.
@@ -501,8 +511,7 @@ Per tant alhora de definir els paràmetres de la connexió és important evitar,
 Com que les connexions estan basades en múltiples esdeveniments en instants determinats es considerà una connexió síncrona.
 No hi ha limit de connexions segons l'especificació de BLE i per tant ve definit per les capacitats del dispositiu amb el que es treballa.
 
-Per crear una connexió és necessari que un dispositiu tingui el rol GAP de central i un altre amb el rol de perifèric (els anunciadors i observadors no poden iniciar connexions).
-%TODO: afegir referencia
+Cal recordar, que per crear una connexió és necessari que un dispositiu tingui el rol GAP de central i un altre amb el rol de perifèric (els anunciadors i observadors no poden iniciar connexions).
 
 El dispositiu central serà el que iniciarà la connexió i el perifèric el que l'acceptarà o no.
 El central serà sempre el mestre i el perifèric serà el esclau de la connexió.
@@ -520,8 +529,8 @@ En cada esdeveniment els dos dispositius tenen un temps assignat per transmetre 
 
 
 En la figura \ref{fig:unicast_roles} es pot veure el procediment en que dos dispositius estableixen una connexió.
-Tenim el dispositiu A que inicialment està coma observador i el dispositiu B que s'està anunciant.
-Cal recordar que els anuncis no es detecten tots ja que els dispositius no sempre estan transmetent i escoltant en el mateix canal.
+Tenim el dispositiu A que inicialment està com a observador i el dispositiu B que s'està anunciant.
+Cal recordar que els anuncis no es detecten tots ja que els dispositius no sempre estan transmetent i escoltant en el mateix canal primari.
 
 El dispositiu A decideix establir una connexió amb el dispositiu B i envia un requeriment de connexió en l'últim canal en que s'ha escoltat l'anunci.
 El dispositiu B després de transmetre un anunci per un canal escolta durant un temps determinat en el mateix canal a l'espera de requeriments de connexió.
@@ -532,15 +541,15 @@ La connexió està establerta i ja es possible transmetre dades entre ambdós di
 
 
 \subsection{Paràmetres}
-El interval de connexió és un dels paràmetres més importants en la connexió BLE, estableix com de sovint es comuniquen els dispositius.
+L'interval de connexió és un dels paràmetres més importants en la connexió BLE, estableix com de sovint es comuniquen els dispositius.
 És el temps que hi ha entre esdeveniments de la connexió i va entre 7.5 ms i 4 s.
 Com que el que es configuren són preferències es determina l'interval mínim i el màxim que es vol.
 En cas que es vulgui fixar simplement d'indica el mateix valor per al mínim i al màxim.
 
-BLE permet al esclau saltar-se esdeveniments per tal d'estalviar bateria, per exemple si no te dades a transmetre.
-La latència del esclau, que és un dels paràmetres de connexió, defineix la quantitat màxima de esdeveniments que l'esclau es pot saltar i que la connexió segueixi establerta.
+BLE permet a l'esclau saltar-se esdeveniments per tal d'estalviar bateria, per exemple si no te dades a transmetre.
+La latència de l'esclau, que és un dels paràmetres de connexió, defineix la quantitat màxima d'esdeveniments que l'esclau es pot saltar i que la connexió segueixi establerta.
 En la figura \ref{fig:slave_latency} es pot veure la comparació quan s'utilitza la latència d'esclau.
-Quant s'utilitza aquest paràmetre permet tenir una connexió amb una latència baixa pero amb un consum igualment reduït mentre no s'haguin de transmetre dades molt sovint.
+Quant s'utilitza aquest paràmetre permet tenir una connexió amb una latència baixa però amb un consum igualment reduït mentre no s'haguin de transmetre dades molt sovint.
 
 \begin{figure}[!h]
 	\begin{center}
