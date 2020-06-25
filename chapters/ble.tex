@@ -101,8 +101,10 @@ Els \textit{Chirps} són els polsos que es transmeten, sempre s'envien més \tex
 LoRa permet configurar aquest paràmetre que defineix l'equilibri entre la tassa de dades i la distància, pot prendre valors entre 7 i 12.
 El LoRa també implementa protecció contra errors o FEC (\textit{Forward Error Correction}) per incrementar encara més l'abast.
 
-%TODO: Explicar que són les capes
-LoRa defineix les capes inferiors, la LoRa Alliance va definir el LoRaWAN que és un dels protocols que es poden utilitzar per a les capes superiors. El LoRaWAN està basat en un Control d'Accés al Medi (MAC en anglès).
+Pel que fa a la pila de protocols que s'utilitzen en la comunicació, LoRa únicament defineix les capes inferiors.
+Això suposa que només s'ha especificat com funciona la modulació dels senyals analògics i com es transformen en símbols digitals.
+Tot i així, la LoRa Alliance va definir el LoRaWAN que és un dels protocols que es poden utilitzar per a les capes superiors.
+El LoRaWAN està basat en un Control d'Accés al Medi (MAC en anglès).
 
 
 \subsection{Comparació}
@@ -123,6 +125,24 @@ A continuació, veiem una comparació de les capacitats de cada un dels protocol
 		\end{tabular}
 	}
 \caption{Comparació entre MANETs}
+\end{table}
+
+\begin{table}[!h]
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|r|c|c|c|c|c|}
+			\hline
+			&	Abast (m)	&	Velocitat Física (Kbps)	&	Tasa de dades (Kbps)   & Consum & Banda    \\ \hline
+			BLE 4	&	50	&	1000	& 800     & 15     & 2.4 GHz         \\ \hline
+			BLE 5	&	200 & 2000	& 1430    & 15     & 2.4 GHz         \\	\hline
+			6LoWPAN	&	100    &	800 & 1430    & 162     & 162         \\	\hline
+			Zigbee	&	Consum                  & 15	& 15      & 15      & 30          \\	\hline
+			Z-Wave	&	Banda                   & 2.4	& 2.4  & 800-900 i 2.4      & 800-900 i 2.4\\	\hline
+			Insteon	&	&	&	&	&	\\	\hline
+			LoRa	&	&	&	&	&	\\	\hline	
+		\end{tabular}
+	}
+	\caption{Comparació entre MANETs}
 \end{table}
 
 Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva versió 4 i en la 5. En el següent apartat es veurà perquè és així.
@@ -305,8 +325,8 @@ L'UUID (\textit{Universal Unique IDentifier}) identifica el tipus d'atribut, aqu
 En els permisos s'indicarà quin tipus d'accés té el client a la informació (només lectura, lectura i escriptura ...). També pot estar definit si requereix un nivell mínim d'encriptació o si es necessari l'autenticació.
 Per últim el valor de l'atribut serà on hi ha la informació, la seva interpretació i longitud (512 bytes com a molt) dependrà de l'UUID.
 
-Des del punt de vista del GATT els dispositius són clients i servidors, normalment el client pren la iniciativa demanant dades però el servidor també te la capacitat d'iniciar una comunicació per exemple notificant quan un valor ha canviat.
-%TODO referenciar l'explicació en detall
+Des de la perspectiva del GATT els dispositius són clients i servidors.
+Habitualment és el client qui pren la iniciativa demanant dades, tot i així, el servidor també te la capacitat d'iniciar una comunicació per exemple notificant quan un valor ha canviat.
 
 La definició del ATT és massa genèrica per si sola tal que seria comú que per fer el mateix es desenvolupessin múltiples definicions que fossin incompatibles entre sí.
 Per tal de tenir millor definits els serveis s'utilitza el GATT.
@@ -491,7 +511,6 @@ Es pot configurar des de 10 ms fins a 65 segons o escaneig indefinit.
 El període d'escaneig indica el temps entre que comencen les duracions d'escaneig i que serveix per poder fer pauses en que el dispositiu no escaneja.
 Tots aquests paràmetres es poden identificar en la figura \ref{fig:escaneig_canals}.
 
-%TODO: Refer gràfics
 \begin{figure}[!h]
 	\begin{center}
 		\begin{subfigmatrix}{1}
@@ -568,8 +587,7 @@ Això pot passar per exemple en entorns molt sorollosos o més sovint quant els 
 \section{Seguretat}
 \label{sec:security}
 Com que l'ús de BLE és molt flexible per poder-lo utilitzar en certes aplicacions es requereix que l'intercanvi de dades sigui segur.
-%TODO: Explicar/traduir MITM i eavesdrop
-Això significa que la connexió tingui resistència a atacs de \textit{eavesdrop} passiu i de \textit{man in the middle}.
+Això significa que la connexió tingui resistència a atacs de \textit{eavesdrop}\footnote{Aquest tipus d'atac permet a l'atacant conèixer el contingut dels missatges que es transmeten.} passiu i d'intermediari\footnote{Aquest tipus d'atac permet modificar la informació que es transmet sense que sigui evident pel transmissor o el receptor.} (\textit{man in the middle} en anglès).
 BLE utilitza l'encriptació simètrica AES-CCM, però la seguretat rau en com els nodes s'intercanvien la clau.
 
 Hi ha diferents maneres que el desenvolupador pot escollir utilitzar i que varien en seguretat i facilitat d'ús.
