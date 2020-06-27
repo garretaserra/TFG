@@ -355,7 +355,7 @@ Aquest \textit{handle} correspon al atribut on hi ha les dades de la caracterís
 		\definecolor{lightyellow}{RGB}{238, 232, 170}
 		\begin{tabular}{|l|l|l|l|}
 			\hline
-			Handle	&	UUID	&	Descripció						&	Valor		\\ 	\hline \rowcolor{lightred}
+			\textbf{Handle}	&	\textbf{UUID}	&	\textbf{Descripció}						&	\textbf{Valor}		\\ 	\hline \rowcolor{lightred}
 			0x0100	&	0x2800	&	Battery Service					&	UUID 0x180F	\\		\hline \rowcolor{lightyellow}
 			0x0101	&	0x2803	&	Characteristic: Battery Level	&	\parbox[t]{4cm}{UUID 0x2A19	\\ Value handle: 0x0102}	\\	\hline
 			0x0102	&	0x2A2B	&	Battery Value					&	20	\\	\hline	\rowcolor{lightred}
@@ -449,10 +449,17 @@ Per poder enviar moltes dades sense necessitat d'establir una connexió es pot f
 Amb aquest tipus de paquet un cop s'ha enviat l'anunci pel canal primari es poden enviar múltiples paquets d'anunci per canals secundaris tal i com es veu a la figura \ref{fig:aux_chain_ind}.
 En cada capçalera s'indica en quin moment i per quin canal es transmetrà el següent paquet.
 
+Un cop explicats els paquets per separat, s'explicarà un exemple de com s'utilitzen aquests paquets per transmetre tanta informació com es vulgui sense necessitat d'establir una connexió.
+Aquest exemple és molt comú.
+
+Primer de tot l'anunciador envia pels canals d'anunci (habitualment s'envia múltiples vegades per cada canal primari) el ADV\_EXT\_IND.
+Posteriorment es transmet pel canal secundari el AUX\_ADV\_IND que indica quan i on es transmetrà el següent paquet.
+Finalment es transmeten tants AUX\_CHAIN\_IND com siguin necessaris fins que s'hagui enviat totes les dades d'anunci que es vulgui.
+
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.7\textwidth]{./images/aux_chain_ind.png}
-		\caption{Exemple de AUX\_CHAIN\_IND \cite{aux_chain_ind}}
+		\includegraphics[width=1\textwidth]{./images/aux_chain_ind.png}
+		\caption{Exemple d'anunci estès \cite{aux_chain_ind}}
 		\label{fig:aux_chain_ind}
 	\end{center}
 \end{figure}
@@ -526,23 +533,23 @@ Tots aquests paràmetres es poden identificar en la figura \ref{fig:escaneig_can
 S'ha vist com no cal establir una connexió per a transmetre poca informació.
 Això permet desenvolupar implementacions molt simples per a situacions on es transmet amb molt poca freqüència. Tot i així, BLE també permet transmetre moltes més dades quan s'estableix una connexió.
 
-Un cop s'hagui establert la connexió es podrà transmetre la informació molt eficientment, però l'escaneig connexió suposa un cost energètic considerable.
-Per tant, alhora de definir els paràmetres de la connexió és important evitar, a ser possible, establir connexió cada vegada que es vol transmetre informació.
+Un cop s'hagui establert la connexió es podrà transmetre la informació molt eficientment, però establir una connexió suposa un cost energètic considerable.
+Per tant, a l'hora de definir els paràmetres de la connexió és important evitar, a ser possible, establir connexió cada vegada que es vol transmetre informació.
 
 Com que les connexions estan basades en múltiples esdeveniments en instants determinats es considerà una connexió síncrona.
-No hi ha limit de connexions segons l'especificació de BLE i per tant, ve definit per les capacitats del dispositiu amb el que es treballa.
+No hi ha límit de connexions segons l'especificació de BLE i per tant, dependrà de les capacitats del dispositiu amb el que es treballa.
 
 Cal recordar, que per crear una connexió és necessari que un dispositiu tingui el rol GAP de central i un altre amb el rol de perifèric (els anunciadors i observadors no poden iniciar connexions).
 
 El dispositiu central serà el que iniciarà la connexió i el perifèric el que l'acceptarà o no.
 El central serà sempre el mestre i el perifèric serà l'esclau de la connexió.
 Per iniciar una connexió el mestre envia un missatge de tipus CONNECT\_IND\footnote{Aquest paquet en la versió 4 de BLE s'anomena CONNECT\_REQ} amb els paràmetres de la connexió.
-En aquests paràmetres, tal i com es veurà més endavant, hi ha la informació necessària per determinar el primer esdeveniment de la connexió.
+En aquests paràmetres, tal i com es veurà més endavant en l'apartat \ref{sec:params}, hi ha la informació necessària per determinar el primer esdeveniment de la connexió.
 En cada esdeveniment, els dos dispositius tenen un temps assignat per transmetre i per rebre dades.
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=1.2\textwidth]{./images/rols_unicast.png}
+		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
 		\caption{Establiment de connexió}
 		\label{fig:unicast_roles}
 	\end{center}
@@ -562,6 +569,7 @@ La connexió està establerta i ja es possible transmetre dades entre ambdós di
 
 
 \subsection{Paràmetres}
+\label{sec:params}
 L'interval de connexió és un dels paràmetres més importants en la connexió BLE, estableix com de sovint es comuniquen els dispositius.
 És el temps que hi ha entre esdeveniments de la connexió i va entre 7.5 ms i 4 s.
 Com que el que es configuren són preferències es determina l'interval mínim i el màxim que es vol.
@@ -570,6 +578,7 @@ En cas que es vulgui fixar simplement d'indica el mateix valor per al mínim i a
 BLE permet a l'esclau saltar-se esdeveniments per tal d'estalviar bateria, per exemple si no té dades a transmetre.
 La latència de l'esclau, que és un dels paràmetres de connexió, defineix la quantitat màxima d'esdeveniments que l'esclau es pot saltar i que la connexió segueixi establerta.
 En la figura \ref{fig:slave_latency} es pot veure la comparació quan s'utilitza la latència d'esclau.
+Tot i així, el mestre que és el node que té més bateria, participa en tots els esdeveniments escoltant el canal per si l'esclau transmet.
 Quant s'utilitza aquest paràmetre permet tenir una connexió amb una latència baixa però amb un consum igualment reduït mentre no s'haguin de transmetre dades molt sovint.
 
 \begin{figure}[!h]
@@ -623,7 +632,7 @@ L'adreça d'accés identifica a quina connexió pertany aquest paquet, en cas de
 Aquest camp serveix al receptor per filtrar els paquets i només tractar aquells que interessa.
 El CRC s'utilitza per detectar errors en el paquet. 
 
-EN la PDU és on hi ha la informació pròpia del paquet i depenent de si és un paquet en un canal d'anunci o en un de dades té un format lleugerament diferent.
+En la PDU és on hi ha la informació pròpia del paquet i depenent de si és un paquet en un canal d'anunci o en un de dades té un format lleugerament diferent.
 
 \begin{figure}[!h]
 	\begin{center}
