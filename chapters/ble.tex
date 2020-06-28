@@ -522,7 +522,7 @@ Tots aquests paràmetres es poden identificar en la figura \ref{fig:escaneig_can
 	\begin{center}
 		\begin{subfigmatrix}{1}
 			\subfigure[Escaneig de canals]{\includegraphics[width=0.9\textwidth]{./images/scanning_diagram}}
-			\subfigure[Periodes de escaneig]{\includegraphics[width=0.9\textwidth]{./images/scanduationperiod}}
+			\subfigure[Periodes d'escaneig]{\includegraphics[width=0.9\textwidth]{./images/scanduationperiod}}
 		\end{subfigmatrix}
 	\end{center}
 	\caption{Paràmetres d'escaneig}
@@ -596,7 +596,7 @@ Això pot passar per exemple en entorns molt sorollosos o més sovint quant els 
 \section{Seguretat}
 \label{sec:security}
 Com que l'ús de BLE és molt flexible per poder-lo utilitzar en certes aplicacions es requereix que l'intercanvi de dades sigui segur.
-Això significa que la connexió tingui resistència a atacs de \textit{eavesdrop}\footnote{Aquest tipus d'atac permet a l'atacant conèixer el contingut dels missatges que es transmeten.} passiu i d'intermediari\footnote{Aquest tipus d'atac permet modificar la informació que es transmet sense que sigui evident pel transmissor o el receptor.} (\textit{man in the middle} en anglès).
+Això significa que la connexió tingui resistència a atacs de \textit{eavesdrop}\footnote{Aquest tipus d'atac permet a l'atacant conèixer el contingut dels missatges que es transmeten.} passiu i d'intermediari\footnote{Aquest tipus d'atac permet modificar la informació que es transmet sense que sigui evident pel transmissor o el receptor.} (\textit{Man In The Middle} en anglès).
 BLE utilitza l'encriptació simètrica AES-CCM, però la seguretat rau en com els nodes s'intercanvien la clau.
 
 Hi ha diferents maneres que el desenvolupador pot escollir utilitzar i que varien en seguretat i facilitat d'ús.
@@ -607,10 +607,10 @@ Un altre mètode es el \textit{Out of Band} aquest permet utilitzar una altre te
 La seguretat d'aquest mètode depèn completament en el nou sistema per l'intercanvi de claus.
 
 El més habitual és el \textit{Passkey} en que l'intercanvi de claus es bassa en una contrasenya de 4 a 6 dígits.
-Cal tenir en compte que degut al baix número de combinacions depenent de la implementació aquest mètode serà sensible a atacs d'\textit{eavesdroping} passiu.
+Cal tenir en compte que degut al baix número de combinacions depenent de la implementació aquest mètode serà sensible a atacs d'\textit{eavesdropping} passiu.
 
 Finalment un mètode similar al anterior és el de Comparació Numèrica, enlloc de ser l'usuari qui introdueix el codi es genera automàticament i es mostra en els dos dispositius.
-Cal comprovar que sigui el mateix número en els dos casos i això permet prevenir atacs de \textit{Man in the Middle} però de nou, no protegeix contra el \textit{Eavesdropping}.
+Cal comprovar que sigui el mateix número en els dos casos i això permet prevenir atacs de \textit{Man in the Middle} però de nou, no protegeix contra el \textit{eavesdropping}.
 
 \section{Format}
 \label{sec:format}
@@ -618,21 +618,24 @@ En aquest apartat s'explicarà com estar format els paquets que s'envien en BLE 
 Cal distingir però entre la versió 4 i la 5 de BLE ja que degut a les noves funcionalitats el format canvia considerablement.
 
 \subsection{BLE 4.2}
-En la versió de BLE 4.2\footnote{En les versions 4 i 4.1 la PDU tenia una mida màxima de 39 bytes.} els paquets que es transmeten tenen el següent format:
+En la versió de BLE 4.2\footnote{En les versions 4 i 4.1 la PDU tenia una mida màxima de 39 bytes.} els paquets que es transmeten segueixen el format de la figura \ref{fig:4_2_format}.
 
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=1\textwidth]{./images/Packet_format_4_2.png}
 		\caption{Format del paquet en BLE 4.2 \cite{BLE_4.2_packet_format}}
+		\label{fig:4_2_format}
 	\end{center}
 \end{figure}
 
 El preàmbul és una seqüència predefinida i que serveix per sincronisme.
 L'adreça d'accés identifica a quina connexió pertany aquest paquet, en cas de ser d'anunci i no pertànyer a cap connexió el valor és 0x8E89BED6.
 Aquest camp serveix al receptor per filtrar els paquets i només tractar aquells que interessa.
-El CRC s'utilitza per detectar errors en el paquet. 
+El CRC (Cyclic Redundancy Check) s'utilitza per detectar errors en el paquet. 
 
-En la PDU és on hi ha la informació pròpia del paquet i depenent de si és un paquet en un canal d'anunci o en un de dades té un format lleugerament diferent.
+En la PDU (Protocol Data Unit) és on hi ha la informació pròpia del paquet i depenent de si és un paquet en un canal d'anunci o en un de dades té un format lleugerament diferent.
+En la figura \ref{fig:pdu_format} és poden veure les diferències.
+Cal destacar que en el cas de ser un anunci tot l'espai és dedica a informació, en canvi, en la PDU d'anunci es reserven 4 bytes per al comprovant d'integritat del missatge (\textit{Message Integrity Check} en anglès).
 
 \begin{figure}[!h]
 	\begin{center}
@@ -641,10 +644,12 @@ En la PDU és on hi ha la informació pròpia del paquet i depenent de si és un
 			\subfigure[Format PDU de dades \cite{BLE_4.2_packet_format}]{\includegraphics[width=0.8\textwidth]{./images/Packet_format_4_2_data.png}}
 		\end{subfigmatrix}
 	\end{center}
+	\caption{Format PDU}
+	\label{fig:pdu_format}
 \end{figure}
 
-Pel que fa a la PDU d'anunci és diferent segons el tipus de paquet.
-En el cas del ADV\_IND està format per la adreça de l'anunciant seguit de un llistat d'estructures de dades d'anunci.
+Pel que fa a la Càrrega Útil (\textit{Payload}) serà diferent segons el tipus de paquet.
+En el cas del ADV\_IND està format per la adreça de l'anunciant seguit de un llistat d'estructures de dades d'anunci (\textit{Advertisement Data Structure}).
 Aquestes estan formades per la longitud de la estructura, el tipus i les dades en si.
 Hi ha molts tipus d'estructura que estan definits en el estàndard \cite{AD_Types}.
 
@@ -663,7 +668,7 @@ Primer, la funcionalitat per poder transmetre anuncis als canals secundaris que 
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./images/Common_Extended_Advertising_Payload_Format.png}
+		\includegraphics[width=0.9\textwidth]{./images/Common_Extended_Advertising_Payload_Format.png}
 		\caption{Format de la Extended Advertising Payload \cite{BLE_5_Extended_Advertising}}
 	\end{center}
 \end{figure}
