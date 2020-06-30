@@ -82,7 +82,7 @@ Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples op
 Primer de tot cal destacar la implementació de comunicacions amb o sense reconeixement. D'aquesta manera si preferim reduir la quantitat de missatges per estalviar bateria enlloc d'assegurar-se que s'ha rebut la informació es dona la opció.
 
 Pel que fa les propietats en el Project 0 les característiques dels LEDs tenen el valor 0x0E que resulta en 0000 1110 per tant, es permet: llegir, escriure i escriure sense resposta.
-En canvi les característiques del servei de botons té el valor 0x12 que suposa 0001 0010, per tant, es permet notificació sense reconeixement.
+En canvi les característiques del servei de botons té el valor 0x12 que suposa 0001 0010, per tant, es permet lectura i notificació sense reconeixement.
 
 La notificació i indicació són funcions que ajuden a reduir el consum de recursos.
 Quan volem saber en quin estat estan els botons de la placa contínuament es podria anar llegint el estat de la característica constantment però això suposarien molts missatges i reduiria el temps que els dispositius es poden adormir i així ser més eficients.

@@ -115,35 +115,48 @@ A continuació, veiem una comparació de les capacitats de cada un dels protocol
 	\centering
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{|r|c|c|c|c|c|c|c|}
-			\hline
-			    & BLE 4                                                  & BLE 5   & 6LoWPAN & Zigbee      & Z-Wave      & Insteon & LoRa            \\ \hline
-			Abast (m)               & 50                                                     & 200     & 100     & 100         & 90          & 120     & 10Km            \\	\hline
-			Velocitat Física (Kbps) & 1000                                                   & 2000    & 250     & 250         & 100         & 4,5     & 27              \\	\hline
-			Tasa de dades (Kbps)    &	800 & 1430    & 162     & 162         & 40          & 2,8     & 5               \\	\hline
-			Consum                  & 15                                                     & 15      & 15      & 30          & 23          &         & 18              \\	\hline
-			Banda                   & 2.4                                                 & 2.4  & 800-900 i 2.4      & 800-900 i 2.4 & 800-900 & 915 & 400/800-900	\\	\hline
+		\hline
+		& BLE 4    & BLE 5   & 6LoWPAN & Zigbee      & Z-Wave      & Insteon & LoRa            \\ \hline
+		Abast (m)               & 50                                                     & 200     & 100     & 100         & 90          & 120     & 10Km            \\	\hline
+		Velocitat Física (Kbps) & 1000                                                   & 2000    & 250     & 250         & 100         & 4,5     & 27              \\	\hline
+		Tasa de dades (Kbps)    &	800 & 1430    & 162     & 162         & 40          & 2,8     & 5               \\	\hline
+		Consum                  & 15                                                     & 15      & 15      & 30          & 23          &         & 18              \\	\hline
+		Banda\footnotemark & 2.4 GHz & 2.4 GHz & 
+		\begin{tabular}{c}
+			900 MHz \\ i 2.4 GHz
+		\end{tabular}
+		& 
+		\begin{tabular}{c}
+			900 MHz \\ i 2.4 GHz
+		\end{tabular}
+		& 900 MHz& 915 MHz & 
+		\begin{tabular}{c}
+			400 MHz \\ 900 MHz
+		\end{tabular}
+		\\	\hline
 		\end{tabular}
 	}
 \caption{Comparació entre MANETs}
 \end{table}
+\footnotetext[1]{Les bandes indicades com a 900 MHz varien depenent del país entre 800 MHz i 1000 MHz}
 
-\begin{table}[!h]
-	\centering
-	\resizebox{\textwidth}{!}{
-		\begin{tabular}{|r|c|c|c|c|c|}
-			\hline
-			&	Abast (m)	&	Velocitat Física (Kbps)	&	Tasa de dades (Kbps)   & Consum & Banda    \\ \hline
-			BLE 4	&	50	&	1000	& 800     & 15     & 2.4 GHz         \\ \hline
-			BLE 5	&	200 & 2000	& 1430    & 15     & 2.4 GHz         \\	\hline
-			6LoWPAN	&	100    &	250 & 162    & 15     & 800-900 i 2.4         \\	\hline
-			Zigbee	&	100                  & 250	& 162      & 30      & 800-900 i 2.4          \\	\hline
-			Z-Wave	&	90                   & 100	& 40  & 23      & 800-900 \\	\hline
-			Insteon	&	120	&	4,5	&	2,8	&	--	&	915	\\	\hline
-			LoRa	&	10 Km	&	27	&	5	&	18		&	400/800-900\\	\hline	
-		\end{tabular}
-	}
-	\caption{Comparació entre MANETs}
-\end{table}
+%\begin{table}[!h]
+%	\centering
+%	\resizebox{\textwidth}{!}{
+%		\begin{tabular}{|r|c|c|c|c|c|}
+%			\hline
+%			&	Abast (m)	&	Velocitat Física (Kbps)	&	Tasa de dades (Kbps)   & Consum (mA) & Banda    \\ \hline
+%			BLE 4	&	50	&	1000	& 800     & 15     & 2.4 GHz         \\ \hline
+%			BLE 5	&	200 & 2000	& 1430    & 15     & 2.4 GHz         \\	\hline
+%			6LoWPAN	&	100    &	250 & 162    & 15     & 800-900 MHz i 2.4GHz         \\	\hline
+%			Zigbee	&	100                  & 250	& 162      & 30      & 800-900 MHz i 2.4 GHz         \\	\hline
+%			Z-Wave	&	90                   & 100	& 40  & 23      & 800-900 MHz\\	\hline
+%			Insteon	&	120	&	4,5	&	2,8	&	--	&	915	\\	\hline
+%			LoRa	&	10 Km	&	27	&	5	&	18		&	400/800-900 MHz\\	\hline	
+%		\end{tabular}
+%	}
+%	\caption{Comparació entre MANETs}
+%\end{table}
 
 Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva versió 4 i en la 5. En el següent apartat es veurà perquè és així.
 
@@ -174,6 +187,7 @@ L'esquema de correcció d'errors (\textit{Forward Error Correction}) es fa amb u
 Amb els diferents esquemes s'utilitza una taxa de codi diferent que pot augmentar la capacitat de correcció i incrementar l'abast però disminuir la quantitat de dades que es poden transmetre.
 Es poden veure les capacitats dels diferents esquemes a la taula \ref{FEC} 
 
+%TODO: Refer
 \begin{table}[htb]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/LE_PHY.png}
@@ -291,6 +305,7 @@ Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats 
 
 %Bluetooth també permet la implementació de salts en freqüència adaptatius on només s'utilitzen canals suficientment bons descartant aquells en que es considera que hi ha masses interferències.
 
+%TODO:Refer
 \subsection{Host}
 	\begin{figure}[h!]
 		\begin{center}
@@ -550,7 +565,7 @@ En cada esdeveniment, els dos dispositius tenen un temps assignat per transmetre
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=1\textwidth]{./images/rols_unicast.png}
-		\caption{Establiment de connexió}
+		\caption{Establiment de connexió \cite{fig:connection_establishement}}
 		\label{fig:unicast_roles}
 	\end{center}
 \end{figure}
@@ -656,7 +671,7 @@ Hi ha molts tipus d'estructura que estan definits en el estàndard \cite{AD_Type
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/adv-ind-packet.png}
-		\caption{Payload de ADV\_IND}
+		\caption{Payload de ADV\_IND \cite{BLE_4.2_packet_format}}
 	\end{center}
 \end{figure}
 
