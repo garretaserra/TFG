@@ -47,7 +47,7 @@ Per poder entendre els atributs, al tenir UUID propis és necessari tenir en com
 \end{figure}
 
 El primer que cal tenir clar és que en taula \ref{project0_table} els valors estan representats amb l'ordre en que es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitza \textit{little-endian} per enviar la informació.
-Això resulta en que els caràcters hexadecimals queden (per parelles) ordenats al revés.
+Això resulta en que els caràcters hexadecimals queden (per parelles, ja que, dos caràcters representen un byte) ordenats al revés.
 
 Al analitzar els atributs es pot veure com aquells que tenen el UUID 0x2800 en el seu valor només tenen un UUID corresponent al les definicions de serveis de LEDs i de botons.
 Seguidament, als atribut amb UUID 0x2803 hi ha les definicions de les característiques, en el seu valor hi ha múltiples parts.
@@ -162,7 +162,7 @@ Callbacks (get/set write/read)
 En cada servei hi ha quatre funcions de \textit{callback}.
 Les funcions get i set s'utilitzen per llegir o modificar els valors que s'exposen a través de BLE.
 Quant en algun punt del codi és necessari interactuar amb aquests valors es farà amb aquestes funcions.
-Com que s'està treballant amb C és important posar comprovacions quant es modifiquen els valors per tal d'evitar problemes com el desbordament de memòria intermèdia\footnote{En anglès Buffer Overflow} que poden ocórrer si s'escriuen valors no vàlids.
+Com que s'està treballant amb C és important posar comprovacions quant es modifiquen els valors per tal d'evitar problemes com el desbordament de memòria intermèdia (\textit{Buffer Overflow} en anglès) que poden ocórrer si s'escriuen valors no vàlids.
 
 Les funcions write i read són les que s'utilitzen per interceptar les peticions de lectura i escriptura del servidor GATT.
 
