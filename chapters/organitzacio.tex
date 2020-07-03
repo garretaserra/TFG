@@ -11,7 +11,7 @@ Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat
 Aquesta placa permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments a continuació es descriuen les seves característiques principals \cite{placa_datasheet}.
 
 El dispositiu CC1352R és multiprotocol i multibanda orientat a 2.4 GHz o sub-1GHz que serveix per a Thread, Zigbee, Bluetooth 5 Low Energy, IEEE 802.15.4g i 6LoWPAN. Pel que fa a memòria té 352 KB flash programable, 256 KB de ROM per a protocols i llibreries, 8 KB de Cache SRAM i 80 KB de RAM protegida amb paritat.
-Pel que fa als perifèrics el més important és el ADC de 12 bits i 8 canals amb freqüència de mostreig de 200 Kmostres/s (multiplexat). També té Rellotge de Temps Real (RTC), acceleradors de operacions criptogràfiques i generador de números aleatoris.
+Pel que fa als perifèrics el més important és el ADC de 12 bits i 8 canals amb freqüència de mostreig de 200 Kmostres/s (multiplexat). També té Rellotge de Temps Real (RTC en anglès), acceleradors d'operacions criptogràfiques i generador de números aleatoris.
 La radio multibanda que té te un receptor amb sensibilitat de -121 dBm per a sub-1GHz i de -110 dBm a 50 Kbps o -105 dBm a 125 Kbps. El transmissor pot transmetre fins a 14 dBm sub-1GHz i 5dBm a 2.4 GHz.
 
 
@@ -19,23 +19,23 @@ La radio multibanda que té te un receptor amb sensibilitat de -121 dBm per a su
 Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. El software és el SimpleLink\texttrademark\ CC13X2 versió 2.30.00.45\footnote{La versió utilitzada no és la més nova per a que sigui compatible amb la revisió C del xip que s'està utilitzant.}.
 
 \section{Project 0}
-El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica. Aquest projecte exposa certs serveis a través de BLE i et permet veure una comunicació simple entre la placa i un dispositiu mòbil.
-La comunicació es fa a través del control dels dos LEDs que te la placa (els LEDs que estan directament controlats pel microcontrolador) i també per l'estat dels botons que hi ha a ambdós costats de la placa.
+El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica. Aquest projecte exposa certs serveis a través de BLE i permet veure una comunicació simple entre la placa i un dispositiu mòbil.
+La comunicació es fa a través del control dels dos LEDs que té la placa (els LEDs que estan directament controlats pel microcontrolador) i també per l'estat dels botons que hi ha a ambdós costats de la placa.
 *Aquest projecte també inclou altres serveis en que no entrarem.
 
 Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arquitectura dels serveis amb les seves característiques amb una relativa simple funcionalitat. A continuació s'analitzaran diferents parts dels atributs.
 
 \subsection{Serveis de Botons i LEDs}
 
-En la següent taula es poden veure tots els valors que hi ha tal i com estan en la taula d'atributs del servidor GATT.
-Per facilitar la visualització de les dades s'han tret els zeros finals dels UUIDs propis però cal recordar que en total tenen 16 parells (128 bits en representació hexadecimal) i no només els 9 parells que surten a la taula.
-
+En la taula \ref{tab:project_zero_uuid} es poden veure tots els valors que hi ha tal i com estan en la taula d'atributs del servidor GATT.
+Per facilitar la visualització de les dades s'han tret els zeros finals dels UUIDs propis però cal recordar que en total tenen 16 parells de caràcters (128 bits en representació hexadecimal) i no només els 9 parells que surten a la taula.
 \begin{center}
 	\begin{table}[h!]
 		\csvautotabular{data_files/projectzeroUUID.csv}
+		\caption{Atributs del Project 0}
 	\end{table}
+	\label{tab:project_zero_uuid}
 \end{center}
-
 Per poder entendre els atributs, al tenir UUID propis és necessari tenir en compte la documentació amb la que s'ha desenvolupat aquest projecte.
 
 \begin{figure}[h!]
@@ -79,7 +79,7 @@ Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples op
 \end{table}
 
 
-Primer de tot cal destacar la implementació de comunicacions amb o sense reconeixement. D'aquesta manera si preferim reduir la quantitat de missatges per estalviar bateria enlloc d'assegurar-se que s'ha rebut la informació es dona la opció.
+Primer de tot cal destacar la implementació de comunicacions amb o sense reconeixement. D'aquesta manera si preferim reduir la quantitat de missatges per estalviar bateria enlloc d'assegurar-se que s'ha rebut la informació es dona l'opció.
 
 Pel que fa les propietats en el Project 0 les característiques dels LEDs tenen el valor 0x0E que resulta en 0000 1110 per tant, es permet: llegir, escriure i escriure sense resposta.
 En canvi les característiques del servei de botons té el valor 0x12 que suposa 0001 0010, per tant, es permet lectura i notificació sense reconeixement.
@@ -98,14 +98,14 @@ Aquest sistema permet afegir fins a 16 bits més per indicar propietats, actualm
 
 Aquests 2 primers que estan definits són escriptura fiable i escriptura auxiliar.
 L'escriptura fiable permet escriure valors amb un procediment diferent al habitual que permet assegurar-se que el valor que es vol modificar s'ha escrit i no hi han hagut errors.
-Pel que fa  al'escriptura auxiliar permet escriptura al descriptor de característica [posar exemple].
+Pel que fa  al'escriptura auxiliar permet escriptura al descriptor de característica. %TODO: posar exemple
 
 
 
 \section{Client BLE}
 Per poder interactuar amb un servidor de BLE és necessari tenir una implementació de client.
 Com que els mòbils intel·ligents tots tenen BLE hi ha moltes aplicacions que permeten visualitzar els serveis amb les seves corresponents característiques.
-També interactuar, escrivint o llegint aquells valors en que es pot.
+També interactuar, escrivint o llegint aquells valors en que estigui permès.
 Tot i així, no totes les aplicacions permeten rebre notificacions o utilitzar seguretat.
 I les aplicacions no permeten interactuar directament amb el controlador (a través de HCI), per exemple, no poden canviar la potència de transmissió. 
 
@@ -117,7 +117,7 @@ Totes les possibles peticions, tant del servidor GAP com els missatges HCI.
 \subsection{Btool}
 L'aplicació BTool utilitza l'API del projecte Host Test per executar les crides a les diferents capes BLE.
 Primer de tot, BTool necessita saber per quina interfície ha d'interactuar amb la placa.
-Al administrador de dispositius de Windows es poden trobar els ports utilitzats per la placa i els paràmetres de la conexió els indica Texas Instruments\cite{serial_params}.
+En l'administrador de dispositius de Windows es poden trobar els ports utilitzats per la placa i els paràmetres de la conexió els indica Texas Instruments\cite{serial_params}.
 Un cop s'inicia la comunicació entre BTool i la placa es pot escanejar, iniciar connexió i descobrir la taula d'atributs del servidor.
 En tot moment es poden veure tots els paquets que s'envien per la interfície amb la seva corresponent interpretació en la consola.
 Com que en aquesta consola apareixen tots els esdeveniments de BLE 5, permet veure quan es reben notificacions.
@@ -134,13 +134,13 @@ A continuació s'explicarà com es poden implementar perfils en l'entorn de Texa
 \subsection{Generar Fitxers}
 Texas Instruments proporciona un Generador de Fitxers \cite{Service_Generator} que evita haver de començar de zero.
 En aquesta eina s'han de definir el nom del servei, els noms de les característiques amb la seva longitud i les propietats i els corresponents UUIDs.
-Aquesta eina està pensada per a ser utilitzada junt amb el Project Zero, per tant, aquest serà el projecte base per al meu cas.
+Aquesta eina està pensada per a ser utilitzada junt amb el Project Zero, per tant, aquest serà el projecte base per aquest treball.
 Un cop s'han generat els fitxers cal copiar-los dins de Application/services en el projecte.
 
 A parts dels fitxers generats (font i capçalera\footnote{Els fitxers de capçalera en C s'identifiquen per l'extensió .h i contenen les declaracions de funcions que es poden compartir entre múltiples fitxers font}) també cal que l'aplicació cridi a la funció que incialitza el servei registrant-los al GATT.
 Aquesta és la funció [Perfil]\_AddService(..) que cal afegir dins la funció ProjectZero\_init() en la secció Inicialitació de Serveis.
 
-Tot i que aquest generador de fitxers és molt útil alhora de tenir una estructura bàsica del projecte cal analitzar les parts importants per entendre com funciona per dins i quina relació te cada part amb BLE.
+Tot i que aquest generador de fitxers és molt útil a l'hora de tenir una estructura bàsica del projecte cal analitzar les parts importants per entendre com funciona per dins i quina relació té cada part amb BLE.
 
 \subsection{title}
 
@@ -166,10 +166,10 @@ Com que s'està treballant amb C és important posar comprovacions quant es modi
 
 Les funcions write i read són les que s'utilitzen per interceptar les peticions de lectura i escriptura del servidor GATT.
 
-En aquestes funcions cal identificar en cada cas a quin atribut o valor s'esta modificant i després de comprovacions o altres funcionalitats es copia la memòria entre els arguments.
+En aquestes funcions cal identificar en cada cas a quin atribut o valor s'està modificant i després de comprovacions o altres funcionalitats es copia la memòria entre els arguments.
 
-Butons
-La placa que s'esta utilitzant té dos butons que s'utilitzen com a entrades de senyals.
+Botons
+La placa que s'està utilitzant té dos botons que s'utilitzen com a entrades de senyals.
 En el fitxer principal project\_zero.c hi ha la funció ProjectZero\_handleButtonPress() que es crida quan es pressiona o es deixa de pressionar qualsevol dels botons.
 
 Notificacions
