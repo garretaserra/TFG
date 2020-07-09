@@ -142,7 +142,7 @@ Aquesta és la funció [Perfil]\_AddService(..) que cal afegir dins la funció P
 
 Tot i que aquest generador de fitxers és molt útil a l'hora de tenir una estructura bàsica del projecte cal analitzar les parts importants per entendre com funciona per dins i quina relació té cada part amb BLE.
 
-\subsection{title}
+\subsection{Definir el Perfil Propietari}
 
 Definir UUIDs/Logitud del valor
 Tal i com s'ha comentat anteriorment els UUIDs poden tenir diferents longituds depenent si corresponen a un estàndard o si son propietaris.
@@ -155,9 +155,6 @@ Inclou el tipus d'UUID (de 16 o 128 bits), els permisos, el handle (cal deixar-l
 Quan sindiquen les propietats dels atributs que corresponen s'utilitzar l'operador OR (en C correspon al símbol $\mid$).
 El fitxer gatt.h s'inclou dins del fitxer font i conté les definicions de tots els possibles permisos amb els seus valors en bits corresponents.
 
-Descriptors
-
-
 Callbacks (get/set write/read)
 En cada servei hi ha quatre funcions de \textit{callback}.
 Les funcions get i set s'utilitzen per llegir o modificar els valors que s'exposen a través de BLE.
@@ -168,14 +165,20 @@ Les funcions write i read són les que s'utilitzen per interceptar les peticions
 
 En aquestes funcions cal identificar en cada cas a quin atribut o valor s'està modificant i després de comprovacions o altres funcionalitats es copia la memòria entre els arguments.
 
-Botons
-La placa que s'està utilitzant té dos botons que s'utilitzen com a entrades de senyals.
-En el fitxer principal project\_zero.c hi ha la funció ProjectZero\_handleButtonPress() que es crida quan es pressiona o es deixa de pressionar qualsevol dels botons.
-
 Notificacions
 Les notificacions serveixen per indicar al client que un valor ha canviat en el servidor.
 Per poder utilitzar-les primer cal crear un CCCD
-CCCD
+
+Descriptors
+Cal definir-los amb el UUID 0x2902 i han de tenir les propietats per poder escriure i llegir.
+S'enviaran notificacions a aquells dispositius que escriguin un 1 o Inicacions als que escriguin un 2.
+
+
+\subsection{Interactuar amb el hardware}
+
+Botons
+La placa que s'està utilitzant té dos botons que s'utilitzen com a entrades de senyals.
+En el fitxer principal project\_zero.c hi ha la funció ProjectZero\_handleButtonPress() que es crida quan es pressiona o es deixa de pressionar qualsevol dels botons.
 
 
 Temporitzadors
