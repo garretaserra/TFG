@@ -3,11 +3,59 @@
 Per comprendre millor com afecten els diferents paràmetres configurables corresponents a BLE i també les prestacions dels perifèrics de la placa es realitzaran els següents escenaris.
 
 \subsection{ADC}
-La placa té un convertidor analògic-digital que ens permetrà enviar senyals analògiques un cop s'han mostreajat.
+La placa té un convertidor analògic-digital que ens permetrà enviar senyals analògiques un cop s'han mostrejat.
 Aquest ADC té x canals i una freqüència de mostreig de 200 Kmostres per segon.
 Com que té x canals es poden 
 
-S'analitza a biologiques
+En aquest treball no es tractaran directament els sensors sinó que es simularan le senyals que en sortirien.
+Com que la placa i el seu ADC treballa a 3.3V es crearà un circuit que permeti controlar un voltatge d'entre 0 i 3.3V.
+
+Aquest circuit es basarà en un divisor de voltatge simple format per una resistència i un potenciòmetre.
+El potenciòmetre permet canviar la resistència del element a través d'un cargol i junt amb el circuit que l'envolta permetrà canviar el voltatge a la sortida.
+\begin{figure}[!h]
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,2) node[anchor=east] {$V_{in}$}
+			to [R=$R_1$, *-] (2,2)
+			to [vR=$R_{pot}$, *-] (2,0) node[tlground](GND){};
+			\draw
+			(2,2) to [short, -*] (3,2)
+			to (3,2) node[anchor=west] (3,2) {$V_{out}$};
+		\end{circuitikz}
+	\end{center}
+\end{figure}
+
+Aquest circuit segueix la estructura d'un divisor de voltatge per tant es pot calcular el voltatge a la sortida segons la següent fórmula.
+
+\begin{equation}
+	V_{in}\cdot\frac{R_{pot}}{R_1+R_{pot}}=V_{out}
+\end{equation}
+
+Per escollir els components cal tenir in compte utilitzar resistències de valor alt per reduir el consum d'energia.
+S'utilitzarà un potenciòmetre de 10KOhms per tant serà una resistència que es podrà modificar des de 0 Ohms fins 10 KOhms.
+Per trobar la $R_1$ que compleixi els requisits queda la següent fórmula.
+
+\begin{equation}
+R_1=5V\cdot\frac{10k\Omega}{3.3V}-10k\Omega\approx5151\Omega
+\end{equation}
+
+Per a la $R_1$ s'utilitzaran resistències de la sèrie E12, els valors que més s'acosten a $5121\Omega$ són $5.6k\Omega$ i $4.6k\Omega$.
+Per assegurar-se que no es superen els 3.3V a la entrada del ADC que podria fer malbé el dispositiu s'escull la resistència superior, per tant el circuit final quedarà de la següent manera.
+
+\begin{figure}[!h]
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,2) node[anchor=east] {$5\,V$}
+			to [R=$5.6\;k\Omega$, *-] (2,2)
+			to [vR=$ \lbrack 0-10 \rbrack \;k\Omega$, *-] (2,0) node[tlground](GND){};
+			\draw
+			(2,2) to [short, -*] (3,2)
+			to (3,2) node[anchor=west] (3,2) {$[0-3.3]\;V$};
+		\end{circuitikz}
+	\end{center}
+\end{figure}
 
 
 \subsection{Range}
