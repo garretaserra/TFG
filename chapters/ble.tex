@@ -154,7 +154,8 @@ Tal i com s'ha vist BLE és classifica segons les seves capacitats en la seva ve
 \section{Versions de BLE}
 \label{Versions_BLE}
 característiques de la versió 4.0 amb la 5 ja que hi ha canvis significatius \cite{BLE_5_improvement_over_4}.
-les novetats que aporta la nova versió principalment tenen l'objectiu de millorar les capacitats del protocol, quan l'entorn és favorable i quan no s'estableix connexió.
+Les novetats que aporta la nova versió principalment tenen l'objectiu de millorar les capacitats del protocol, en els casos extrems, tant quan l'entorn és molt favorable com quan no es gens favorable.
+Les millores i noves opcions de BLE fan que s'utilitzi més eficientment l'espectre freqüencial i per tant depenent de la regió es pugui augmentar la potència de transmissió de 10 dBm, que era el límit de BLE 4.2, a 20 dBm en BLE 5.
 
 \subsubsection{LE 2M}
 LE2M (\textit{Low Energy 2 Mega}) és el nom que te la nova capa física quan opera a 2 MBd\footnote{Baud: Unitat de mesura de la velocitat de modulació, que correspon al nombre de canvis de l'estat d'un senyal en un segon \cite{Baud_definition}.} en la versió 5 enlloc dels 1 MBd que es podia anteriorment en la versió 4.0.
@@ -260,7 +261,8 @@ Si no s'ha de rebre o transmetre res, es pot apagar la ràdio i s'estalvia energ
 La manera de tenir apagada la ràdio més temps és transmetre les dades el més ràpid possible.
 BLE és dels protocols que tenen la tassa de transmissió física \footnote{La tassa de transmissió física és aquella a la que transmeten la ràdio, no confondre amb la tassa de dades d'aplicació \textit{Throughput}} més alta, de fins a 1 Mbps originalment i de 2 Mbps en BLE 5.
 
-La potència màxima de transmissió és de 10 dBm (10 mW) segons la especificació\footnote{La placa utilitzada pot transmetre fins a 5 dBm de potència}.
+La potència màxima de transmissió és de 20 dBm (100 mW) segons la especificació\footnote{La placa utilitzada pot transmetre fins a 5 dBm de potència}.
+Però 
 Aquesta potència de la ràdio es pot controlar, disminuint-la per consumir menys energia.
 Tot i que això, només serà possible si l'entorn ho permet i el receptor pot rebre el senyal correctament.
 El paquets de BLE indiquen la potència amb que s'han transmès i junt amb el RSSI (\textit{Received Signal Strength Indicator}), la potència rebuda, es pot estimar la distància fins al transmissor.
