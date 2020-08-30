@@ -96,13 +96,42 @@ Aquest component seria interessant poder-lo provar en un futur (queda per fer).
 
 \subsection{Consum d'Energia}
 
-El consum dels elements que utilitzen BLE és molt important ja que aquesta tecnologia està orientada a consumir la menor quantitat d'energia possible.
-Les plaques que s'utilitzen per aquest projecte contenen una tecnologia anomenada EnergyTrace que permet veure quanta corrent s'està consumint en cada instant de temps.
+El consum dels elements que utilitzen BLE és molt important ja que aquesta tecnologia està dissenyada per a consumir la menor quantitat d'energia possible.
+Les plaques utilitzades tenen ponts extraïbles que permeten desconnectar els components que no son essencials per al funcionament del xip CC1352.
+D'aquesta manera es pot utilitzar un analitzador de potència per mesurar l'energia consumida pel xip.
+Amb aquesta configuració es pot tenir una mesura molt precisa i poder calcular el cicle de vida del dispositiu que s'està desenvolupant.
+Però aquesta configuració no permet utilitzar les eines de desenvolupament com la depuració del codi.
+
+Per poder fàcilment desenvolupar un projecte i analitzar els canvis que el codi produeix en l'ús d'energia hi ha una eina anomenada Energy Trace.
 D'aquesta manera es pot analitzar comparativament en quin moment s'està consumint l'energia i es poden adaptar els paràmetres de la connexió per veure quin serà l'estalvi que s'aconseguirà.
 Així es poden prendre les decisions de quins sacrificis es poden suportar pel que fa a latència, per exemple, a canvi de reduir el consum.
+Aquesta eina però no substitueix la solució explicada anteriorment amb el analitzador de potència ja que l'Energy Trace resulta molt menys precisa.
 
+Per veure un exemple de com funciona l'EnergyTrace s'ha utilitzat mentre el Project Zero s'estava executant al processador. A continuació es pot veure una captura d'un segon de duració del consum aproximat de corrent.
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./images/energy_trace.png}
+		\caption{Captura d'Energy Trace}
+	\end{center}
+\end{figure}
 
+Es pot veure com hi ha pics de consum cada 100 ms, aquests corresponen als instants en que el dispositiu està enviant els anuncis.
+El temps de 100 ms correspon al interval d'anunci que s'ha configurat per a aquest projecte.
 
+Un cop s'estableix una connexió amb el dispositiu es torna a fer una altre captura d'un segon que es pot veure a continuació.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./images/energy_trace_2.png}
+		\caption{Captura d'Energy Trace 2}
+	\end{center}
+\end{figure}
+
+En aquesta captura es pot veure com segueixen estant els pics cada 100 ms però també n'hi ha cada 40 ms.
+Aquests es deuen als esdeveniments de connexió que en aquest cas estan configurats per a que es produeixen cada 40 ms.
+
+Aquesta eina per tant està orientada a tenir una idea comparativa de en quins instants es consumeix més energia.
+D'aquesta manera és més fàcil pel desenvolupador prova canvis en el codi i veure com aquests afecten al consum d'energia.
 
 \section{Mesures Biològiques}
 
