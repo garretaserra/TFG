@@ -109,15 +109,15 @@ També interactuar, escrivint o llegint aquells valors en que estigui permès.
 Tot i així, no totes les aplicacions permeten rebre notificacions o utilitzar seguretat.
 I les aplicacions no permeten interactuar directament amb el controlador (a través de HCI), per exemple, no poden canviar la potència de transmissió. 
 
-Per poder tenir un control total del sistema el kit de desenvolupament que proporciona Texas Instruments conté l'aplicació BTool.
-S'utilitza conjuntament amb el projecte Host Test del mateix kit per convertir la placa en un client BLE.
+Per poder tenir un control total del sistema l'equip de desenvolupament de programari que proporciona Texas Instruments conté l'aplicació BTool.
+S'utilitza conjuntament amb el projecte Host Test del mateix equip per convertir la placa en un client BLE.
 El projecte Host Test permet controlar les diferents capes de la pila BLE del xip a través de la interfície sèrie.
 Totes les possibles peticions, tant del servidor GAP com els missatges HCI.
 
 \subsection{Btool}
 L'aplicació BTool utilitza l'API del projecte Host Test per executar les crides a les diferents capes BLE.
 Primer de tot, BTool necessita saber per quina interfície ha d'interactuar amb la placa.
-En l'administrador de dispositius de Windows es poden trobar els ports utilitzats per la placa i els paràmetres de la conexió els indica Texas Instruments\cite{serial_params}.
+En l'administrador de dispositius de Windows es poden trobar els ports utilitzats per la placa i els paràmetres de la connexió els indica Texas Instruments\cite{serial_params}.
 Un cop s'inicia la comunicació entre BTool i la placa es pot escanejar, iniciar connexió i descobrir la taula d'atributs del servidor.
 En tot moment es poden veure tots els paquets que s'envien per la interfície amb la seva corresponent interpretació en la consola.
 Com que en aquesta consola apareixen tots els esdeveniments de BLE 5, permet veure quan es reben notificacions.
@@ -126,9 +126,9 @@ Un cop s'ha establert la connexió es pot interactuar amb la taula d'atributs di
 
 \section{Crear un Perfil propietari}
 
-Per poder implementar una xarxa de sensors amb BLE serà necessari disenyar un esquema pròpi en el servidor GATT.
+Per poder implementar una xarxa de sensors amb BLE serà necessari dissenyar un esquema propi en el servidor GATT.
 Tal i com s'ha comentat anteriorment el servidor GATT està format per perfils que alhora agrupen serveis.
-Aquests serveis son els que contenen les característiques amb les que s'interacturarà per intercanviar informació.
+Aquests serveis son els que contenen les característiques amb les que s'interactuarà per intercanviar informació.
 A continuació s'explicarà com es poden implementar perfils en l'entorn de Texas Instruments BLE Stack.
 
 \subsection{Generar Fitxers}
@@ -171,7 +171,7 @@ Per poder utilitzar-les primer cal crear un CCCD
 
 Descriptors
 Cal definir-los amb el UUID 0x2902 i han de tenir les propietats per poder escriure i llegir.
-S'enviaran notificacions a aquells dispositius que escriguin un 1 o Inicacions als que escriguin un 2.
+S'enviaran notificacions a aquells dispositius que escriguin un 1 o Indicacions als que escriguin un 2.
 
 
 \subsection{Interactuar amb el hardware}
