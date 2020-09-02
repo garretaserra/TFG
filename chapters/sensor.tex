@@ -141,7 +141,54 @@ Si el que es vol es transmetre el senyal directament que prové del sensor que m
 Considerem el màxim de 200 batecs per minut, això és una freqüència de 3,3 Hz, si mostregem a 10 vegades Fmax, 33 mostres/segon amb una resolució de 10 bits la tassa es de 330 bits/s
 
 \section{ADC}
+Tal i com s'ha comentat anteriorment la placa que estem utilitzant te un ADC que utilitzarem per llegir valors de voltatge.
 
+\subsection{Lectura del ADC}
+%Importar adcsinglechannel
+En aquest exemple l'objectiu es aconseguir poder llegir els valors del voltatge d'un pin de la placa.
+El següent codi ens permet fer una mesura del canal que s'indiqui a través del argument i ens retorna el resultat en miliVolts.
 
-\section{Mesures mediambientals}
-\subsection{Arquitectura}
+%TODO: Pretify code
+\begin{lstlisting}[language=C]
+static uint16_t takeMeasurement(uint_least8_t adcIndex){
+	ADC_Handle adc;
+	ADC_Params params;
+	ADC_init();
+	ADC_Params_init(&params);
+	adc = ADC_open(adcIndex, &params);
+	if (adc == NULL){
+		Log_info0("ADC start Failed");
+		while(1);
+	}
+	int_fast16_t res;
+	uint16_t adcValue;
+	res = ADC_convert(adc, &adcValue);
+	
+	if (res == ADC_STATUS_SUCCESS) {
+		Log_info1("ADC result %d mV", adcValue);
+	}
+	else {
+		Log_info0("ADC status failure");
+	}
+	ADC_close(adc);
+	return adcValue;
+}
+\end{lstlisting}
+
+Finalment cal vanviar el codi de BLE per a que quan es llegeixin els atributs es retorni el valor mesurat al ADC.
+Per tant cal canviar la funció environmentalService\_ReadAttrCB tal i com es veu a continuació.
+
+\begin{lstlisting}[language=C]
+  if(!memcmp(pAttr->type.uuid, temperatureUUID, pAttr->type.len))
+{
+	uint16_t adcValue = takeMeasurement(Board_ADC0);
+	*pLen = (uint16_t)temperatureLen;
+	memcpy(pValue, &adcValue, *pLen);
+}
+else if(!memcmp(pAttr->type.uuid, humidityUUID, pAttr->type.len))
+{
+	uint16_t adcValue = takeMeasurement(Board_ADC1);
+	*pLen = (uint16_t)humidityLen;
+	memcpy(pValue, &adcValue, *pLen);
+}
+\end{lstlisting}
