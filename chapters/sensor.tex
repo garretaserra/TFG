@@ -2,7 +2,7 @@
 \section{Experimentació}
 Per comprendre millor com afecten els diferents paràmetres configurables corresponents a BLE i també les prestacions dels perifèrics de la placa es realitzaran els següents escenaris.
 
-\subsection{ADC}
+\subsection{Simulador de sensors}
 La placa té un convertidor analògic-digital que ens permetrà enviar senyals analògiques un cop s'han mostrejat.
 Aquest ADC té x canals i una freqüència de mostreig de 200 Kmostres per segon.
 Com que té x canals es poden 
@@ -133,17 +133,16 @@ Aquests es deuen als esdeveniments de connexió que en aquest cas estan configur
 Aquesta eina per tant està orientada a tenir una idea comparativa de en quins instants es consumeix més energia.
 D'aquesta manera és més fàcil pel desenvolupador prova canvis en el codi i veure com aquests afecten al consum d'energia.
 
-\section{Mesures Biològiques}
+%\section{Mesures Biològiques}
 
-Si es volen transmetre la velocitat dels batecs del cor això suposa, aproximadament, una mostra cada segon d'uns 10 bits més un instant de temps de 30 bits suposa uns 40 bits/segon, insignificant.
+%Si es volen transmetre la velocitat dels batecs del cor això suposa, aproximadament, una mostra cada segon d'uns 10 bits més un instant de temps de 30 bits suposa uns 40 bits/segon, insignificant.
 
-Si el que es vol es transmetre el senyal directament que prové del sensor que mesura la sang.
-Considerem el màxim de 200 batecs per minut, això és una freqüència de 3,3 Hz, si mostregem a 10 vegades Fmax, 33 mostres/segon amb una resolució de 10 bits la tassa es de 330 bits/s
+%Si el que es vol es transmetre el senyal directament que prové del sensor que mesura la sang.
+%Considerem el màxim de 200 batecs per minut, això és una freqüència de 3,3 Hz, si mostregem a 10 vegades Fmax, 33 mostres/segon amb una resolució de 10 bits la tassa es de 330 bits/s
 
-\section{ADC}
+\section{Lectura del ADC}
 Tal i com s'ha comentat anteriorment la placa que estem utilitzant te un ADC que utilitzarem per llegir valors de voltatge.
 
-\subsection{Lectura del ADC}
 %Importar adcsinglechannel
 En aquest exemple l'objectiu es aconseguir poder llegir els valors del voltatge d'un pin de la placa.
 El següent codi ens permet fer una mesura del canal que s'indiqui a través del argument i ens retorna el resultat en miliVolts.
@@ -192,3 +191,29 @@ else if(!memcmp(pAttr->type.uuid, humidityUUID, pAttr->type.len))
 	memcpy(pValue, &adcValue, *pLen);
 }
 \end{lstlisting}
+
+\section{Aplicació mòbil}
+Per veure un exemple simplificat d'un client que consumis els serveis oferits per la placa s'ha desenvolupat una aplicació per a Android.
+Aquesta aplicació llegeix continuament els valors dels quatre atributs que té la placa relacionas amb el sensors.
+El codi de la app es pot trobar a \cite{android_repo}.
+
+Per poder interactuar amb la placa el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs.
+
+%TODO: Convertir a taula
+\begin{lstlisting}[language=JAVA]
+final String deviceAddress = "00:81:F9:4A:4D:B3";
+final String serviceUUID = "f0001234-0451-4000-b000-00000000";
+final String temperatureUUID = "f0002345-0451-4000-b000-000000000000";
+final String humidityUUID = "f0003456-0451-4000-b000-000000000000";
+final String heartRateUUID = "f0004567-0451-4000-b000-000000000000";
+final String bloodOxygenUUID = "f0005678-0451-4000-b000-000000000000";
+\end{lstlisting}
+
+%TODO: Afegir captura de la app
+
+\section{Escenari}
+Finalment, un cop desenvolupat el circuit per simular sensors, el codi necessari per mostrejar i transmetre els valors i una aplicació per rebre aquests valors, l'escenari és el següent.
+
+El circuit que simula els 4 sensors es connecta als pins de la placa que tenen ADC segons el manual de la placa que es pot trobar a \cite{manual_placa}.
+Segueixen aquesta taula:
+%TODO: fer taula de connexions amb el adcs i pins
