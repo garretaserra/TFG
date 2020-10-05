@@ -59,6 +59,14 @@ Per assegurar-se que no es superen els 3.3V a la entrada del ADC que podria fer 
 	\end{center}
 \end{figure}
 
+A continuació es pot veure com ha quedat el circuit soldat a una protoboard.
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{./images/sensors_circuit.jpg}
+		\caption{Circuit soldat}
+	\end{center}
+\end{figure}
+
 
 \subsection{Abast}
 
@@ -197,17 +205,23 @@ Per veure un exemple simplificat d'un client que consumis els serveis oferits pe
 Aquesta aplicació llegeix continuament els valors dels quatre atributs que té la placa relacionas amb el sensors.
 El codi de la app es pot trobar a \cite{android_repo}.
 
-Per poder interactuar amb la placa el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs.
+Per poder interactuar amb la placa el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs. 
 
-%TODO: Convertir a taula
-\begin{lstlisting}[language=JAVA]
-final String deviceAddress = "00:81:F9:4A:4D:B3";
-final String serviceUUID = "f0001234-0451-4000-b000-00000000";
-final String temperatureUUID = "f0002345-0451-4000-b000-000000000000";
-final String humidityUUID = "f0003456-0451-4000-b000-000000000000";
-final String heartRateUUID = "f0004567-0451-4000-b000-000000000000";
-final String bloodOxygenUUID = "f0005678-0451-4000-b000-000000000000";
-\end{lstlisting}
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{|c|l|}
+			\hline
+			Identificador	&	Valor	\\	\hline
+			deviceAddress	&	00:81:F9:4A:4D:B3	\\	\hline
+			serviceUUID		&	f0001234-0451-4000-b000-00000000		\\	\hline
+			temperatureUUID	&	f0002345-0451-4000-b000-000000000000	\\	\hline
+			humidityUUID	&	f0003456-0451-4000-b000-000000000000	\\	\hline
+			heartRateUUID	&	f0004567-0451-4000-b000-000000000000	\\	\hline
+			bloodOxygenUUID	&	f0005678-0451-4000-b000-000000000000	\\	\hline
+		\end{tabular}
+	\end{center}
+	\caption{Tipus d'anunciaments}
+\end{table}
 
 %TODO: Afegir captura de la app
 
@@ -216,4 +230,17 @@ Finalment, un cop desenvolupat el circuit per simular sensors, el codi necessari
 
 El circuit que simula els 4 sensors es connecta als pins de la placa que tenen ADC segons el manual de la placa que es pot trobar a \cite{manual_placa}.
 Segueixen aquesta taula:
-%TODO: fer taula de connexions amb el adcs i pins
+
+\begin{table}[!h]
+	\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			ADC			&	DIO		& 	PIN		\\	\hline
+			0			&	23		&	2		\\	\hline
+			1			&	24		&	6		\\	\hline
+			2			&	25		&	23		\\	\hline
+			3			&	26		&	24		\\	\hline
+		\end{tabular}
+	\end{center}
+	\caption{Taula dels pins amb ADC}
+\end{table}
