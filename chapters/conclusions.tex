@@ -4,17 +4,21 @@
 
 Aquest projecte serveix per considerar si BLE és la tecnologia adequada per a les aplicacions de mesures mediambientals o biològiques.
 
-\section{Tassa de dades necessària}
+\section*{Tassa de dades necessària}
 
-La tassa de dades que proporciona BLE és més que suficient per a l'ús que es considera en aquest cas.
-La situació on la tassa de dades seria major és en mesures biològiques en temps real.
+Un dels dubtes al inici del treball era si aquesta tecnologia tenia una capacitat de transmissió suficient per a xarxes de sensors.
+Tot i que Bluetooth Low Energy té bastant menys capacitat per transmetre dades, les dades necessaries en aquest tipus de xarxes acostumen a ser molt reduïdes.
+La tecnologia BLE  no es capaç de transmetre video o audio en temps real però és suficient per transmetre fluxos de dades de sensors amb mesures biològiques o mediambientals.
 
-\section{Abast}
+\section*{Abast}
 
-Pel que fa a la mesures biològiques no hi haurà problemes d'abast ja que el terminal i els sensors estaran sempre a menys de 10 metres.
-En canvi per a mesures ambientals si considerem instal·lacions privades en habitatges, BLE té l'abast suficient fins i tot tenint en compte la penetració de parets per interiors.
+Com s'ha comentat l'abast de la tecnologia BLE ve limitat tant per la distància entre transmissor i receptor però també per les interferències.
+En mesures biològiques es pot considerar que el transmisor i el receptor estaran relativament a prop per tant no hi haurà problemes d'abast.
+En canvi per a mesures ambientals si considerem instal·lacions privades en habitatges, cal tenir en compte els obstacles que s'oposen al senyal.
+També cal considerar la interferència més que probable de les tecnologies amb les que BLE comparteix espectre amb WiFi, altres dispositius intel·ligents i amb Bluetooth Clàssic mateix.
+Per combatre aquests desavantatges serà suficient augmentant la potència de transmissió tot i que reduirà la vida de la bateria en cas que en tingui.
 
-\section{Energia Consumida}
+\section*{Energia Consumida}
 
 BLE és dels protocols que permet consumir menys energia per a transmetre informació.
 Això només serà un avantatge quan els sensors estiguin alimentats per bateria i la transmissió sigui el que consumeix més energia de tot el sistema.
@@ -22,7 +26,7 @@ Si els sensors tenen pantalles, s'alimenten de la instal·lació elèctrica, fan
 En aquests casos no s'ha d'escollir el protocol de transmissió segons el consum ja que el temps entre recàrregues no es veu afectat pel protocol.
 
 
-\section{Penetració del mercat}
+\section*{Penetració del mercat}
 
 És evident que la presencia de BLE en tots els mòbils interl·ligents facilita l'ús i simplifica la arquitectura d'un desplegament.
 En cas de no utilitzar BLE no hi ha cap tecnologia de baix consum que es pugui connectar directament amb els telèfons dels usuaris.
@@ -31,10 +35,3 @@ En arquitectures simples suposa un cost extra però si es fa un desplegament ext
 
 En el cas de connexió directa fins al terminal del usuari BLE és perfecte ja que es troba en tots els telèfons intel·ligents.
 En total es preveu la producció de 7.500 milions de dispositius entre 2020 i 2024 amb un creixement del 26\% anual segons el SIG\cite{Bluetooth_Market_Update_2020}.
-
-
-\section{Interferències}
-
-El protocol BLE només utilitza la banda de 2.4 GHz que és la més saturada de totes.
-La previsió és que en el futur encara s'utilitzi més i per tant hi hagui més interferències que limitin la capcitat i latència de BLE.
-Altres protocols 

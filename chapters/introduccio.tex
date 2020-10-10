@@ -2,13 +2,22 @@
 \phantomsection
 \chapter*{Introducció}
 La arquitectura internet de les coses que s'ha popularitzat en els últims anys a comportat unes noves necessitats en molts aspectes de la tecnologia que són molt diferents als anteriors.
-Quan el que es vol és que tot allò que es pugui, estigui connectat, queda clar que es trenquen moltes premisses amb les que s'havien dissenyat les tecnologies.
+Quan el que es vol és que tot estigui connectat entre si, queda clar que es trenquen moltes premisses amb les que s'havien dissenyat originalment les tecnologies més importants.
 
-La transició cap a Internet Of Things, transforma el paradigma de les comunicacions de pocs elements a molta velocitat cap a molts elements amb poca velocitat
- Això afecta més a les tecnologies sense fils que no havien estat dissenyades amb aquestes noves necessitats.
+La transició cap a l'Internet Of Things, transforma el paradigma de les comunicacions de pocs elements a molta velocitat (xarxes centralitzades) cap a molts elements amb poca velocitat (xarxes distribuïdes).
+Això afecta les tecnologies sense fils que no havien estat dissenyades pel seu ús tant generalitzat.
 
-Aquests canvis es poden veure en la evolució de la majoria de tecnologies sense fils com WiFi, xarxes cel·lulars i Bluetooth entre d'altres.
-En aquest TFG s'avaluaran les noves versions de la tecnologia Bluetooth anomenades Bluetooth Low Energy.
-Es desenvoluparà el disseny i s'implementarà la tecnologia BLE per a usos en casos reals de mesures mediambientals i biològiques.
-L'objectiu és veure la viabilitat d'aquesta tecnologia en aquests casos oposats per entendre la flexibilitat que aporta el BLE.
-Això es farà veient els avantatges i limitacions que té pel que fa al consum d'energia, resistència a interferències, abast i taxa de transmissió de dades.
+Aquests canvis es poden veure en l'evolució de la majoria de tecnologies sense fils com WiFi, xarxes cel·lulars i Bluetooth entre d'altres.
+En totes aquestes tecnologies ha estat necessari fer grans canvis per acomodar a molts més usuaris dels que s'havien predit inicialment.
+
+El Bluetooth clàssic és un exemple de una tecnologia que tenia limitacions a l'hora de utilitzarse en certs escenaris.
+No permetia comunicació entre més d'un dispositiu alhora, tenia un abast limitat, poques mesures per contrarestar les interferències...
+Al llarg de la seva història es van definir noves versions que anaven millorant les mancances del protocol.
+Tot i així, el cost que suposa haver d'establir una connexió per transmetre dades, encara que siguin molt poques, segueix sent molt alt.
+
+És per això que Bluetooth va incorporar la extensió Low Energy de forma opcional.
+En aquesta extensió esta definit el protcol anomenat Bluetooth Low Energy que soluciona el problema de Bluetooth Clàssic ja que permet molt fàcilment i utilitzant molt poca energia transmetre dades (que inclou a múltiples dispositius) sense haver d'establir una connexió.
+
+Però Bluetooth Low Energy també va anar millorant amb les noves versions, millorant el rendiment en escenaris concrets.
+Aquestes millores inclouen augmentar el màxim de dades que es poden transmetre sense connexió o augmentar la tassa de dades de transmissió per poder estalviar energia.
+En aquest treball es veurà com funciona el BLE, com ha evolucionat al llarg del temps i es farà una implementació real del protocol.

@@ -1,4 +1,7 @@
 \chapter{Desenvolupament}
+Un cop vist com funciona el protocol del Bluetooth Low Energy en aquest capítol s'analitzarà el dispositiu que l'implementa.
+S'explicarà tant els components i parts que formen part de la placa com el programari que s'utilitza per desenvolupar projectes utilitzant-la.
+
 \section{Placa base CC1352R1}
 Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat el kit per desenvolupament ràpid del microcontrolador CC1352R1.
 \begin{figure}[h!]
@@ -16,12 +19,19 @@ La radio multibanda que té te un receptor amb sensibilitat de -121 dBm per a su
 
 
 \section{Software}
-Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. El software és el SimpleLink\texttrademark\ CC13X2 versió 2.30.00.45\footnote{La versió utilitzada no és la més nova per a que sigui compatible amb la revisió C del xip que s'està utilitzant.}.
+Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. 
+El CCS el distribuiex Texas Instruments i està basat en Eclipse \cite{eclipse}, que és de codi obert.
+Aquest entorn de desenvolupament està orientat al desenvolupament per a processadors incrustats (\textit{embedded}) de les families fabricades per Texas Instruments.
+El gran benefici d'aquest programa es que permet la depuració de programes basats en JTAG que es el cas d'aquesta placa.
+
+Tesxas Instruments té la plataforma SimpleLink que conté tant les llibreries necessaries per desenvolupar projectes com els recursos necessaris per a l'apranentatge de les tecnologies que es volen implementar.
+Per poder realitzar projectes amb la placa d'aquest treball és necessari utilitzar el SimpleLink CC13X2 versió 2.30.00.45\footnote{La versió utilitzada no és la més nova per a que sigui compatible amb la revisió C del xip que s'està utilitzant.}.
 
 \section{Project 0}
-El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica. Aquest projecte exposa certs serveis a través de BLE i permet veure una comunicació simple entre la placa i un dispositiu mòbil.
-La comunicació es fa a través del control dels dos LEDs que té la placa (els LEDs que estan directament controlats pel microcontrolador) i també per l'estat dels botons que hi ha a ambdós costats de la placa.
-*Aquest projecte també inclou altres serveis en que no entrarem.
+El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica.
+Aquest projecte exposa certs serveis a través de BLE i permet fer una comunicació simple entre la placa i un dispositiu mòbil.
+Aquesta comunicació es bidireccional, des del mòbil es poden controlar els LEDs que té la placa.
+I en el mòbil es pot veure si qualsevol dels dos botons esta pitjat.
 
 Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arquitectura dels serveis amb les seves característiques amb una relativa simple funcionalitat. A continuació s'analitzaran diferents parts dels atributs.
 
@@ -36,7 +46,8 @@ Per facilitar la visualització de les dades s'han tret els zeros finals dels UU
 	\end{table}
 	\label{tab:project_zero_uuid}
 \end{center}
-Per poder entendre els atributs, al tenir UUID propis és necessari tenir en compte la documentació amb la que s'ha desenvolupat aquest projecte.
+Els atributs en si no es poden identificar per tant és necessari tenir en compte la documentació del Project 0.
+En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el corresponent significat.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -60,7 +71,7 @@ Les propietats d'accés són un valor que identifica quines operacions i procedi
 El camp té 8 bits per defecte i cada un d'ells identifica una operació o procediment.
 Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples opcions.
 
-\begin{table}
+\begin{table}[h]
 	\begin{center}
 		\begin{tabular}{|c|c|l|}
 			\hline
@@ -142,11 +153,100 @@ Aquesta és la funció [Perfil]\_AddService(..) que cal afegir dins la funció P
 
 Tot i que aquest generador de fitxers és molt útil a l'hora de tenir una estructura bàsica del projecte cal analitzar les parts importants per entendre com funciona per dins i quina relació té cada part amb BLE.
 
-\subsection{Definir el Perfil Propietari}
+\subsection{Definir el Perfil Propi}
+Per poder desenvolupar un perfil propi cal seguir els següents passos.
 
-Definir UUIDs/Logitud del valor
-Tal i com s'ha comentat anteriorment els UUIDs poden tenir diferents longituds depenent si corresponen a un estàndard o si son propietaris.
-Quedaran definits al fitxer capçalera.
+Cada característica necessita: un identificador per poderla classificar, el UUID que té assignat i la longitud de dades que tindrà.
+Aquests valors es defineixen en el fitxer capçalera del perfil.
+
+\begin{lstlisting}[language=C]
+	#define TEMPERATURE_UUID 0x2345
+	#define temperatureID 0
+	#define temperatureLen 2
+	
+	#define humidityID 1
+	#define humidityLen 2
+	#define HUMIDITY_UUID 0x3456
+	
+	#define heartRate 2
+	#define heartRateLen 2
+	#define HEARTRATE_UUID 0x4567
+	
+	#define bloodOxygen 3
+	#define bloodOxygenLen 2
+	#define BLOODOXYGEN_UUID 0x5678
+	
+\end{lstlisting}
+
+En aquest cas tots els UUIDs tenen 4 caràcters que significa 16 bits. Però només es poden tenir UUIDs de 16 bits si estan reservats i aquest no és el cas.
+Aquests 4 caràcters acabaran només sent part del UUID final que tindrà 128 bits un cop s'hagui afeigit farciment.
+Això es fa utilitzant la funció TI\_BASE\_UUID\_128 que converteix els 16 bits a 128 amb el format F000XXXX-0451-4000-B000-000000000000 que és el que ve per defecte.
+
+\begin{lstlisting}[language=C]
+	CONST uint8_t environmentalServiceUUID[ATT_UUID_SIZE] =
+	{TI_BASE_UUID_128(ENVIRONMENTALSERVICE_SERV_UUID)};
+	
+	CONST uint8_t temperatureUUID[ATT_UUID_SIZE]=
+	{TI_BASE_UUID_128(TEMPERATURE_UUID)};
+	
+	CONST uint8_t humidityUUID[ATT_UUID_SIZE]=
+	{TI_BASE_UUID_128(HUMIDITY_UUID)};
+	
+	CONST uint8_t heartrateUUID[ATT_UUID_SIZE]=
+	{TI_BASE_UUID_128(HEARTRATE_UUID)};
+	
+	CONST uint8_t bloodoxygenUUID[ATT_UUID_SIZE]=
+	{TI_BASE_UUID_128(BLOODOXYGEN_UUID)};
+\end{lstlisting}
+
+Posteriorment cal assignar l'espai necessari per poder emmagatzemar les dades de les característiques.
+
+\begin{lstlisting}[language=C]
+	static uint8_t temperatureVal[temperatureLen] = {0x00};
+	static uint8_t tempProps = GATT_PROP_READ;
+	
+	static uint8_t humidityVal[humidityLen] = {0x00};
+	static uint8_t humidityProps = GATT_PROP_READ;
+	
+	static uint8_t heartRateVal[heartRateLen] = {0x00};
+	static uint8_t heartRateProps = GATT_PROP_READ;
+	
+	static uint8_t bloodOxygenVal[bloodOxygenLen] = {0x00};
+	static uint8_t bloodOxygenProps = GATT_PROP_READ;
+\end{lstlisting}
+
+Tal i com es pot veure s'assigna tant espai com s'ha definit prèviament.
+Els valors se'ls inicialitza a 0 i es defineix quines propietats tindran.
+
+Una de les parts més importants de BLE i conseqüentment del servei és la taula d'atributs.
+A continuació es pot veure com queda la taula definida en el codi.
+
+\begin{lstlisting}[language=C]
+	static gattAttribute_t environmentalServiceAttrTbl[] =
+	{
+		{	{ ATT_BT_UUID_SIZE, primaryServiceUUID },
+			GATT_PERMIT_READ,
+			0,
+			(uint8_t *)&environmentalServiceDecl	},
+		{	{ ATT_BT_UUID_SIZE,  characterUUID},
+			GATT_PERMIT_READ,
+			0,
+			&tempProps		},
+		{	{ ATT_UUID_SIZE, temperatureUUID},
+			GATT_PERMIT_READ,
+			0,
+			temperatureVal	},
+		{	{ ATT_BT_UUID_SIZE,  characterUUID},
+			GATT_PERMIT_READ,
+			0,
+			&humidityProps	},
+		{	{ ATT_UUID_SIZE, humidityUUID},
+			GATT_PERMIT_READ,
+			0,
+			humidityVal
+		},
+	};
+\end{lstlisting}
 
 Taula de atributs
 La taula d'atributs està formada per un llistat d'atributs, la estructura d'aquest ve definida en el gatt.h i s'anomena gattAttribute\_t.
