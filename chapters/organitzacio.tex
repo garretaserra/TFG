@@ -219,7 +219,7 @@ Tal i com es pot veure s'assigna tant espai com s'ha definit prèviament.
 Els valors se'ls inicialitza a 0 i es defineix quines propietats tindran.
 
 Una de les parts més importants de BLE i conseqüentment del servei és la taula d'atributs.
-A continuació es pot veure com queda la taula definida en el codi.
+A continuació es pot veure com queda la taula definida en el codi\footnote{En aquest extracte de codi només s'inclouen la declaració del servei i les dues primeres característiques.}.
 
 \begin{lstlisting}[language=C]
 	static gattAttribute_t environmentalServiceAttrTbl[] =
@@ -248,47 +248,79 @@ A continuació es pot veure com queda la taula definida en el codi.
 	};
 \end{lstlisting}
 
-Taula de atributs
-La taula d'atributs està formada per un llistat d'atributs, la estructura d'aquest ve definida en el gatt.h i s'anomena gattAttribute\_t.
-Inclou el tipus d'UUID (de 16 o 128 bits), els permisos, el handle (cal deixar-lo a 0 ja que s'assigna internament pel servidor) i el valor (longitud màxima 512 bytes).
+La taula en codi està formada per un llistat d'atributs, la estructura d'aquests ve definida en el fitxer gatt.h i s'anomena gattAttribute\_t.
+Cada objecte està format per quatre parts que són les següents:
 
-Quan sindiquen les propietats dels atributs que corresponen s'utilitzar l'operador OR (en C correspon al símbol $\mid$).
-El fitxer gatt.h s'inclou dins del fitxer font i conté les definicions de tots els possibles permisos amb els seus valors en bits corresponents.
+- El UUID, al que cal afegir com a prefix la longitud que té.
 
-Callbacks (get/set write/read)
-En cada servei hi ha quatre funcions de \textit{callback}.
+- Les propietats que té l'atribut, que determinen quin tipus de permisos.
+
+- El \textit{Handle} que cal deixar a 0 ja que s'assigna internament perl servidor.
+
+- El valor en si del atribut que té una longitud màxima de 512 bytes
+\newline
+
+En cas de voler assignar més d'una propietat a la característica es pot fer utilitzant l'operador OR (en C correspon al símbol $\mid$).
+Un exemple seria el següent: 
+\begin{lstlisting}[language=C]
+GATT_PERMIT_READ | GATT_PERMIT_WRITE
+\end{lstlisting}
+El fitxer gatt.h, que s'inclou dins del fitxer font, conté les definicions de tots els possibles permisos amb els seus valors en bits corresponents.
+
+Per llegir o modificar els calors de les característiques és important fer-ho de forma segura i així evitar problemes com el desbordament de memòria intermèdia (\textit{Buffer Overflow} en anglès) que poden ocórrer si s'escriuen valors no vàlids.
+Es per això que, en cada servei hi ha funcions de \textit{callback}.
 Les funcions get i set s'utilitzen per llegir o modificar els valors que s'exposen a través de BLE.
 Quant en algun punt del codi és necessari interactuar amb aquests valors es farà amb aquestes funcions.
-Com que s'està treballant amb C és important posar comprovacions quant es modifiquen els valors per tal d'evitar problemes com el desbordament de memòria intermèdia (\textit{Buffer Overflow} en anglès) que poden ocórrer si s'escriuen valors no vàlids.
+Un exemple de la funció get és el següent:
 
-Les funcions write i read són les que s'utilitzen per interceptar les peticions de lectura i escriptura del servidor GATT.
+\begin{lstlisting}[language=C]
+bStatus_t EnvironmentalService_GetParameter(
+	uint8_t param, uint8 len, void *value )
+{
+	bStatus_t ret = SUCCESS;
+	switch ( param )
+	{
+		case temperatureID:
+			memcpy(value, temperatureVal, len);
+		case humidityID:
+			memcpy(value, humidityVal, len);
+		default:
+			ret = INVALIDPARAMETER;
+	}
+	return ret;
+}
+\end{lstlisting}
 
-En aquestes funcions cal identificar en cada cas a quin atribut o valor s'està modificant i després de comprovacions o altres funcionalitats es copia la memòria entre els arguments.
+En aquest exemple, es passa en els arguments: l'identificador de la característica (\textit{param}), la longitud d'aquesta (\textit{len}) i un punter on s'hi copiarà el valor (\textit{*value}).
+La funció retorna un valor on indica si s'ha trobat o no la característica.
 
-Notificacions
-Les notificacions serveixen per indicar al client que un valor ha canviat en el servidor.
-Per poder utilitzar-les primer cal crear un CCCD
+%TODO afegir referencia on s'ha explicat
+Per poder implementar notificacions cal que la característica tingui un CCCD.
+El CCCD és un atribut més en la taula que cal posar just després del atribut on hi ha el valor de la característica i en codi quedaria de la següent manera\footnote{En aquest cas, l'exemple és del CCCD corresponent al boto 0 de la placa que es troba al servei de botons del Project 0}.
 
-Descriptors
-Cal definir-los amb el UUID 0x2902 i han de tenir les propietats per poder escriure i llegir.
-S'enviaran notificacions a aquells dispositius que escriguin un 1 o Indicacions als que escriguin un 2.
+\begin{lstlisting}[language=C]
+{
+	{ ATT_BT_UUID_SIZE, clientCharCfgUUID },
+	GATT_PERMIT_READ | GATT_PERMIT_WRITE,
+	0,
+	(uint8_t *)&bs_BUTTON0Config
+},
+\end{lstlisting}
+
+Com que el UUID correspon al de un CCCD cal que sigui 0x2902 que esta a la variable \textit{clientCharCfgUUID}.
+La longitud del UUID és de dos bytes i s'indica amb la variable \textit{ATT\_BT\_UUID\_SIZE}.
+La configuració per defecte es que s'enviaran notificacions a aquells dispositius que escriguin un 1 o Indicacions als que escriguin un 2.
+Però per que el servidor sàpiga que ha de realitzar aquestes operacions cal executar la funció \textit{GATTServApp\_ProcessCharCfg} que ha d'estar en la funció set del servei.
 
 
-\subsection{Interactuar amb el hardware}
+%\subsection{Interactuar amb el hardware}
 
-Botons
-La placa que s'està utilitzant té dos botons que s'utilitzen com a entrades de senyals.
-En el fitxer principal project\_zero.c hi ha la funció ProjectZero\_handleButtonPress() que es crida quan es pressiona o es deixa de pressionar qualsevol dels botons.
+%Botons
+%La placa que s'està utilitzant té dos botons que s'utilitzen com a entrades de senyals.
+%En el fitxer principal project\_zero.c hi ha la funció ProjectZero\_handleButtonPress() que es crida quan es pressiona o es deixa de pressionar qualsevol dels botons.
 
 
-Temporitzadors
-Tal i com s'ha comentat anteriorment la placa que s'està utilitzant inclou rellotges.
-Xips...
-El entorn ja ens dona directament classes amb les que pot treballar amb els rellotges així facilitant el seu ús.
 
-%Generador flux aleatori (perlin noise?)
-%Per a poder fer una simulació de com funciona BLE al transmetre les mesures mediambientals i biològiques és necessari tenir alguna font d'aquesta informació.
-%Les dades es generaran aleatoriament i per tant cal entendre com s'han de generar les senyals simulades en l'entorn de desenvolupament.
 
 
 
