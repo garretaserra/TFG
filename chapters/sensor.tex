@@ -24,14 +24,15 @@ Es va escollir un pàrquing i es va utilitzar la potència per defecte de 0 dBm 
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=\textwidth]{./images/prova_abast.png}
-		\caption{Abast}
+		\caption{Abast real de BLE}
+		\label{abast}
 	\end{center}
 \end{figure}
 
 El procediment per realitzar l'experiment va ser col·locar una de les plaques sobre un cotxe i amb l'altre connectada a una altre ordinador anar retrocedint fins que es perdés la connexió.
 Per forçar que es perdés la connexió quan ja no es podia establir una comunicació des de la placa que s'anava movent s'anaven enviant peticions de lectura d'atributs.
 
-Els resultats obtinguts indiquen que la distància màxima d'abast del dispositiu en una capa M2 és de 75 metres, mentre que en una capa S=8 aquesta distància s'extén fins els 135.
+Els resultats obtinguts, que es poden veure en la figura \ref{abast}, indiquen que la distància màxima d'abast del dispositiu en una capa M2 és de 75 metres, mentre que en una capa S=8 aquesta distància s'extén fins els 135.
 S'han tingut en compte únicament aquestes capes físiques ja que al no haver-hi interferències significatives i sempre s'ha mantingut la visibilitat directe, els resultats de la capa 1M són similars als de 2M i els de Coded S=2 són similar als de S=8.
 
 Un cop realitzat l'experiment s'han validat, tal i com s'havia comentat anteriorment, els avantatges que aporta la nova capa física Coded que no existia abans de la versió 5.0 de BLE.
@@ -43,7 +44,7 @@ Però també cal recordar que on és extremadament útil és en el de resistènc
 \subsection{Consum d'Energia}
 
 El consum dels dispositius que utilitzen BLE és la característica més significativa, ja que, aquesta tecnologia està dissenyada per a consumir la menor quantitat d'energia possible.
-Les plaques utilitzades tenen ponts extraïbles que permeten desconnectar els components que no son essencials per al funcionament del xip CC1352.
+Les plaques utilitzades tenen ponts extraïbles, tal i com es pot veure en la figura \ref{ponts_extraibles}, que permeten desconnectar els components que no son essencials per al funcionament del xip CC1352.
 D'aquesta manera, es pot utilitzar un analitzador de potència per mesurar l'energia consumida pel xip.
 Aquesta configuració, produeix una mesura molt precisa i permet calcular el cicle de vida del dispositiu que s'està desenvolupant.
 Per contra, no es poden utilitzar les eines de desenvolupament com la depuració del codi.
@@ -54,6 +55,7 @@ Per contra, no es poden utilitzar les eines de desenvolupament com la depuració
 	\begin{center}
 		\includegraphics[width=0.7\textwidth]{./images/ponts.jpg}
 		\caption{Ponts extraïbles de la placa}
+		\label{ponts_extraibles}
 	\end{center}
 \end{figure}
 
@@ -62,24 +64,27 @@ D'aquesta manera, es pot analitzar comparativament en quin moment s'està consum
 És per això que, es poden prendre les decisions de quins sacrificis són assumibles, per exemple, augmentar la latència a canvi de reduir el consum.
 Aquesta eina però, no substitueix la solució explicada anteriorment amb l'analitzador de potència ja que l'Energy Trace resulta molt menys precisa.
 
-Per provar el funcionament de l'EnergyTrace s'ha utilitzat durant l'execució en el xip del Project Zero. A continuació, es pot observar una captura d'un segon de duració del consum aproximat de corrent.
+Per provar el funcionament de l'EnergyTrace s'ha utilitzat durant l'execució en el xip del Project Zero.
+A la figura \ref{energy_trace1} es pot observar una captura d'un segon de duració del consum aproximat de corrent.
 
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=\textwidth]{./images/energy_trace.png}
 		\caption{Captura d'Energy Trace}
+		\label{energy_trace1}
 	\end{center}
 \end{figure}
 
 És possible visualitzar com hi ha pics de consum cada 100 ms, aquests corresponen als instants en que el dispositiu està enviant els anuncis.
 Aquests 100 ms corresponen a l'interval d'anunci que s'ha configurat per a aquest projecte.
 
-Un cop s'estableix una connexió amb el dispositiu es realitza una altre captura d'un segon que es pot observar a continuació.
+Un cop s'estableix una connexió amb el dispositiu es realitza una altre captura d'un segon que es pot observar a la figura \ref{energy_trace2}.
 
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=\textwidth]{./images/energy_trace_2.png}
 		\caption{Captura d'Energy Trace 2}
+		\label{energy_trace2}
 	\end{center}
 \end{figure}
 
@@ -153,12 +158,13 @@ Per assegurar-se que no es superen els 3.3$V$ a la entrada del ADC que podria ma
 
 Com que s'utilitzaran 4 canals del ADC per mesurar, es necessiten 4 circuits com el que s'ha dissenyat.
 S'ha implementat el circuit en una protoboard i soldat els components de tal manera que cal connectar el voltatge d'entrada (a 5$V$) en vermell, terra en negre i finalment quatre cables blaus on hi haurà el voltatge controlat pels quatre potenciòmetres.
-A continuació es pot observar aquesta implementació real del circuit.
+A la figura \ref{protoboard} es pot observar aquesta implementació real del circuit.
 
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./images/sensors_circuit.jpg}
 		\caption{Protoboard amb el circuit}
+		\label{protoboard}
 	\end{center}
 \end{figure}
 
@@ -219,7 +225,8 @@ Per veure un exemple simplificat d'un client que consumís els serveis oferits p
 Aquesta aplicació llegeix continuament els valors dels quatre atributs que té la placa relacionas amb el sensors.
 El codi de la app es pot trobar a \cite{android_repo}.
 
-Per poder interactuar amb la placa el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs. 
+Per poder interactuar amb la placa el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs.
+Aquests es poden veure a la taula \ref{taula_app}.
 
 \begin{table}[!h]
 	\begin{center}
@@ -235,6 +242,7 @@ Per poder interactuar amb la placa el primer que cal és tenir en compte l'adre�
 		\end{tabular}
 	\end{center}
 	\caption{Tipus d'anunciaments}
+	\label{taula_app}
 \end{table}
 
 Les dades que s'estan transmetent per cada atribut corresponen al valor del voltatge.
@@ -252,8 +260,7 @@ A continuació es pot observar una captura de la applicació en funcionament.
 \section{Escenari}
 Finalment, un cop desenvolupat el circuit per simular sensors, el codi necessari per mostrejar i transmetre els valors i una aplicació per rebre aquests valors, l'escenari és el següent.
 
-El circuit que simula els 4 sensors es connecta als pins de la placa que tenen ADC segons el manual de la placa que es pot trobar a \cite{manual_placa}.
-Segueixen aquesta taula:
+El circuit que simula els 4 sensors es connecta als pins de la placa que tenen ADC segons el manual de la placa que es pot trobar a \cite{manual_placa} seguint la taula \ref{connexions}.
 
 \begin{table}[!h]
 	\begin{center}
@@ -267,14 +274,16 @@ Segueixen aquesta taula:
 		\end{tabular}
 	\end{center}
 	\caption{Taula dels pins amb ADC}
+	\label{connexions}
 \end{table}
 
-Les connexions des del circuit fins la placa es fan a través dels ports que proporciona la placa a la seva part de darrera.
+Les connexions des del circuit fins la placa es fan a través dels ports que proporciona la placa a la seva part de darrera que es veuen a la figura \ref{ports_placa}.
 
-\begin{figure}[!h]
+\begin{figure}
 	\begin{center}
 		\includegraphics[angle=90, width=0.6\textwidth]{./images/connexions_placa.jpg}
 		\caption{Ports placa}
+		\label{ports_placa}
 	\end{center}
 \end{figure}
 

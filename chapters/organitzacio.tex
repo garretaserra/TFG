@@ -2,8 +2,8 @@
 Un cop vist com funciona el protocol del Bluetooth Low Energy en aquest capítol s'analitzarà el dispositiu que l'implementa.
 S'explicarà tant els components i parts que formen part de la placa com el programari que s'utilitza per desenvolupar projectes utilitzant-la.
 
-\section{Placa base CC1352R1}
-Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat el kit per desenvolupament ràpid del microcontrolador CC1352R1.
+\section{LaunchXL CC1352R1}
+Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat el kit LaunchXL pel desenvolupament ràpid del microcontrolador CC1352R1.
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.5\textwidth]{./images/launchxl-cc1352r1.jpg}
@@ -39,13 +39,13 @@ Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arqui
 
 En la taula \ref{tab:project_zero_uuid} es poden veure tots els valors que hi ha tal i com estan en la taula d'atributs del servidor GATT.
 Per facilitar la visualització de les dades s'han tret els zeros finals dels UUIDs propis però cal recordar que en total tenen 16 parells de caràcters (128 bits en representació hexadecimal) i no només els 9 parells que surten a la taula.
-\begin{center}
-	\begin{table}[h!]
+\begin{table}[h!]
+	\begin{center}
 		\csvautotabular{data_files/projectzeroUUID.csv}
 		\caption{Atributs del Project 0}
-	\end{table}
-	\label{tab:project_zero_uuid}
-\end{center}
+		\label{tab:project_zero_uuid}
+	\end{center}
+\end{table}
 Els atributs en si no es poden identificar per tant és necessari tenir en compte la documentació del Project 0.
 En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el corresponent significat.
 
@@ -53,8 +53,8 @@ En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el cor
 	\begin{center}
 		\includegraphics[width=\textwidth]{./images/Project_0_UUID.png}
 		\caption{Definició dels UUIDs}
+		\label{project0_table}
 	\end{center}
-	\label{project0_table}
 \end{figure}
 
 El primer que cal tenir clar és que en taula \ref{project0_table} els valors estan representats amb l'ordre en que es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitza \textit{little-endian} per enviar la informació.
