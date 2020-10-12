@@ -294,8 +294,7 @@ bStatus_t EnvironmentalService_GetParameter(
 En aquest exemple, es passa en els arguments: l'identificador de la característica (\textit{param}), la longitud d'aquesta (\textit{len}) i un punter on s'hi copiarà el valor (\textit{*value}).
 La funció retorna un valor on indica si s'ha trobat o no la característica.
 
-%TODO afegir referencia on s'ha explicat
-Per poder implementar notificacions cal que la característica tingui un CCCD.
+Per poder implementar notificacions cal que la característica tingui un \textit{Client Characteristic Configuration Descriptor} o CCCD.
 El CCCD és un atribut més en la taula que cal posar just després del atribut on hi ha el valor de la característica i en codi quedaria de la següent manera\footnote{En aquest cas, l'exemple és del CCCD corresponent al boto 0 de la placa que es troba al servei de botons del Project 0}.
 
 \begin{lstlisting}[language=C]

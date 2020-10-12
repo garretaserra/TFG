@@ -2262,6 +2262,22 @@ Amb els diferents esquemes s'utilitza una taxa de codi diferent que pot augmenta
 Es poden veure les capacitats dels diferents esquemes a la taula \ref{FEC} 
 
 %TODO: Refer
+%\begin{table}[!h]
+%	\centering
+%	\resizebox{\textwidth}{!}{
+%		\begin{tabular}{|l|l|l|l|l|}
+%			\hline
+%							&	LE 1M		& LE Coded S=2	&LE Coded S=8   & LE 2M 	\\ \hline
+%			Symbol Rate		&	1 Ms/s		& 1 Ms/s		& 1 Ms/s  		& 2 Ms/s	\\ \hline
+%			Data Rate		&	1 Mbit/s  	& 500 Kbit/s	& 125 Kbit/s 	& 2 Mbit/s	\\	\hline
+%			Error Detection	&	CRC    		& CRC 			& CRC			& CRC		\\	\hline
+%			Error Correction	&	NONE	& FEC			& FEC 			& NONE      \\	\hline
+%			Range Multiplier	&	1 		& 2				& 4  			& 0.8		\\	\hline
+%			Bluetooth 5 Requirement	&	Mandatory	& Optional	& Optional	& Optional	\\	\hline
+%		\end{tabular}
+%	}
+%	\caption{Comparació entre MANETs}
+%\end{table}
 \begin{table}[htb]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./images/LE_PHY.png}
@@ -2479,6 +2495,7 @@ La condició que ha de complir l'UUID és que no sigui XXXXXXXX-0000-1000-8000-0
 En cas de voler tenir un UUID global reservat es pot, amb \$2.500 de cost i també es poden veure tots els que ja s'han reservat per a empreses (veure \cite{reservedUUIDs}).
 
 En aquest exemple no n'hi ha cap però les característiques poden tenir descriptors \cite{descriptors} que permeten aportar informació addicional sobre la característica que els precedeix.
+Aquests, per exmple, serveixen per poder subscriures a rebre notificacions cada cop que una característica canvia de valor.
 Els atributs també tenen propietats d'accés que defineixen quines accions es poden prendre.
 Les propietats es comentaran en un exemple real més endavant \ref{sec:properties}.
 
