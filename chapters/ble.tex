@@ -2280,7 +2280,7 @@ Es poden veure les capacitats dels diferents esquemes a la taula \ref{FEC}.
 %\end{table}
 \begin{table}[htb]
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{./images/LE_PHY.png}
+		\includegraphics[width=0.8\textwidth]{./images/LE_PHY_edited.png}
 		\caption{Comparació de diferents capes físiques}
 		\label{FEC}
 	\end{center}
@@ -2399,6 +2399,8 @@ Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats 
 
 \subsection{Host}
 BLE es va dissenyar amb la flexibilitat en ment, és per això que l'estructura de la pila del host permet no utilitzar certes capes que es consideren opcionals.
+El permetre tenir capes opcionals pot generar incompatibilitats entre dispositius però no és comú.
+En canvi, facilita molt i abarateix el disseny d'un dispositiu BLE en cas que no es necessitin totes les capacitats que ofereix.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -2410,24 +2412,24 @@ BLE es va dissenyar amb la flexibilitat en ment, és per això que l'estructura 
 %TODO:Repasar capes ja qu es'ha canviat la imatge
 
 \subsubsection{L2CAP (\textit{Logical Link Control and Adaptation Protocol})}
-La \textit{Logical Link Control and Adaptation Protocol} és la capa encarregada de l'establiment de la connexió lògica, multiplexament de protocols, segmentació i reassemblatge de paquets, i control de flux individual per canal.
+La \textit{Logical Link Control and Adaptation Protocol} és la capa encarregada de l'establiment de la connexió lògica; segmentació i reassemblatge de paquets; multiplexament de protocols;  i control de flux individual per canal.
 
 La multiplexació de protocols és necessària per aconseguir que BLE sigui flexible.
-Permet que des de capes superiors s'utilitzin els protocols necessaris, i no només aquells determinats pel estàndard de BLE.
+Permet que des de capes superiors s'utilitzin els protocols que necessiti el fabricant, i no només aquells determinats per l'estàndard de BLE.
 
-Per limitació física de l'arquitectura existeix una MTU\footnote{La MTU és la mida màxima que pot tenir un paquet} (\textit{Maximum Transmission Unit}) i per tant és necessari segmentar els paquets de les capes superiors que es converteixen en paquets més petits per a les capes inferiors.
-Aquesta MTU es pot definir (dins dels límits establerts) per cada connexió així flexibilitzant la manera que s'utilitza el protocol per a cada cas.
+Degut a la limitació física de l'arquitectura existeix una MTU\footnote{La MTU és la mida màxima que pot tenir un paquet} (\textit{Maximum Transmission Unit}) i per tant és necessari segmentar els paquets de les capes superiors que es converteixen en paquets més petits per a les capes inferiors.
+Aquesta MTU es pot definir (dins dels límits establerts) independentment per cada connexió així flexibilitzant l'ús que es dona al protocol en cada cas.
 
 La L2CAP també és la capa que fa el seguiment de la qualitat de la connexió i dels recursos utilitzats per assegurar-se que les necessitats dels serveis es compleixen.
 
-\subsubsection{SMP}
-La capa \textit{Security Management Protocol} proveeix de diferents serveis relacionats amb la seguretat de la connexió.
+\subsubsection{SM \textit{Security Manager}}
+La capa SM proveeix de diferents serveis relacionats amb la seguretat de la connexió.
 Aquests serveis són: autenticació i autorització de dispositius i també integritat, confidencialitat i privacitat de les dades.
-El protocol té tipus d'emparellament i generació de claus flexible per aconseguir reduir els requeriments de memòria i energia.
+El protocol té flexibilitat en el tipus d'emparellament i la generació de claus per aconseguir reduir els requeriments de memòria i energia segons les necessitats específiques.
 Els diferents mètodes de seguretat es comentaran en més profunditat a l'apartat \ref{sec:security}
 
 \subsubsection{ATT \& GATT}
-El \textit{Attribute Protocol} (ATT d'ara endavant) és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} defineix com utilitzar el protocol per oferir serveis a capes superiors.
+El \textit{Attribute Protocol} (ATT d'ara endavant) és el protocol d'aplicació més comú per a BLE i el \textit{Generic Attribute Profile} (GATT d'ara endavant) defineix com utilitzar el protocol per oferir serveis a capes superiors.
 El ATT és un protocol dissenyat per a dispositius \textit{Low Energy} amb l'objectiu de minimitzar la quantitat de dades transmeses. L'atribut està format per 4 elements, \textit{handle}, UUID, permisos  i \textit{value}.
 
 El \textit{handle} fa la distinció única entre els diferents atributs, ocupa 16 bits i és comú que siguin valors seqüencials però no obligatori. És molt útil ja que s'utilitza per referenciar l'atribut amb el mínim de bits possibles.
@@ -2500,8 +2502,7 @@ Els atributs també tenen propietats d'accés que defineixen quines accions es p
 Les propietats es comentaran en un exemple real més endavant \ref{sec:properties}.
 
 \subsubsection{GAP}
-La \textit{Generic Access Profile} és la capa superior de la pila BLE.
-Aquesta capa és la que interactua amb la aplicació i per tant ofereix la Interfície de Programació d'Aplicacions (API en anglès) amb la funcionalitat que aporta BLE.
+La \textit{Generic Access Profile} és la capa que interactua amb la aplicació i per tant ofereix la Interfície de Programació d'Aplicacions (API en anglès) amb la funcionalitat que aporta BLE.
 
 El dispositiu sempre està en un\footnote{En BLE 5.1 es permet certes combinacions de rols} dels quatre rols: Emissor, Observador, Perifèric o Central.
 Si el rol és emissor, s'enviaran anuncis per poder ser descobert.

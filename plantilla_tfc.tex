@@ -118,7 +118,7 @@
 \usepackage{listings}
 
 % Define colors
-\definecolor{codeDarkGreen}{rgb}{0,0.32,0.2}
+\definecolor{co\dfrac{deD}{den}arkGreen}{rgb}{0,0.32,0.2}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
@@ -204,8 +204,26 @@ Finalment, es desenvoluparà una aplicació que mostrarà en pantalla les dades 
 
 %%% Resum en anglès
 \selectlanguage{english}   
-\begin{overview}{11cm}
-Overview
+\begin{overview}{1cm}
+Nowadays everyone knows Bluetooth but few people understand that Bluetooth is based on two different technologies. This paper will explain Bluetooth Low Energy and how it is used very efficiently in mobile devices.
+\newline
+\newline
+With the explanation, the most important differences between BLE and Bluetooth Classic (the other version of Bluetooth) will be understood. Moreover, the last versions of BLE and the improvements they bring.
+Bluetooth Low Energy will be contextualized within the wireless low energy technologies world.
+\newline
+\newline
+The main goal of this paper is to explain deeply and with detail BLE and give the necessary information to be able to develop a simple but real implementation of the protocol. 
+Furthermore, this paper will cover how data is organised, information is transmitted and the benefits of using this technology for a sensor network.
+\newline
+\newline
+Next, the tools that are used for the CC1352R chip from Texas Instruments.
+There will be a step by step tutorial on using the SimpleLink environment to develop a project from zero of the chip.
+With this basis it will be possible to make implementations of new projects and similar setups with some modifications. 
+\newline
+\newline
+Afterwards, the device consumption will be measured and the BLE range will be tested.
+In addition, a real case for sensor communication will be designed that will take environmental and biological measurements.
+Finally, an application will be developed to show the measurements taken and that have been transmited to the phone from the device usgin Bluetooth Low Energy.
 \end{overview}
 
 % Tornar a l'idioma principal del document
@@ -269,7 +287,7 @@ Overview
 %%%%%% INCLOURE A PARTIR D'AQUI TOTS ELS CAPÍTOLS DELS APENDIXS   %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{appendix/prova}
+%\input{appendix/prova}
 
 \end{document}
 
