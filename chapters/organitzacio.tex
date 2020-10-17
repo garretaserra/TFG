@@ -4,14 +4,16 @@ S'explicarà tant els components i parts que formen part del circuit imprès (\t
 
 \section{LaunchXL CC1352R1}
 Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat el kit LaunchXL pel desenvolupament ràpid del microcontrolador CC1352R1.
+
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.5\textwidth]{./images/launchxl-cc1352r1.jpg}
 		\caption{PCB amb la que es realitza el treball \cite{placa}}
+		\label{PCB}
 	\end{center}
 \end{figure}
 
-Aquesta PCB permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments a continuació es descriuen les seves característiques principals \cite{placa_datasheet}.
+Aquesta PCB, que es pot veure a la figura \ref{PCB}, permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments a continuació es descriuen les seves característiques principals \cite{placa_datasheet}.
 
 El dispositiu CC1352R és multiprotocol i multibanda orientat a 2.4 GHz o sub-1GHz que serveix per a Thread, Zigbee, Bluetooth 5 Low Energy, IEEE 802.15.4g i 6LoWPAN. Pel que fa a memòria té 352 KB flash programable, 256 KB de ROM per a protocols i llibreries, 8 KB de Cache SRAM i 80 KB de RAM protegida amb paritat.
 Pel que fa als perifèrics el més important és el ADC de 12 bits i 8 canals amb freqüència de mostreig de 200 Kmostres/s (multiplexat). També té Rellotge de Temps Real (RTC en anglès), acceleradors d'operacions criptogràfiques i generador de números aleatoris.
@@ -68,6 +70,7 @@ I per últim la resta de caràcters corresponen al UUID que identifica la caract
 \subsection{Propietats}
 \label{sec:properties}
 Les propietats d'accés són un valor que identifica quines operacions i procediments es poden fer sobre la característica.
+Es poden veure les propietats principals amb els corresponents valors en la taula \ref{properties}.
 El camp té 8 bits per defecte i cada un d'ells identifica una operació o procediment.
 Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples opcions.
 
@@ -84,11 +87,11 @@ Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples op
 			0010 0000	&	0x20	&	Indication with ACK	\\	\hline
 			0100 0000	&	0x40	&	Signed Writes	\\	\hline
 			1000 0000	&	0x80	&	Aditional Properties	\\	\hline
-		\end{tabular}
+		\end{tabular}		
 	\end{center}
 \caption{Valors de les propietats}
+\label{properties}
 \end{table}
-
 
 Primer de tot cal destacar la implementació de comunicacions amb o sense reconeixement. D'aquesta manera si preferim reduir la quantitat de missatges per estalviar bateria enlloc d'assegurar-se que s'ha rebut la informació es dona l'opció.
 

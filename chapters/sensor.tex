@@ -18,8 +18,8 @@ El límit és de 5 dBm i per defecte només s'utilitzen 0 dBm de potència en tr
 Per realitzar un experiment que fos més precís seria avantatjós utilitzar una antena externa més directiva.
 Enlloc d'analitzar l'abast de la tecnologia en aquest apartat es farà un balanç comparatiu per comprovar les diferències reals d'utilitzar les diferents capes físiques de BLE.
 
-Per a aquest apartat es va realitzar un experiment pràctic en un lloc relativament aïllat i on es pogués tenir una suficient distància amb visibilitat directa.
-Es va escollir un pàrquing i es va utilitzar la potència per defecte de 0 dBm per poder treballar amb distàncies més curtes.
+Per a aquest apartat s'ha realitzat un experiment pràctic en un lloc relativament aïllat i on es pogués tenir una suficient distància amb visibilitat directa.
+S'ha escollit un pàrquing i utilitzat la potència per defecte de 0 dBm per poder treballar amb distàncies més curtes.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -44,12 +44,7 @@ Però també cal recordar que on és extremadament útil és en el de resistènc
 \subsection{Consum d'Energia}
 
 El consum dels dispositius que utilitzen BLE és la característica més significativa, ja que, aquesta tecnologia està dissenyada per a consumir la menor quantitat d'energia possible.
-Les plaques utilitzades tenen ponts extraïbles, tal i com es pot veure en la figura \ref{ponts_extraibles}, que permeten desconnectar els components que no son essencials per al funcionament del xip CC1352.
-D'aquesta manera, es pot utilitzar un analitzador de potència per mesurar l'energia consumida pel xip.
-Aquesta configuració, produeix una mesura molt precisa i permet calcular el cicle de vida del dispositiu que s'està desenvolupant.
-Per contra, no es poden utilitzar les eines de desenvolupament com la depuració del codi.
-
-%TODO: Afegir diagrama amb les connexions per a mesurar energia consumida.
+Les plaques utilitzades tenen ponts extraïbles, tal i com es pot veure en la figura \ref{ponts_extraibles}, que permeten desconnectar els components que no son essencials per al funcionament del xip CC1352R.
 
 \begin{figure}[h]
 	\begin{center}
@@ -58,6 +53,12 @@ Per contra, no es poden utilitzar les eines de desenvolupament com la depuració
 		\label{ponts_extraibles}
 	\end{center}
 \end{figure}
+
+D'aquesta manera, es pot utilitzar un analitzador de potència per mesurar l'energia consumida pel xip.
+Aquesta configuració, produeix una mesura molt precisa i permet calcular el cicle de vida del dispositiu que s'està desenvolupant.
+Per contra, no es poden utilitzar les eines de desenvolupament com la depuració del codi.
+
+%TODO: Afegir diagrama amb les connexions per a mesurar energia consumida.
 
 Per poder desenvolupar fàcilment un projecte i analitzar els canvis que el codi produeix en l'ús d'energia, existeix una eina anomenada Energy Trace.
 D'aquesta manera, es pot analitzar comparativament en quin moment s'està consumint l'energia i es poden adaptar els paràmetres de la connexió per observar quin serà l'estalvi que s'aconseguirà.
