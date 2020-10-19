@@ -1,17 +1,19 @@
 \chapter{Desenvolupament}
 Un cop vist com funciona el protocol del Bluetooth Low Energy en aquest capítol s'analitzarà el dispositiu que l'implementa.
-S'explicarà tant els components i parts que formen part de la placa com el programari que s'utilitza per desenvolupar projectes utilitzant-la.
+S'explicarà tant els components i parts que formen part del circuit imprès (\textit{Printed Circuit Board} o PCB d'ara endavant) com el programari que s'utilitza per desenvolupar projectes utilitzant-la.
 
 \section{LaunchXL CC1352R1}
 Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat el kit LaunchXL pel desenvolupament ràpid del microcontrolador CC1352R1.
+
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.5\textwidth]{./images/launchxl-cc1352r1.jpg}
-		\caption{Placa \cite{placa}}
+		\caption{PCB amb la que es realitza el treball \cite{placa}}
+		\label{PCB}
 	\end{center}
 \end{figure}
 
-Aquesta placa permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments a continuació es descriuen les seves característiques principals \cite{placa_datasheet}.
+Aquesta PCB, que es pot veure a la figura \ref{PCB}, permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments a continuació es descriuen les seves característiques principals \cite{placa_datasheet}.
 
 El dispositiu CC1352R és multiprotocol i multibanda orientat a 2.4 GHz o sub-1GHz que serveix per a Thread, Zigbee, Bluetooth 5 Low Energy, IEEE 802.15.4g i 6LoWPAN. Pel que fa a memòria té 352 KB flash programable, 256 KB de ROM per a protocols i llibreries, 8 KB de Cache SRAM i 80 KB de RAM protegida amb paritat.
 Pel que fa als perifèrics el més important és el ADC de 12 bits i 8 canals amb freqüència de mostreig de 200 Kmostres/s (multiplexat). També té Rellotge de Temps Real (RTC en anglès), acceleradors d'operacions criptogràfiques i generador de números aleatoris.
@@ -19,18 +21,18 @@ La radio multibanda que té te un receptor amb sensibilitat de -121 dBm per a su
 
 
 \section{Software}
-Per al desenvolupament de projectes per a la placa s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. 
+Per al desenvolupament de projectes per a la PCB s'ha utilitzat el entorn de desenvolupament Code Composer Studio 9. 
 El CCS el distribuiex Texas Instruments i està basat en Eclipse \cite{eclipse}, que és de codi obert.
-Aquest entorn de desenvolupament està orientat al desenvolupament per a processadors incrustats (\textit{embedded}) de les families fabricades per Texas Instruments.
-El gran benefici d'aquest programa es que permet la depuració de programes basats en JTAG que es el cas d'aquesta placa.
+Aquest entorn de desenvolupament està orientat al desenvolupament per a processadors incrustats (\textit{embedded} en anglès) de les families fabricades per Texas Instruments.
+El gran benefici d'aquest programa es que permet la depuració de programes basats en JTAG que es el cas d'aquesta PCB.
 
 Tesxas Instruments té la plataforma SimpleLink que conté tant les llibreries necessaries per desenvolupar projectes com els recursos necessaris per a l'apranentatge de les tecnologies que es volen implementar.
-Per poder realitzar projectes amb la placa d'aquest treball és necessari utilitzar el SimpleLink CC13X2 versió 2.30.00.45\footnote{La versió utilitzada no és la més nova per a que sigui compatible amb la revisió C del xip que s'està utilitzant.}.
+Per poder realitzar projectes amb la PCB d'aquest treball és necessari utilitzar el SimpleLink CC13X2 versió 2.30.00.45\footnote{La versió utilitzada no és la més nova per a que sigui compatible amb la revisió C del xip que s'està utilitzant.}.
 
 \section{Project 0}
-El Project 0 és el projecte instal·lat amb que les plaques vénen de fàbrica.
-Aquest projecte exposa certs serveis a través de BLE i permet fer una comunicació simple entre la placa i un dispositiu mòbil.
-Aquesta comunicació es bidireccional, des del mòbil es poden controlar els LEDs que té la placa.
+El Project 0 és el projecte instal·lat amb que les PCBs vénen de fàbrica.
+Aquest projecte exposa certs serveis a través de BLE i permet fer una comunicació simple entre la PCB i un dispositiu mòbil.
+Aquesta comunicació es bidireccional, des del mòbil es poden controlar els LEDs que té la PCB.
 I en el mòbil es pot veure si qualsevol dels dos botons esta pitjat.
 
 Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arquitectura dels serveis amb les seves característiques amb una relativa simple funcionalitat. A continuació s'analitzaran diferents parts dels atributs.
@@ -68,6 +70,7 @@ I per últim la resta de caràcters corresponen al UUID que identifica la caract
 \subsection{Propietats}
 \label{sec:properties}
 Les propietats d'accés són un valor que identifica quines operacions i procediments es poden fer sobre la característica.
+Es poden veure les propietats principals amb els corresponents valors en la taula \ref{properties}.
 El camp té 8 bits per defecte i cada un d'ells identifica una operació o procediment.
 Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples opcions.
 
@@ -84,11 +87,11 @@ Es poden combinar qualsevol quantitat d'aquests bits per habilitar múltiples op
 			0010 0000	&	0x20	&	Indication with ACK	\\	\hline
 			0100 0000	&	0x40	&	Signed Writes	\\	\hline
 			1000 0000	&	0x80	&	Aditional Properties	\\	\hline
-		\end{tabular}
+		\end{tabular}		
 	\end{center}
 \caption{Valors de les propietats}
+\label{properties}
 \end{table}
-
 
 Primer de tot cal destacar la implementació de comunicacions amb o sense reconeixement. D'aquesta manera si preferim reduir la quantitat de missatges per estalviar bateria enlloc d'assegurar-se que s'ha rebut la informació es dona l'opció.
 
@@ -96,9 +99,9 @@ Pel que fa les propietats en el Project 0 les característiques dels LEDs tenen 
 En canvi les característiques del servei de botons té el valor 0x12 que suposa 0001 0010, per tant, es permet lectura i notificació sense reconeixement.
 
 La notificació i indicació són funcions que ajuden a reduir el consum de recursos.
-Quan volem saber en quin estat estan els botons de la placa contínuament es podria anar llegint el estat de la característica constantment però això suposarien molts missatges i reduiria el temps que els dispositius es poden adormir i així ser més eficients.
-Per evitar aquest cas es pot configurar la característica tal que sigui la mateixa placa qui enviï el missatge automàticament quant el estat de la característica canviï.
-D'aquesta manera el receptor només cal que escolti els missatges de la placa per tal de saber en quin estat està el botó.
+Quan volem saber en quin estat estan els botons de la PCB contínuament es podria anar llegint el estat de la característica constantment però això suposarien molts missatges i reduiria el temps que els dispositius es poden adormir i així ser més eficients.
+Per evitar aquest cas es pot configurar la característica tal que sigui la mateixa PCB qui enviï el missatge automàticament quant el estat de la característica canviï.
+D'aquesta manera el receptor només cal que escolti els missatges de la PCB per tal de saber en quin estat està el botó.
 
 En cas de que es vulgui indicació amb reconeixements és possible configurar-ho d'aquesta manera a través del atribut Configuració de Característica del Client identificat amb el UUID 0x2902 i estandarditzat en la especificació de Bluetooth.
 Si el valor és 0 no hi ha transmissions, si el valor és 1 s'envien notificacions (sense reconeixement) i si el valor és 2 s'envien indicacions (notificacions amb reconeixement). 
@@ -121,15 +124,15 @@ Tot i així, no totes les aplicacions permeten rebre notificacions o utilitzar s
 I les aplicacions no permeten interactuar directament amb el controlador (a través de HCI), per exemple, no poden canviar la potència de transmissió. 
 
 Per poder tenir un control total del sistema l'equip de desenvolupament de programari que proporciona Texas Instruments conté l'aplicació BTool.
-S'utilitza conjuntament amb el projecte Host Test del mateix equip per convertir la placa en un client BLE.
+S'utilitza conjuntament amb el projecte Host Test del mateix equip per convertir la PCB en un client BLE.
 El projecte Host Test permet controlar les diferents capes de la pila BLE del xip a través de la interfície sèrie.
 Totes les possibles peticions, tant del servidor GAP com els missatges HCI.
 
 \subsection{Btool}
 L'aplicació BTool utilitza l'API del projecte Host Test per executar les crides a les diferents capes BLE.
-Primer de tot, BTool necessita saber per quina interfície ha d'interactuar amb la placa.
-En l'administrador de dispositius de Windows es poden trobar els ports utilitzats per la placa i els paràmetres de la connexió els indica Texas Instruments\cite{serial_params}.
-Un cop s'inicia la comunicació entre BTool i la placa es pot escanejar, iniciar connexió i descobrir la taula d'atributs del servidor.
+Primer de tot, BTool necessita saber per quina interfície ha d'interactuar amb la PCB.
+En l'administrador de dispositius de Windows es poden trobar els ports utilitzats per la PCB i els paràmetres de la connexió els indica Texas Instruments\cite{serial_params}.
+Un cop s'inicia la comunicació entre BTool i la PCB es pot escanejar, iniciar connexió i descobrir la taula d'atributs del servidor.
 En tot moment es poden veure tots els paquets que s'envien per la interfície amb la seva corresponent interpretació en la consola.
 Com que en aquesta consola apareixen tots els esdeveniments de BLE 5, permet veure quan es reben notificacions.
 Un cop s'ha establert la connexió es pot interactuar amb la taula d'atributs directament.
@@ -178,7 +181,7 @@ Aquests valors es defineixen en el fitxer capçalera del perfil.
 	
 \end{lstlisting}
 
-En aquest cas tots els UUIDs tenen 4 caràcters que significa 16 bits. Però només es poden tenir UUIDs de 16 bits si estan reservats i aquest no és el cas.
+En aquest cas tots els UUIDs tenen 4 caràcters que suposen 16 bits. Però només es poden tenir UUIDs de 16 bits si estan reservats i aquest no és el cas.
 Aquests 4 caràcters acabaran només sent part del UUID final que tindrà 128 bits un cop s'hagui afeigit farciment.
 Això es fa utilitzant la funció TI\_BASE\_UUID\_128 que converteix els 16 bits a 128 amb el format F000XXXX-0451-4000-B000-000000000000 que és el que ve per defecte.
 
@@ -255,7 +258,7 @@ Cada objecte està format per quatre parts que són les següents:
 
 - Les propietats que té l'atribut, que determinen quin tipus de permisos.
 
-- El \textit{Handle} que cal deixar a 0 ja que s'assigna internament perl servidor.
+- El \textit{Handle} que cal deixar a 0 ja que s'assigna internament pel servidor.
 
 - El valor en si del atribut que té una longitud màxima de 512 bytes
 \newline
@@ -267,7 +270,7 @@ GATT_PERMIT_READ | GATT_PERMIT_WRITE
 \end{lstlisting}
 El fitxer gatt.h, que s'inclou dins del fitxer font, conté les definicions de tots els possibles permisos amb els seus valors en bits corresponents.
 
-Per llegir o modificar els calors de les característiques és important fer-ho de forma segura i així evitar problemes com el desbordament de memòria intermèdia (\textit{Buffer Overflow} en anglès) que poden ocórrer si s'escriuen valors no vàlids.
+Per llegir o modificar els valors de les característiques és important fer-ho de forma segura i així evitar problemes com el desbordament de memòria intermèdia (\textit{Buffer Overflow} en anglès) que poden ocórrer si s'escriuen valors no vàlids.
 Es per això que, en cada servei hi ha funcions de \textit{callback}.
 Les funcions get i set s'utilitzen per llegir o modificar els valors que s'exposen a través de BLE.
 Quant en algun punt del codi és necessari interactuar amb aquests valors es farà amb aquestes funcions.
@@ -295,8 +298,9 @@ En aquest exemple, es passa en els arguments: l'identificador de la característ
 La funció retorna un valor on indica si s'ha trobat o no la característica.
 
 Per poder implementar notificacions cal que la característica tingui un \textit{Client Characteristic Configuration Descriptor} o CCCD.
-El CCCD és un atribut més en la taula que cal posar just després del atribut on hi ha el valor de la característica i en codi quedaria de la següent manera\footnote{En aquest cas, l'exemple és del CCCD corresponent al boto 0 de la placa que es troba al servei de botons del Project 0}.
-
+El CCCD és un atribut més en la taula que cal posar just després del atribut on hi ha el valor de la característica i en codi quedaria de la següent manera\footnote{En aquest cas, l'exemple és del CCCD corresponent al boto 0 de la PCB que es troba al servei de botons del Project 0}.
+\newline
+\newline
 \begin{lstlisting}[language=C]
 {
 	{ ATT_BT_UUID_SIZE, clientCharCfgUUID },
