@@ -2,8 +2,8 @@
 
 \section{Ús lliure de radiofreqüència}
 En tot l'espai radioelèctric hi ha certs trams que estan assignats per a un ús lliure i privat.
-Per utilitzar-les es necessari respectar la normativa nacional que normalment assimila la normativa comuna segons la ITU\footnote{La Internation Telecomunications Union depen de les nacions unides i s'encarrega d'assignar l'espectre radioelèctric per a comunicacions.}.
-Aquestes bandes es designen ISM, acrònim d'\textit{Industrial}, \textit{Scientific} i \textit{Medical}, que són els usos pels que s'havia pensat que servirien originalment, avui en dia els usos són més diversos.
+Per utilitzar-los es necessari respectar la normativa nacional que normalment assimila la normativa comuna segons la ITU\footnote{La Internation Telecomunications Union depen de les nacions unides i s'encarrega d'assignar l'espectre radioelèctric per a comunicacions.}.
+Aquestes bandes es designen ISM, acrònim d'\textit{Industrial}, \textit{Scientific} i \textit{Medical}, que són els usos pels que s'havia pensat que servirien originalment, avui en dia aquests usos són més diversos.
 
 Com que les bandes ISM estan suficientment establertes arreu del món es crea la possibilitat d'utilitzar la comunicació inal·làmbrica amb molta facilitat pel públic general.
 Aquesta situació proporciona el disseny de productes per al consumidor habitual que ràpidament veu els avantatges de la comunicació inal·làmbrica entre dispositius.
@@ -19,7 +19,7 @@ A continuació, s'explicarà l'origen d'aquesta tecnologia.
 El desenvolupament de la tecnologia per a connexions de curt abast que acabarien esdevenint el que avui es coneix com a Bluetooth Clàssic va començar l'any 1989 per part de la empresa Ericsson.
 Inicialment l'objectiu d'aquesta tecnologia era poder connectar auriculars i ordinadors sense necessitat d'una connexió per cable.
 D'altra banda a IBM es volia integrar la connectivitat de la xarxa de telefonia als ordinadors portàtils per poder realitzar i rebre trucades des d'aquests mateixos.
-El problema era que això suposava un consum d'energia significatiu en els ordinadors portàtils de l'època.
+El problema era que, això suposava un consum d'energia significatiu en els ordinadors portàtils de l'època.
 
 IBM va veure que la tecnologia que estava desenvolupant Ericsson podria servir per tenir connectivitat de telefonia en els portàtils si es connectava el telefon mòbil amb l'ordinador.
 Preveient que la mobilitat en el futur seria important, les dues empreses van acordar utilitzar aquesta tecnologia en els seus productes corresponents.
@@ -30,7 +30,7 @@ El 1998 es van unir al grup Intel, Nokia i Toshiba i totes 5 companyies van fund
 Finalment, al 2001 van sortir a la venta els primers dispositius amb Bluetooth, el terminal Ericsson T39 i el portàtil IBM ThinkPad A30.
 
 \subsection{Història de Bluetooth Low Energy}
-Com que el món de les comunicacions estava evolucionant cap als dispositius sense fils i alimentats amb bateria, calia adaptar les tecnologies existents per a les noves necessitats.
+Com que el món de les comunicacions estava evolucionant cap als dispositius sense fils i alimentats amb bateria, era important adaptar les tecnologies existents per a les noves necessitats.
 L'any 2001 a Nokia es va començar a desenvolupar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb el mínim de compromisos possibles.
 Aquest desenvolupament va culminar l'any 2004 amb la publicació de la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
 Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en el projecte d'investigació per part de la Unió Europea MIMOSA \cite{MIMOSA}.
@@ -49,24 +49,24 @@ Posteriorment es va canviar el nom per \textit{Bluetooth Low Energy} (BLE d'ara 
 
 \section{Bluetooth Clàssic vs BLE}
 El Bluetooth Low Energy no té cap relació amb el Bluetooth Clàssic pel que fa a l'arquitectura de la tecnologia.
-Tot i que comparteixen l'ús de la banda freqüencial de 2,4 GHz, igual que altres protocols sense fils, i contenen el nom de Bluetooth, són completament diferents, de fet, no són compatibles entre si.
-De fet, quant un dispositiu vol implementar les dues tecnologies (anomenat mode dual) ho ha de fer per separat ja que només comparteixen l'antena; les modulacions i els altres blocs són tots diferents.
+Tot i que comparteixen l'ús de la banda freqüencial de 2,4 GHz i contenen el nom de Bluetooth, són completament diferents, de fet, no són compatibles entre si.
+De fet, quan un dispositiu vol implementar les dues tecnologies (anomenat mode dual) ho ha de fer per separat ja que només comparteixen l'antena; les modulacions i els altres blocs són tots diferents.
 
 \section{MANETS (\textit{Mobile Ad-Hoc Networks})}
 Bluetooth Clàssic no permet tenir més d'una connexió establerta amb altres dispositius.
-I té el desavantatge que, tot i voler transmetre poques dades, l'arquitectura fa que es consumeixi bastanta energia per establir i mantenir la connexió, encara que sigui breu.
-Això no suposava problemes inicialment, ja que l'ús principalment era per la transferència de fitxers com contactes o fotografies.
-Més endavant també es va fer popular l'us del Bluetooth per a escoltar muscia a través d'auriculars inal·làmbrics.
-En aquests casos el cost de establiment de la connexió és insignificant comparat amb el cost mentre s'estan tranferint dades, que acostuma a ser un període llarg de temps.
-Posteriorment, amb l'ús dels telèfons intel·ligents i l'augment del consum de continguts, sobretot música, es va millorar Bluetooth per ser més resistent a interferències i aconseguir velocitats superiors i així poder transmetre música d'alta fidelitat
+A més a més té el desavantatge que, tot i voler transmetre poques dades, l'arquitectura fa que es consumeixi bastanta energia per establir i mantenir la connexió, encara que sigui breu.
+Això no suposava problemes inicialment, ja que l'ús principal era per la transferència de fitxers petits com contactes o fotografies.
+Més endavant també es va fer popular l'us del Bluetooth per a escoltar música a través d'auriculars inal·làmbrics.
+En aquests casos el cost d'establiment de la connexió és insignificant en comparació amb el cost mentre s'estan tranferint dades, que acostuma a ser un període llarg de temps.
+Posteriorment, amb l'ús dels telèfons intel·ligents i l'augment del consum de continguts, sobretot música, es va millorar Bluetooth per ser més resistent a interferències i aconseguir velocitats superiors i així poder transmetre música d'alta fidelitat.
 
-D'altre banda, va començar a sorgir l'Internet of Things, basat en tenir molts dispositius connectats transmetent a taxes molt variades i de forma discontinua.
+D'altre banda, va començar a sorgir l'Internet of Things, basat en tenir molts dispositius connectats, transmetent a taxes molt variades i de forma discontinua.
 Això va generar necessitats que no es podien cobrir amb les tecnologies existents.
 Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i que cobrissin una gran distància (10-100 metres).
 Amb aquests requeriments, van sorgir les xarxes ad hoc o \textit{Mobile Ad-Hoc Networks} (MANETS d'ara endavant).
 
 \subsection{Altres MANETS}
-BLE és una de les MANETs més populars però n'hi ha d'altres que competeixen i que s'analitzaran a continuació.
+BLE és una de les MANETs més populars però n'hi ha d'altres que competeixen i que es detallaran a continuació.
 
 \subsubsection{Zigbee}
 L'estàndard Zigbee s'utilitza en entorns per l'automatització de la casa, xarxes de sensors, col·lecció de dades mèdiques entre d'altres.
@@ -109,9 +109,9 @@ Tot i així, la LoRa Alliance va definir el LoRaWAN que és un dels protocols qu
 
 
 \subsection{Comparació}
-Tot i que els protocols tenen molt en comú, cada un es diferència de la resta en els detalls.
+Tot i que els protocols tenen molt en comú, com per exemple el se ús en domòtica, cada un es diferència de la resta en els detalls.
 A la taula \ref{taula_comparacio} es pot veure una comparació de les capacitats de cada un dels protocols.
-Cal mencionar que les freqüències de les bandes mencionades poden variar lleugermanet segons la normativa de cada país
+Cal mencionar que les freqüències de les bandes mencionades poden variar lleugermanet segons la normativa de cada país.
 En la comparació es pot veure com BLE és una de les que té millors capcitats.
 Això es deu a que tot i que no es possible aconseguir totes les característiques alhora la seva flexibilitat permet configurar el protocol per a moltes configuracions diferents.
 
@@ -138,9 +138,9 @@ LoRa	&	10 Km	& 27	& 5		& 18	& 400 i 900 MHz				\\	\hline
 
 \section{Versions de BLE}
 \label{Versions_BLE}
-Tal i com s'ha vist anteriorment BLE és classifica segons les seves capacitats en la seva versió 4 i en la 5.
-Això és deu als canvis significatius que ha tingut BLE en les últimes versions \cite{BLE_5_improvement_over_4}.
-Les novetats que aporta la nova versió principalment tenen l'objectiu de incrementar les capacitats del protocol en els casos extrems, tant en entorns molt favorables com quan no són favorables.
+Tal i com s'ha vist anteriorment, BLE és classifica segons les seves capacitats en la seva versió 4 i en la 5.
+Això és deu als canvis significatius que ha experimentat aquesta tecnologia en les últimes versions \cite{BLE_5_improvement_over_4}.
+Les novetats que aporta la nova versió principalment tenen l'objectiu d'incrementar les capacitats del protocol en els casos extrems, tant en entorns molt favorables com quan no són favorables.
 Les millores i noves opcions de BLE fan que s'utilitzi més eficientment l'espectre freqüencial i per tant, depenent de la regió, es pugui augmentar la potència de transmissió de 10 dBm, que era el límit de BLE 4.2, a 20 dBm en BLE 5.
 
 \subsubsection{LE 2M}
@@ -155,8 +155,8 @@ El límit de l'abast, en part, ve definit per la potència màxima de transmissi
 Bluetooth defineix la BER màxima en 0.1\% per tant quan un de cada mil bits és erroni es considera que la connexió és massa dolenta i que ja s'ha arribat al límit de distància.
 
 Per tractar els errors en transmissió hi ha dues estratègies: detecció d'errors i correcció d'errors.
-En la versió 4.0 de Bluetooth només s'utilitzava la detecció d'errors.
-En Bluetooth 5 s'implementa la correcció d'errors d'aquesta manera sense augmentar la potència transmesa es pot incrementar l'abast màxim que pot tenir la comunicació.
+En la versió 4.0 de Bluetooth només s'utilitzava la detecció d'errors, en canvi, en Bluetooth 5 s'implementa la correcció d'errors.
+D'aquesta manera sense augmentar la potència transmesa es pot incrementar l'abast màxim que pot tenir la comunicació.
 El desavantatge és que més bits dels que es transmeten es dediquen a redundància per tant queda menys espai per a dades de l'aplicació.
 
 
@@ -175,26 +175,27 @@ Es poden veure les capacitats dels diferents esquemes a la taula \ref{FEC}.
 \subsubsection{Advertisement Extensions}
 \label{Advertisement_Extensions}
 En Bluetooth 4.0 els paquets d'anunci (\textit{Advertisement Packets}) tenen 6 octets de capçalera i com a molt 31 de dades, és a dir, com a molt es poden transmetre 31 Bytes de cop.
-Normalment aquests paquets es transmeten pels 3 canals d'anuncis el 37, 38 i 39.
+Normalment, aquests paquets es transmeten pels 3 canals d'anuncis el 37, 38 i 39.
 
 En Bluetooth 5 per poder difondre (\textit{broadcast}) més dades el que es fa és enviar un paquet d'anunci on només s'indica la capçalera i un punter cap al canal per on s'enviarà el paquet complet.
 Posteriorment, pel canal per on s'ha indicat s'envia el paquet de dades i en cas de necessitar més dades s'encadenen paquets.
-I d'aquesta manera les dades només es transmeten una vegada ja que abans, calia transmetre-les en els tres canals d'anunci.
+D'aquesta manera, les dades només es transmeten una vegada ja que abans, calia transmetre-les en els tres canals d'anunci.
 Aquest procediment està detallat més endavant en l'apartat  \ref{Advertising_Extension_PDU}
 
-En la versió 4.0 al voler enviar un paquet és necessari esperar un cert temps aleatori.
-Aquest procediment evita les col·lisions periòdiques però suposa que els dispositius han d'estar durant més temps escoltant ja qu eno saben quan rebran el paquet exactament.
-En BLE 5 el GAP defineix un mode síncron que permet tenir un procediment d'establiment d'anunciaments sincronitzats.
-També existeix una nova capçalera \textit{SyncInfo} on s'indica amb exactitud l'interval i variació dels paquets, d'aquesta manera s'aconsegueix evitar les col·lisions i reduir el temps que el dispositiu ha de tenir la ràdio encesa.
+En la versió 4.0 quan es vol enviar un paquet és necessari esperar un cert temps aleatori.
+Aquest procediment evita les col·lisions periòdiques però suposa que els dispositius han d'estar durant més temps escoltant ja que no saben quan rebran el paquet exactament.
+En BLE 5 el GAP, que s'explicarà en profunditat a l'apartat \ref{GAP}, defineix un mode síncron que permet utilitzar un procediment d'establiment d'anunciaments sincronitzats.
+També existeix una nova capçalera \textit{SyncInfo} on s'indica amb exactitud l'interval i variació dels paquets.
+Així doncs, s'aconsegueix evitar les col·lisions i reduir el temps que el dispositiu ha de tenir la ràdio encesa.
 
 \subsubsection{Slot Availability Masks}
 La tecnologia LTE (telefonia) està utilitzant cada vegada més espai freqüencial i en preparació de que s'utilitzi en freqüencials pròximes a la banda de 2.4 GHz ISM s'ha desenvolupat un sistema per indicar disponibilitat en el temps.
-Per evitar les possibles interferències que causin altres tecnologies, es defineix la SAM (\textit{Slot Availability Mask}) que permet identificar aquelles ranures de temps hi ha disponibilitat així bloquejant aquells moments on hi hagui interferències i així evitar-les.
+Per evitar les possibles interferències que causin altres tecnologies, es defineix la SAM (\textit{Slot Availability Mask}) que permet identificar aquelles ranures de temps on hi ha disponibilitat així bloquejant aquells moments on hi hagui interferències per evitar-les.
 
 \subsubsection{Improved Frequency Hopping}
 Els salts en freqüència que utilitza la versió 4.0 estan definits per 12 seqüències predeterminades.
 En canvi, BLE 5 utilitza una seqüència pseudo-aleatòria per determinar quins canals s'utilitzen.
-L'algorisme en aquest cas és el \textit{channel selection algorithm \#2} i és més efectiu a evitar interferències i esvaniments per propagació multi-camí.
+L'algorisme, en aquest cas, és el \textit{channel selection algorithm \#2} i és més efectiu a evitar interferències i esvaniments per propagació multi-camí.
 
 \section{Pila BLE}
 Un cop vistes les característiques generals del protocol cal entendre com funciona per dins.
@@ -380,6 +381,7 @@ Els atributs també tenen propietats d'accés que defineixen quines accions es p
 Les propietats es comentaran en un exemple real més endavant \ref{sec:properties}
 
 \subsubsection{GAP}
+\label{GAP}
 La \textit{Generic Access Profile} és la capa que interactua amb la aplicació i per tant ofereix la Interfície de Programació d'Aplicacions (API en anglès) amb la funcionalitat que aporta BLE.
 
 El dispositiu sempre està en un\footnote{En BLE 5.1 es permet certes combinacions de rols} dels quatre rols: Emissor, Observador, Perifèric o Central.
