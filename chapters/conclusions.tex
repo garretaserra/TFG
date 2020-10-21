@@ -4,34 +4,34 @@
 
 Aquest projecte serveix per considerar si BLE és la tecnologia adequada per a les aplicacions de mesures mediambientals o biològiques.
 
-\section*{Tassa de dades necessària}
+\section*{Taxa de dades necessària}
 
-Un dels dubtes al inici del treball era si aquesta tecnologia tenia una capacitat de transmissió suficient per a xarxes de sensors.
-Tot i que Bluetooth Low Energy té bastant menys capacitat per transmetre dades, les dades necessaries en aquest tipus de xarxes acostumen a ser molt reduïdes.
-La tecnologia BLE  no es capaç de transmetre video o audio en temps real però és suficient per transmetre fluxos de dades de sensors amb mesures biològiques o mediambientals.
+Un dels dubtes a l'inici del treball era si aquesta tecnologia tenia una capacitat de transmissió suficient per a xarxes de sensors.
+Tot i que el Bluetooth Low Energy té bastant menys capacitat per transmetre dades comparant amb tecnologies com wifi, les dades necessàries en aquest tipus de xarxes acostumen a ser molt reduïdes.
+La tecnologia BLE no és capaç de transmetre vídeo o àudio en temps real però és suficient per transmetre fluxos de dades de sensors amb mesures biològiques o mediambientals.
 
 \section*{Abast}
 
-Com s'ha comentat l'abast de la tecnologia BLE ve limitat tant per la distància entre transmissor i receptor però també per les interferències.
-En mesures biològiques es pot considerar que el transmisor i el receptor estaran relativament a prop per tant no hi haurà problemes d'abast.
+Com s'ha comentat l'abast de la tecnologia BLE ve limitat tant per la distància entre transmissor i receptor com per les interferències.
+En mesures biològiques es pot considerar que el transmissor i el receptor estaran relativament a prop per tant no hi haurà problemes d'abast.
 En canvi per a mesures ambientals si considerem instal·lacions privades en habitatges, cal tenir en compte els obstacles que s'oposen al senyal.
-També cal considerar la interferència més que probable de les tecnologies amb les que BLE comparteix espectre amb WiFi, altres dispositius intel·ligents i amb Bluetooth Clàssic mateix.
+També cal considerar la interferència més que probable de les tecnologies amb les quals BLE comparteix espectre amb wifi, altres dispositius intel·ligents i amb Bluetooth Clàssic mateix.
 Per combatre aquests desavantatges serà suficient augmentant la potència de transmissió tot i que reduirà la vida de la bateria en cas que en tingui.
 
 \section*{Energia Consumida}
 
 BLE és dels protocols que permet consumir menys energia per a transmetre informació.
 Això només serà un avantatge quan els sensors estiguin alimentats per bateria i la transmissió sigui el que consumeix més energia de tot el sistema.
-Si els sensors tenen pantalles, s'alimenten de la instal·lació elèctrica, fan un processament de les dades dels sensors o emmagatzemen les dades localment, és possible que el consum de la transmissió no sigui significant.
-En aquests casos no s'ha d'escollir el protocol de transmissió segons el consum ja que el temps entre recàrregues no es veu afectat pel protocol.
+Si els sensors tenen pantalles, s'alimenten de la instal·lació elèctrica, fan un processament de les dades o emmagatzemen les dades localment, és possible que el consum de la transmissió no sigui significant.
+En aquests casos no s'ha d'escollir el protocol de transmissió segons el consum, ja que el temps entre recàrregues no es veu afectat pel protocol.
 
 
 \section*{Penetració del mercat}
 
-És evident que la presencia de BLE en tots els mòbils interl·ligents facilita l'ús i simplifica la arquitectura d'un desplegament.
+És evident que la presència de BLE en tots els mòbils intel·ligents facilita l'ús i simplifica l'arquitectura d'un desplegament.
 En cas de no utilitzar BLE no hi ha cap tecnologia de baix consum que es pugui connectar directament amb els telèfons dels usuaris.
 Per tant, és necessari un dispositiu entremig entre els sensors i els usuaris que s'anomena concentrador o \textit{hub}.
 En arquitectures simples suposa un cost extra però si es fa un desplegament extens, el cost és marginal.
 
-En el cas de connexió directa fins al terminal del usuari BLE és perfecte ja que es troba en tots els telèfons intel·ligents.
+En el cas de connexió directa fins al terminal de l'usuari BLE és perfecte, ja que es troba en tots els telèfons intel·ligents.
 En total es preveu la producció de 7.500 milions de dispositius entre 2020 i 2024 amb un creixement del 26\% anual segons el SIG\cite{Bluetooth_Market_Update_2020}.

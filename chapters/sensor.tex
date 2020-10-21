@@ -9,14 +9,14 @@ A fi d'entendre millor com afecten els diferents paràmetres configurables corre
 \subsection{Abast}
 
 Com ja s'ha mencionat anteriorment l'abast teòric que té BLE és considerable comparat amb tecnologies similars.
-Però, cal entendre que, al estar utilitzant la banda de 2.4 GHz, l'abast de BLE dependrà de l'entorn, on pot haver-hi molta variabilitat d'interferències.
-Degut a això, en un escenari realista l'abast que es pot assolir pot ser molt diferent del teòric.
-Les LAUNCHXL-CC1352R1 utilitzades en aquest projecte, per si soles, no són l'eina perfecte per fer proves d'abast.
-Això es deu, en part, a que no es possible transmetre a la màxima potència permesa per l'estàndard que és de fins a 20 dBm.
+Però, cal entendre que, a l'estar utilitzant la banda de 2.4 GHz, l'abast de BLE dependrà de l'entorn, on pot haver-hi molta variabilitat d'interferències.
+A causa d'això, en un escenari realista l'abast que es pot assolir pot ser molt diferent del teòric.
+Les LAUNCHXL-CC1352R1 utilitzades en aquest projecte, per si soles, no són l'eina perfecta per fer proves d'abast.
+Això es deu, en part, a què no és possible transmetre a la màxima potència permesa per l'estàndard que és de fins a 20 dBm.
 El límit és de 5 dBm i per defecte només s'utilitzen 0 dBm de potència en transmissió.
 
 Per realitzar un experiment que fos més precís seria avantatjós utilitzar una antena externa més directiva.
-Enlloc d'analitzar l'abast de la tecnologia en aquest apartat es farà un balanç comparatiu per comprovar les diferències reals d'utilitzar les diferents capes físiques de BLE.
+En lloc d'analitzar l'abast de la tecnologia en aquest apartat es farà un balanç comparatiu per comprovar les diferències reals d'utilitzar les diferents capes físiques de BLE.
 
 Per a aquest apartat s'ha realitzat un experiment pràctic en un lloc relativament aïllat i on es pogués tenir una suficient distància amb visibilitat directa.
 S'ha escollit un pàrquing i utilitzat la potència per defecte de 0 dBm per poder treballar amb distàncies més curtes.
@@ -29,22 +29,22 @@ S'ha escollit un pàrquing i utilitzat la potència per defecte de 0 dBm per pod
 	\end{center}
 \end{figure}
 
-El procediment per realitzar l'experiment va ser col·locar una de les plaques sobre un cotxe i amb l'altre connectada a una altre ordinador anar retrocedint fins que es perdés la connexió.
+El procediment per realitzar l'experiment va ser col·locar una de les plaques sobre un cotxe i amb l'altre connectada a un altre ordinador anar retrocedint fins que es perdés la connexió.
 Per forçar que es perdés la connexió quan ja no es podia establir una comunicació des de la PCB que s'anava movent s'anaven enviant peticions de lectura d'atributs.
 
-Els resultats obtinguts, que es poden veure en la figura \ref{abast}, indiquen que la distància màxima d'abast del dispositiu en una capa M2 és de 75 metres, mentre que en una capa S=8 aquesta distància s'extén fins els 135.
-S'han tingut en compte únicament aquestes capes físiques ja que al no haver-hi interferències significatives i sempre s'ha mantingut la visibilitat directe, els resultats de la capa 1M són similars als de 2M i els de Coded S=2 són similar als de S=8.
+Els resultats obtinguts, que es poden veure en la figura \ref{abast}, indiquen que la distància màxima d'abast del dispositiu en una capa 2M és de 75 metres, mentre que en una capa S=8 aquesta distància s'estén fins als 135.
+S'han tingut en compte únicament aquestes capes físiques, ja que com que no hi ha interferències significatives i sempre s'ha mantingut la visibilitat directa, els resultats de la capa 1M són similars als de 2M i els de Coded S=2 són similar als de S=8.
 
-Un cop realitzat l'experiment s'han validat, tal i com s'havia comentat anteriorment, els avantatges que aporta la nova capa física Coded que no existia abans de la versió 5.0 de BLE.
-En aquest rang amb visibilitat directe es pot considerar que BLE podrà assolir cobertura suficient dins les cases a través de parets.
+Un cop realitzat l'experiment s'han validat, tal com s'havia comentat anteriorment, els avantatges que aporta la nova capa física Coded que no existia abans de la versió 5.0 de BLE.
+En aquest rang amb visibilitat directa es pot considerar que BLE podrà assolir cobertura suficient dins les cases a través de parets.
 
-Aixi doncs, en aquest apartat s'ha vist una de les millores de la capa física Coded, l'abast.
+Així doncs, en aquest apartat s'ha vist una de les millores de la capa física Coded, l'abast.
 Però també cal recordar que on és extremadament útil és en el de resistència a les interferències.
 
 \subsection{Consum d'Energia}
 
 El consum dels dispositius que utilitzen BLE és la característica més significativa, ja que, aquesta tecnologia està dissenyada per a consumir la menor quantitat d'energia possible.
-Les plaques utilitzades tenen ponts extraïbles, tal i com es pot veure en la figura \ref{ponts_extraibles}, que permeten desconnectar els components que no son essencials per al funcionament del xip CC1352R.
+Les plaques utilitzades tenen ponts extraïbles, tal com es pot veure en la figura \ref{ponts_extraibles}, que permeten desconnectar els components que no són essencials per al funcionament del xip CC1352R.
 
 \begin{figure}[h]
 	\begin{center}
@@ -55,7 +55,7 @@ Les plaques utilitzades tenen ponts extraïbles, tal i com es pot veure en la fi
 \end{figure}
 
 D'aquesta manera, es pot utilitzar un analitzador de potència per mesurar l'energia consumida pel xip.
-Aquesta configuració, produeix una mesura molt precisa i permet calcular el cicle de vida del dispositiu que s'està desenvolupant.
+Aquesta configuració produeix una mesura molt precisa i permet calcular el cicle de vida del dispositiu que s'està desenvolupant.
 Per contra, no es poden utilitzar les eines de desenvolupament com la depuració del codi.
 
 %TODO: Afegir diagrama amb les connexions per a mesurar energia consumida.
@@ -63,7 +63,7 @@ Per contra, no es poden utilitzar les eines de desenvolupament com la depuració
 Per poder desenvolupar fàcilment un projecte i analitzar els canvis que el codi produeix en l'ús d'energia, existeix una eina anomenada Energy Trace.
 D'aquesta manera, es pot analitzar comparativament en quin moment s'està consumint l'energia i es poden adaptar els paràmetres de la connexió per observar quin serà l'estalvi que s'aconseguirà.
 És per això que, es poden prendre les decisions de quins sacrificis són assumibles, per exemple, augmentar la latència a canvi de reduir el consum.
-Aquesta eina però, no substitueix la solució explicada anteriorment amb l'analitzador de potència ja que l'Energy Trace resulta molt menys precisa.
+Aquesta eina però, no substitueix la solució explicada anteriorment amb l'analitzador de potència, ja que l'Energy Trace resulta molt menys precisa.
 
 Per provar el funcionament de l'EnergyTrace s'ha utilitzat durant l'execució en el xip del Project Zero.
 A la figura \ref{energy_trace1} es pot observar una captura d'un segon de duració del consum aproximat de corrent.
@@ -76,10 +76,10 @@ A la figura \ref{energy_trace1} es pot observar una captura d'un segon de duraci
 	\end{center}
 \end{figure}
 
-És possible visualitzar com hi ha pics de consum cada 100 ms, aquests corresponen als instants en que el dispositiu està enviant els anuncis.
+És possible visualitzar com hi ha pics de consum cada 100 ms, aquests corresponen als instants en què el dispositiu està enviant els anuncis.
 Aquests 100 ms corresponen a l'interval d'anunci que s'ha configurat per a aquest projecte.
 
-Un cop s'estableix una connexió amb el dispositiu es realitza una altre captura d'un segon que es pot observar a la figura \ref{energy_trace2}.
+Un cop s'estableix una connexió amb el dispositiu es realitza una altra captura d'un segon que es pot observar a la figura \ref{energy_trace2}.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -89,11 +89,11 @@ Un cop s'estableix una connexió amb el dispositiu es realitza una altre captura
 	\end{center}
 \end{figure}
 
-A la gràfica es possible veure com segueixen estant els pics cada 100 ms però també n'hi ha cada 40 ms.
-Aquests, darrers, es deuen als esdeveniments de connexió que en aquest cas estan configurats per a que es produeixen cada 40 ms.
+A la gràfica és possible veure com segueixen estant els pics cada 100 ms però també n'hi ha cada 40 ms.
+Aquests, darrers, es deuen als esdeveniments de connexió que en aquest cas estan configurats perquè es produeixen cada 40 ms.
 
-Aquesta eina, per tant, està orientada a facilitar una idea comparativa de en quins instants es consumeix més energia.
-D'aquesta manera, és més fàcil pel desenvolupador comprovar com els canvis en el codi afecten al consum d'energia.
+Aquesta eina, per tant, està orientada a facilitar una idea comparativa d'en quins instants es consumeix més energia.
+D'aquesta manera, és més fàcil pel desenvolupador comprovar com els canvis en el codi afecten el consum d'energia.
 
 %\section{Mesures Biològiques}
 
@@ -103,9 +103,9 @@ D'aquesta manera, és més fàcil pel desenvolupador comprovar com els canvis en
 %Considerem el màxim de 200 batecs per minut, això és una freqüència de 3,3 Hz, si mostregem a 10 vegades Fmax, 33 mostres/segon amb una resolució de 10 bits la tassa es de 330 bits/s
 
 \subsection{Simulador de sensors}
-La PCB té un convertidor analògic-digital que ens permetrà enviar senyals analògiques un cop s'han mostrejat.
+La PCB té un convertidor analògic-digital que ens permetrà enviar senyals analògics un cop s'han mostrejat.
 En aquest treball no es tractaran directament els sensors sinó que es simularan els senyals que produirien.
-Com que la PCB i el seu ADC treballen a 3.3$V$ es crearà un circuit que permeti controlar un voltatge d'entre 0 i 3.3$V$.
+Com que la PCB i el seu ADC treballen a 3,3$V$ es crearà un circuit que permeti controlar un voltatge d'entre 0 i 3,3$V$.
 
 Aquest circuit es basarà en un divisor de voltatge simple format per una resistència i un potenciòmetre.
 El potenciòmetre permet canviar la resistència de l'element a través d'un cargol i junt amb el circuit que l'envolta permetrà canviar el voltatge a la sortida.
@@ -140,7 +140,7 @@ Per trobar l'$R_1$ que compleixi els requisits queda la següent fórmula.
 \end{equation}
 
 Per a l'$R_1$ s'utilitzaran resistències de la sèrie E12, els valors que més s'acosten a $5$,$121\Omega$ són $5.6k\Omega$ i $4.6k\Omega$.
-Per assegurar-se que no es superen els 3.3$V$ a la entrada del ADC que podria malmetre el dispositiu s'escull la resistència superior, per tant el circuit final s'ha dissenyat de la següent manera.
+Per assegurar-se que no es superen els 3.3$V$ a l'entrada de l'ADC que podria malmetre el dispositiu s'escull la resistència superior, per tant el circuit final s'ha dissenyat de la següent manera.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -157,8 +157,8 @@ Per assegurar-se que no es superen els 3.3$V$ a la entrada del ADC que podria ma
 	\end{center}
 \end{figure}
 
-Com que s'utilitzaran 4 canals del ADC per mesurar, es necessiten 4 circuits com el que s'ha dissenyat.
-S'ha implementat el circuit en una protoboard i soldat els components de tal manera que cal connectar el voltatge d'entrada (a 5$V$) en vermell, terra en negre i finalment quatre cables blaus on hi haurà el voltatge controlat pels quatre potenciòmetres.
+Com que s'utilitzaran 4 canals de l'ADC per mesurar, es necessiten 4 circuits com el que s'ha dissenyat.
+S'ha implementat el circuit en una placa de proves i soldat els components de tal manera que cal connectar el voltatge d'entrada (a 5$V$) en vermell, terra en negre i finalment quatre cables blaus on hi haurà el voltatge controlat pels quatre potenciòmetres.
 A la figura \ref{protoboard} es pot observar aquesta implementació real del circuit.
 
 \begin{figure}[!h]
@@ -170,13 +170,13 @@ A la figura \ref{protoboard} es pot observar aquesta implementació real del cir
 \end{figure}
 
 
-\section{Lectura del ADC}
-Tal i com s'ha comentat anteriorment la PCB que s'està utilitzant conté un ADC de dotze canals que s'utilitza per llegir valors de voltatge.
+\section{Lectura de l'ADC}
+Tal com s'ha comentat anteriorment la PCB que s'està utilitzant conté un ADC de dotze canals que s'utilitza per llegir valors de voltatge.
 
 %Importar adcsinglechannel
 En aquest exemple, l'objectiu és aconseguir la lectura dels valors del voltatge d'un pin de la PCB.
-El següent codi permet fer una mesura del canal que s'indiqui a través del argument.
-Inicialitza el ADC de la PCB, pren le mesura i posteriorment retorna el resultat en miliVolts.
+El següent codi permet fer una mesura del canal que s'indiqui a través de l'argument.
+Inicialitza l'ADC de la PCB, pren le mesura i posteriorment retorna el resultat en mil·livolts.
 
 \begin{lstlisting}[language=C]
 static uint16_t takeMeasurement(uint_least8_t adcIndex){
@@ -204,8 +204,8 @@ static uint16_t takeMeasurement(uint_least8_t adcIndex){
 }
 \end{lstlisting}
 
-Finalment cal vanviar el codi de BLE per a que quan es llegeixin els atributs es retorni el valor mesurat al ADC.
-Per tant cal canviar la funció environmentalService\_ReadAttrCB tal i com es veu a continuació.
+Finalment, cal canviar el codi de BLE perquè quan es llegeixin els atributs es retorni el valor mesurat a l'ADC.
+Per tant cal canviar la funció environmentalService\_ReadAttrCB tal com es veu a continuació.
 
 \begin{lstlisting}[language=C]
   if(!memcmp(pAttr->type.uuid, temperatureUUID, pAttr->type.len))
@@ -223,9 +223,9 @@ else if(!memcmp(pAttr->type.uuid, humidityUUID, pAttr->type.len))
 \end{lstlisting}
 
 \section{Aplicació mòbil}
-Per veure un exemple simplificat d'un client que consumís els serveis oferits per la PCB s'ha desenvolupat una aplicació per a Android.
-Aquesta aplicació llegeix continuament els valors dels quatre atributs que té la PCB relacionas amb el sensors.
-El codi de la app es pot trobar a \cite{android_repo}.
+Per veure un exemple simplificat d'un client que consumís els serveis oferits per la PCB, s'ha desenvolupat una aplicació per a Android.
+Aquesta aplicació llegeix contínuament els valors dels quatre atributs que té la PCB relacionats amb els sensors.
+El codi de l'app es pot trobar a \cite{android_repo}.
 
 Per poder interactuar amb la PCB el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs.
 Aquests es poden veure a la taula \ref{taula_app}.
@@ -248,8 +248,8 @@ Aquests es poden veure a la taula \ref{taula_app}.
 \end{table}
 
 Les dades que s'estan transmetent per cada atribut corresponen al valor del voltatge.
-Tot i així, per caracteritzar aquestes dades a l'aplicació s'interpreten com si fossin valors plausibles de les mesures que s'estan prenent.
-Igualment, es mostra tant una barra de progrés com el valor real de milivolts per cada mesura de la PCB.
+Tot i això, per caracteritzar aquestes dades a l'aplicació s'interpreten com si fossin valors plausibles de les mesures que s'estan prenent.
+Igualment, es mostra tant una barra de progrés com el valor real de mil·livolts per cada mesura de la PCB.
 
 \section{Escenari}
 Finalment, un cop desenvolupat el circuit per simular sensors, el codi necessari per mostrejar i transmetre els valors i una aplicació per rebre aquests valors, l'escenari és el següent.
@@ -271,7 +271,7 @@ El circuit que simula els 4 sensors es connecta als pins de la PCB (veure apènd
 	\label{connexions}
 \end{table}
 
-Les connexions des del circuit fins la PCB es fan a través dels ports que proporciona la PCB a la seva part de darrera que es veuen a la figura \ref{ports_placa}.
+Les connexions des del circuit fins a la PCB es fan a través dels ports que proporciona la PCB a la seva part de darrere que es veuen a la figura \ref{ports_placa}.
 
 \begin{figure}[h]
 	\begin{center}
@@ -281,30 +281,30 @@ Les connexions des del circuit fins la PCB es fan a través dels ports que propo
 	\end{center}
 \end{figure}
 
-Un cop fetes les conexions, cal executar el codi de la PCB i clicar el botó d'escanejar de l'aplicació.
-Cal tenir en compte que durant el procés de d'escaneig degut a la configuració de BLE sempre és possible (tot i que poc probable) que el mòbil no descobreixi la PCB un cop transcorregut el temps establert.
+Un cop fetes les connexions, cal executar el codi de la PCB i clicar el botó d'escanejar de l'aplicació.
+Cal tenir en compte que durant el procés d'escaneig, degut a la configuració de BLE, sempre és possible (tot i que poc probable) que el mòbil no descobreixi la PCB un cop transcorregut el temps establert.
 En aquest cas, cal tornar a clicar el botó d'escaneig.
-Un cop l'aplicació està ecanejant es poden canviar les posicions dels potenciòmetres i s'observa com els valors corresponents en el mòbil canvien amb poca latència.
+Un cop l'aplicació està escanejant es poden canviar les posicions dels potenciòmetres i s'observa com els valors corresponents en el mòbil canvien amb poca latència.
 Es pot veure una captura del disseny de l'aplicació a la figura \ref{captura_app}.
 
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./images/captura_app_borde.png}
-		\caption{Aplicacio mòbil}
+		\caption{Aplicació mòbil}
+		\label{captura_app}
 	\end{center}
-	\label{captura_app}
 \end{figure}
 
 \newpage
 \section{Continuitat del projecte}
-Un cop realitzat el projecte i entès tant la tecnologia Bluetooth Low Energy com l'entorn de desenvolupament, hi ha aspectes en els que és possible aprofunditzar més.
-Aquestes es podrien abarcar en un altre futur treball.
+Un cop executat el projecte i entès tant la tecnologia Bluetooth Low Energy com l'entorn de desenvolupament, hi ha aspectes en els quals és possible profunditzar més.
+Aquestes es podrien tractar en un altre futur treball.
 
-Tal i com s'ha esmentant quant s'ha realitzat l'estudi del consum d'energia utilitzant Energy Trace, els valors obtinguts no es poden considerar absoluts.
-És per això que per poder determinar el temps de vida amb diferents configuracions del BLE s'hauria de mesurar el consum amb un oscil·loscopi mentre la PCB esta configurada amb la font d'alimentació externa.
+Tal com s'ha esmentat quan s'ha realitzat l'estudi del consum d'energia utilitzant Energy Trace, els valors obtinguts no es poden considerar absoluts.
+És per això que, per poder determinar el temps de vida amb diferents configuracions del BLE s'hauria de mesurar el consum amb un oscil·loscopi mentre la PCB està configurada amb la font d'alimentació externa.
 
 La implementació pràctica de BLE que s'ha realitzat no utilitza cap servei propietari.
-Seria interessant implementar un servei estandaritzat i tenir algun dispositiu comercial que pogués connectar-se a la PCB.
+Seria interessant implementar un servei estandarditzat i tenir algun dispositiu comercial que pogués connectar-se a la PCB.
 
-Finalment tot i haver-se desenvolupats projectes que permeten mesurar els voltatges dels ADCs i emetre notificacions, per part de BLE, no s'ha aconseguit que sigui alhora.
+Finalment, tot i haver-se desenvolupats projectes que permeten mesurar els voltatges dels ADC i emetre notificacions, per part de BLE, no s'ha aconseguit que sigui alhora.
 
