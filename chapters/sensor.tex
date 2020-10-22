@@ -41,7 +41,7 @@ En aquest rang amb visibilitat directa es pot considerar que BLE podrà assolir 
 Així doncs, en aquest apartat s'ha vist una de les millores de la capa física Coded, l'abast.
 Però també cal recordar que on és extremadament útil és en el de resistència a les interferències.
 
-\subsection{Consum d'Energia}
+\subsection{Consum d'energia}
 
 El consum dels dispositius que utilitzen BLE és la característica més significativa, ja que, aquesta tecnologia està dissenyada per a consumir la menor quantitat d'energia possible.
 Les plaques utilitzades tenen ponts extraïbles, tal com es pot veure en la figura \ref{ponts_extraibles}, que permeten desconnectar els components que no són essencials per al funcionament del xip CC1352R.
@@ -54,24 +54,23 @@ Les plaques utilitzades tenen ponts extraïbles, tal com es pot veure en la figu
 	\end{center}
 \end{figure}
 
-D'aquesta manera, es pot utilitzar un analitzador de potència per mesurar l'energia consumida pel xip.
+D'aquesta manera, es pot utilitzar un analitzador de potència per mesurar l'energia consumida.
 Aquesta configuració produeix una mesura molt precisa i permet calcular el cicle de vida del dispositiu que s'està desenvolupant.
 Per contra, no es poden utilitzar les eines de desenvolupament com la depuració del codi.
-
-%TODO: Afegir diagrama amb les connexions per a mesurar energia consumida.
+Aquesta configuració no ha estat possible realitzar-la a causa de la situació sanitària actual.
 
 Per poder desenvolupar fàcilment un projecte i analitzar els canvis que el codi produeix en l'ús d'energia, existeix una eina anomenada Energy Trace.
 D'aquesta manera, es pot analitzar comparativament en quin moment s'està consumint l'energia i es poden adaptar els paràmetres de la connexió per observar quin serà l'estalvi que s'aconseguirà.
 És per això que, es poden prendre les decisions de quins sacrificis són assumibles, per exemple, augmentar la latència a canvi de reduir el consum.
 Aquesta eina però, no substitueix la solució explicada anteriorment amb l'analitzador de potència, ja que l'Energy Trace resulta molt menys precisa.
 
-Per provar el funcionament de l'EnergyTrace s'ha utilitzat durant l'execució en el xip del Project Zero.
-A la figura \ref{energy_trace1} es pot observar una captura d'un segon de duració del consum aproximat de corrent.
+Per provar el funcionament de l'Energy Trace s'ha utilitzat durant l'execució en el xip del Project Zero.
+A la figura \ref{energy_trace1} es pot observar una captura del consum aproximat de corrent.
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=\textwidth]{./images/energy_trace.png}
-		\caption{Captura d'Energy Trace}
+		\includegraphics[width=\textwidth]{./images/consum_energia_no_connected_current2.png}
+		\caption{Mesura de corrent sense connexió}
 		\label{energy_trace1}
 	\end{center}
 \end{figure}
@@ -79,30 +78,103 @@ A la figura \ref{energy_trace1} es pot observar una captura d'un segon de duraci
 És possible visualitzar com hi ha pics de consum cada 100 ms, aquests corresponen als instants en què el dispositiu està enviant els anuncis.
 Aquests 100 ms corresponen a l'interval d'anunci que s'ha configurat per a aquest projecte.
 
-Un cop s'estableix una connexió amb el dispositiu es realitza una altra captura d'un segon que es pot observar a la figura \ref{energy_trace2}.
+També és possible mesurar el consum d'energia acumulada de la PCB al llarg del temps, en aquest cas s'ha realitzat durant un segon i es pot veure a la figura \ref{energy_measure}.
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=\textwidth]{./images/energy_trace_2.png}
+		\includegraphics[width=\textwidth]{./images/consum_energia_no_connected_energia.PNG}
+		\caption{Mesura d'energia sense connexió}
+		\label{energy_measure}
+	\end{center}
+\end{figure}
+
+Un cop s'estableix una connexió amb el dispositiu es realitza una altra captura del corrent que es pot observar a la figura \ref{energy_trace_connection}.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./images/consum_energia_connected_current.png}
 		\caption{Captura d'Energy Trace 2}
-		\label{energy_trace2}
+		\label{energy_trace_connection}
 	\end{center}
 \end{figure}
 
 A la gràfica és possible veure com segueixen estant els pics cada 100 ms però també n'hi ha cada 40 ms.
 Aquests, darrers, es deuen als esdeveniments de connexió que en aquest cas estan configurats perquè es produeixen cada 40 ms.
 
+En aquestes captures de consum de corrent, tot i que hi ha molta variació, es pot comprovar que mentre no es transmeten paquets, el consum és d'entre 0 i 2 mA.
+
+També, es realitza una captura del consum d'energia acumulat durant un segon:
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./images/consum_energia_connected_energy.png}
+		\caption{Captura d'Energy Trace 2}
+		\label{energy_trace2}
+	\end{center}
+\end{figure}
+
+Els màxims que es produeixen per anuncis i per esdeveniments de connexió poden semblar similars en les captures de consum de corrent.
+Tanmateix, no és així, en les captures de consum d'energia es pot observar com hi ha increments més pronunciats corresponents als anuncis i en canvi els esdeveniments de connexió els increments són més lleugers.
+
+Si es veuen amb més detall l'anunci i l'esdeveniment es pot observar com són d'una duració diferent.
+D'una banda, l'anunci dura uns 4 mil·lisegons i mig, en canvi l'esdeveniment de connexió només dura 2 mil·lisegons.
+\newline
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./images/pic_anunci_captura.png}
+		\caption{Captura d'anunci}
+		\label{energy_trace_adv}
+	\end{center}
+\end{figure}
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./images/pic_connectat_captura.png}
+		\caption{Captura d'esdeveniment}
+		\label{energy_trace_event}
+	\end{center}
+\end{figure}
+
 Aquesta eina, per tant, està orientada a facilitar una idea comparativa d'en quins instants es consumeix més energia.
 D'aquesta manera, és més fàcil pel desenvolupador comprovar com els canvis en el codi afecten el consum d'energia.
 
-%\section{Mesures Biològiques}
+A part dels gràfics, l'Energy Trace també proporciona directament les dades més rellevants de les captures.
+A la taula \ref{taula_consum} es troben els valors importants.\newline
 
-%Si es volen transmetre la velocitat dels batecs del cor això suposa, aproximadament, una mostra cada segon d'uns 10 bits més un instant de temps de 30 bits suposa uns 40 bits/segon, insignificant.
+\begin{table}[h!]
+	\begin{center}
+	\resizebox{\textwidth}{!}{%
+		\renewcommand{\arraystretch}{2}
+		\begin{tabular}{l|c|c|c|c|c|c|c|}
+			\cline{2-8}
+			\multirow{2}{*}{}                    & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Temps de Mesura\\ (s)\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Energia\\ (mJ)\end{tabular}} & \multicolumn{2}{c|}{Potència (mW)} & \multicolumn{2}{c|}{Corrent (mA)} & \multirow{2}{*}{Temps de Vida} \\ \cline{4-7}
+			&                                                                                &                                                                         & mitjana          & màxim           & mitjana          & màxim          &                                \\ \hline
+			\multicolumn{1}{|r|}{Sense Connexió} & 10                                                                             & 23,87                                                                   & 2,387            & 34,566          & 0,723            & 10,475         & 11 dies i 12 hores             \\ \hline
+			\multicolumn{1}{|r|}{Amb Connexió}   & 10                                                                             & 32,57                                                                   & 3,257            & 41,672          & 0,987            & 12,63          & 8 dies i 10 hores              \\ \hline
+		\end{tabular}%
+		\renewcommand{\arraystretch}{1}
+	}
+	\end{center}
+	\caption{Taula amb els valors	\label{taula_consum}}	
+\end{table}
 
-%Si el que es vol es transmetre el senyal directament que prové del sensor que mesura la sang.
-%Considerem el màxim de 200 batecs per minut, això és una freqüència de 3,3 Hz, si mostregem a 10 vegades Fmax, 33 mostres/segon amb una resolució de 10 bits la tassa es de 330 bits/s
+Per aquests valors s'han pres mesures de 10 segons de duració per obtenir unes mitjanes més representatives d'un ús continu.
+Es pot observar com la potència i corrent màxim consumits, tant amb connexió com sense, no són molt diferents entre si.
+Això es deu al fet que independentment de si el dispositiu té conexions establertes, s'enviaran els anuncis que suposen el pic més important de les gràfiques amb el consum de corrent.
 
-\subsection{Simulador de sensors}
+Els paràmetres amb els quals s'ha pres la mesura no estan optimitzats específicament per a un consum molt baix, tot i això, es pot observar com la mitjana de consum és molt reduïda, per sota d'1 mA.
+Per contextualitzar com és de baix aquest consum, és habitual calcular un temps de vida estimat d'una pila de botó, en aquest cas s'utilitza la CR2032.
+En aquest cas, el temps de vida, tenint en compte la connexió seria de 8 dies.
+Altrament, sense connexió aquest temps de vida s'allargaria fins als onze dies i mig.
+Per tant, el temps de vida s'assimilarà més a 8 o 11 dies depenent del temps en què el dispositiu es passi amb alguna connexió.
+
+Per contextualitzar-ho més, si utilitzéssim una bateria habitual en els telèfons mòbils que tingués 3800 mAh suposaria un temps de vida de 160 amb connexió i 219 dies sense, uns 7,3 i 5,3 mesos corresponentment.
+
+\section{Lectura de l'ADC}
+El \textit{Analogic to Digital Converter} és un perifèric de la PCB que permet convertir un senyal analògic a un digital.
+Per poder realitzar la lectura amb l'ADC, és necessari dissenyar un circuit per simular el senyal que produiria un sensor i també desenvolupar el codi necessari perquè la PCB prengui la mesura.
+A continuació s'explicaran aquests processos.
+
+\subsection{Disseny del simulador de sensors}
 La PCB té un convertidor analògic-digital que ens permetrà enviar senyals analògics un cop s'han mostrejat.
 En aquest treball no es tractaran directament els sensors sinó que es simularan els senyals que produirien.
 Com que la PCB i el seu ADC treballen a 3,3$V$ es crearà un circuit que permeti controlar un voltatge d'entre 0 i 3,3$V$.
@@ -169,8 +241,8 @@ A la figura \ref{protoboard} es pot observar aquesta implementació real del cir
 	\end{center}
 \end{figure}
 
+\subsection{Desenvolupament i implementació del codi}
 
-\section{Lectura de l'ADC}
 Tal com s'ha comentat anteriorment la PCB que s'està utilitzant conté un ADC de dotze canals que s'utilitza per llegir valors de voltatge.
 
 %Importar adcsinglechannel
@@ -222,10 +294,11 @@ else if(!memcmp(pAttr->type.uuid, humidityUUID, pAttr->type.len))
 }
 \end{lstlisting}
 
+
+
 \section{Aplicació mòbil}
-Per veure un exemple simplificat d'un client que consumís els serveis oferits per la PCB, s'ha desenvolupat una aplicació per a Android.
-Aquesta aplicació llegeix contínuament els valors dels quatre atributs que té la PCB relacionats amb els sensors.
-El codi de l'app es pot trobar a \cite{android_repo}.
+Per veure un exemple simplificat d'un client que consumís els serveis oferits per la PCB, s'ha realitzat un desenvolupament propi d'una aplicació per a Android.
+Aquesta aplicació llegeix contínuament els valors dels quatre atributs que té la PCB que corresponen amb els sensors.
 
 Per poder interactuar amb la PCB el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs.
 Aquests es poden veure a la taula \ref{taula_app}.
@@ -242,14 +315,116 @@ Aquests es poden veure a la taula \ref{taula_app}.
 			heartRateUUID	&	f0004567-0451-4000-b000-000000000000	\\	\hline
 			bloodOxygenUUID	&	f0005678-0451-4000-b000-000000000000	\\	\hline
 		\end{tabular}
+		\label{taula_app}
 	\end{center}
 	\caption{Tipus d'anunciaments}
-	\label{taula_app}
 \end{table}
+
+Per realitzar l'aplicació d'Android cal declarar que requereix els permisos de Bluetooth i específicament de Bluetooth Low Energy.
+
+\begin{lstlisting}[language=xml]
+	<uses-permission android:name="android.permission.BLUETOOTH"/>
+	<uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+\end{lstlisting}
+
+Per implementar el BLE en Android s'ha utilitzat la llibreria nativa que es pot trobar a \cite{ble_library} i s'ha seguit la guia que es troba a \cite{ble_overview}.
+
+Primerament, per poder utilitzar BLE, s'inicialitza l'adaptador corresponent.
+
+\begin{lstlisting}[language=java]
+final BluetoothManager bluetoothManager =
+	(BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
+\end{lstlisting}
+
+A continuació es comença a escanejar per buscar dispositius.
+Per fer-ho es defineix una funció de \textit{callback} que filtrarà els dispositius per comprovar que es troba el que es vol.
+
+\begin{lstlisting}[language=java]
+bluetoothLeScanner.startScan(leScanCallback);
+\end{lstlisting}
+
+La funció leScanCallback quan trobi el dispositiu al qual vol connectar-se, deixarà d'escanejar i procedirà a intentar connectar-s'hi.
+\begin{lstlisting}[language=java]
+if(result.getDevice().getAddress().equals(deviceAddress)){
+	bluetoothLeScanner.stopScan(leScanCallback);
+	device = result.getDevice();
+	bluetoothGatt = device.connectGatt(getApplicationContext(), false, gattCallback);
+}
+\end{lstlisting}
+
+A l'establir la connexió es descobreixen els serveis del dispositiu.
+S'obté el servei específic que volem i es llegeixen les característiques corresponents.
+
+\begin{lstlisting}[language=java]
+BluetoothGattService service = gatt.getService(
+	UUID.fromString(serviceUUID));
+characteristicList = service.getCharacteristics();
+readCharacteristic(gatt);
+\end{lstlisting}
+
+Per cada característica que es llegeix, per obtenir el seu valor tal com es vol i no com l'envia BLE (en little-endian), cal especificar el format que té.
+En aquest cas, com que s'han definit en 2 bytes les longituds de les característiques en la PCB, cal especificar que són nombres enters \textit{unsigned} (sense signe) codificats en 16 bits.
+
+\begin{lstlisting}[language=java]
+int characteristicValue = characteristic.getIntValue(
+BluetoothGattCharacteristic.FORMAT_UINT16, 0);
+\end{lstlisting}
 
 Les dades que s'estan transmetent per cada atribut corresponen al valor del voltatge.
 Tot i això, per caracteritzar aquestes dades a l'aplicació s'interpreten com si fossin valors plausibles de les mesures que s'estan prenent.
 Igualment, es mostra tant una barra de progrés com el valor real de mil·livolts per cada mesura de la PCB.
+Però per poder mostrar aquests valors no es pot fer directament.
+El codi de BLE és asíncron i es troba en un fil d'execució (\textit{thread} en anglès) diferent al que controla la interfície d'usuari.
+Per poder compartir valors entre threads cal utilitzar un \textit{handler}.
+
+Per passar múltiples valors cal fer-ho de la següent manera.
+\begin{lstlisting}[language=java]
+Bundle bundle = new Bundle();
+bundle.putString("value", Integer.toString(characteristicValue));
+bundle.putString("characteristic",characteristic.getUuid().toString());
+Message message = new Message();
+message.obj = bundle;
+updateHandler.sendMessage(message);
+\end{lstlisting}
+
+Aquests valors es reben a una funció que ja sí que pot modificar la interfície d'usuari i s'obtenen tal i es mostra en el codi a continuació.
+
+\begin{lstlisting}[language=java]
+ Handler updateHandler = new Handler(){
+	@Override
+	public void handleMessage(@NonNull Message msg) {
+		super.handleMessage(msg);
+		Bundle data = (Bundle) msg.obj;
+		String characteristic = data.getString("characteristic");
+		String value = data.getString("value");
+		...
+	}
+}
+\end{lstlisting}
+
+Abans de modificar la interfície cal adaptar els valors que es reben per mostrar-los representant els sensors que s'han simulat.
+Es suposa que els valors rebuts estaran entre 0 i 3000 que són els milivolts que ha llegit l'ADC de la PCB.
+Cada mesura es caracteritza diferent, a continuació es pot observar el cas de la temperatura.
+
+\begin{lstlisting}[language=java]
+ switch (characteristic) {
+	case temperatureUUID: {
+		int val = Integer.parseInt(value);
+		int progress = val * 30 / 3000;
+		TextView tmpConverted =findViewById(R.id.temperatureConverted_lbl);
+		TextView temperatureRaw = findViewById(R.id.temperatureRaw_lbl);
+		ProgressBar pb = findViewById(R.id.temperature_pb);
+		tmpConverted.setText(progress + "C");
+		temperatureRaw.setText(value + "mV");
+		pb.setProgress(progress);
+		break;
+	}
+\end{lstlisting}
+
+En aquest cas, la temperatura s'assumeix que tindrà valors des de 0 fins a 30 graus.
+Finalment, es calcula el seu valor en graus i es canvia la interfície perquè representi el valor.
+El codi complet de l'aplicació que s'ha realitzat es pot trobar a \cite{android_repo}.
 
 \section{Escenari}
 Finalment, un cop desenvolupat el circuit per simular sensors, el codi necessari per mostrejar i transmetre els valors i una aplicació per rebre aquests valors, l'escenari és el següent.
@@ -287,7 +462,7 @@ En aquest cas, cal tornar a clicar el botó d'escaneig.
 Un cop l'aplicació està escanejant es poden canviar les posicions dels potenciòmetres i s'observa com els valors corresponents en el mòbil canvien amb poca latència.
 Es pot veure una captura del disseny de l'aplicació a la figura \ref{captura_app}.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./images/captura_app_borde.png}
 		\caption{Aplicació mòbil}
@@ -295,7 +470,6 @@ Es pot veure una captura del disseny de l'aplicació a la figura \ref{captura_ap
 	\end{center}
 \end{figure}
 
-\newpage
 \section{Continuitat del projecte}
 Un cop executat el projecte i entès tant la tecnologia Bluetooth Low Energy com l'entorn de desenvolupament, hi ha aspectes en els quals és possible profunditzar més.
 Aquestes es podrien tractar en un altre futur treball.

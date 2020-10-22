@@ -149,7 +149,7 @@ Tal com s'ha comentat anteriorment el servidor GATT està format per perfils que
 Aquests serveis són els que contenen les característiques amb què s'interactuarà per intercanviar informació.
 A continuació s'explicarà com es poden implementar perfils en l'entorn de Texas Instruments BLE Stack.
 
-\subsection{Generar Fitxers}
+\subsection{Generar fitxers}
 Texas Instruments proporciona un Generador de Fitxers \cite{Service_Generator} que evita haver de començar de zero.
 En aquesta eina s'han de definir el nom del servei, els noms de les característiques amb la seva longitud i les propietats; i els corresponents UUID.
 Aquesta eina està pensada per a ser utilitzada junt amb el Project 0, per tant, aquest serà el projecte base per aquest treball.
@@ -160,9 +160,10 @@ Aquesta és la funció [Perfil]\_AddService(..) que cal afegir dins la funció P
 
 Tot i que, aquest generador de fitxers és molt útil a l'hora de tenir una estructura bàsica del projecte cal analitzar les parts importants per entendre com funciona per dins i quina relació té cada part amb BLE.
 
-\subsection{Definir el Perfil Propi}
-Per poder desenvolupar un perfil propi cal seguir els següents passos.
+\subsection{Definir el perfil propi}
+En l'explicació de com es pot definir un perfil propi s'utilitzaran parts del codi desenvolupat per al projecte final.
 
+Per poder desenvolupar un perfil propi cal seguir els següents passos.
 Cada característica necessita: un identificador per poder-la classificar, l'UUID que té assignat i la longitud de dades que tindrà.
 Aquests valors es defineixen en el fitxer capçalera del perfil.
 
@@ -305,6 +306,8 @@ Per poder implementar notificacions cal que la característica tingui un \textit
 El CCCD és un atribut més en la taula que cal posar just després de l'atribut on hi ha el valor de la característica i en codi quedaria de la següent manera\footnote{En aquest cas, l'exemple és del CCCD corresponent al botó 0 de la PCB que es troba al servei de botons del Project 0}.
 \newline
 \newline
+\newline
+
 \begin{lstlisting}[language=C]
 {
 	{ ATT_BT_UUID_SIZE, clientCharCfgUUID },
