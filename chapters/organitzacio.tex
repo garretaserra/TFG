@@ -13,7 +13,7 @@ Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat
 	\end{center}
 \end{figure}
 
-Aquesta PCB, que es pot veure a la figura \ref{PCB}, permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments.
+Aquesta PCB, que es pot veure a la Figura \ref{PCB}, permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments.
 A continuació es descriuen les seves característiques principals \cite{placa_datasheet}.
 
 El dispositiu CC1352R és multiprotocol i multibanda orientat a 2.4 GHz o sub-1GHz que serveix per a Thread, Zigbee, Bluetooth 5 Low Energy, IEEE 802.15.4g i 6LoWPAN.
@@ -51,7 +51,7 @@ Per facilitar la visualització de les dades s'han tret els zeros finals dels UU
 	\end{center}
 \end{table}
 Els atributs en si no es poden identificar per tant és necessari tenir en compte la documentació del Project 0.
-En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el corresponent significat que es pot observar a la figura \ref{project0_table}.
+En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el corresponent significat que es pot observar a la Figura \ref{project0_table}.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -64,7 +64,7 @@ En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el cor
 El primer que cal tenir clar és que a la taula \ref{tab:project_zero_uuid} els valors estan representats amb l'ordre en què es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitzen \textit{little-endian} per enviar la informació.
 Això resulta en el fet que els caràcters hexadecimals queden (per parelles, ja que, dos caràcters representen un byte) ordenats al revés.
 
-En analitzar els atributs es pot veure com aquells que tenen l'UUID 0x2800 (que corresponen a declaracions de serveis) en el seu valor únicament contenen l'UUID corresponent a les definicions de serveis de LEDs i de botons de la figura \ref{project0_table}.
+En analitzar els atributs es pot veure com aquells que tenen l'UUID 0x2800 (que corresponen a declaracions de serveis) en el seu valor únicament contenen l'UUID corresponent a les definicions de serveis de LEDs i de botons de la Figura \ref{project0_table}.
 Seguidament, als atributs amb UUID 0x2803 hi ha les definicions de les característiques, en el seu valor hi ha múltiples parts.
 El primer parell hexadecimal (0x0E o 0x12, en aquest cas) correspon a les propietats.
 Que defineixen l'accés a l'atribut que el succeeix.
@@ -122,7 +122,7 @@ En el CUDD hi ha descripcions definides per l'usuari com, per exemple, "Bombeta 
 
 \section{Client BLE}
 Per poder interactuar amb un servidor BLE és necessari tenir una implementació de client.
-Com que els mòbils intel·ligents tots incorporen BLE hi ha moltes aplicacions que permeten visualitzar els serveis amb les seves corresponents característiques.
+Com que els mòbils intel·ligents incorporen BLE hi ha moltes aplicacions que permeten visualitzar els serveis amb les seves corresponents característiques.
 També permeten interactuar, escrivint o llegint aquells valors en què estigui permès.
 Tot i això, no totes les aplicacions ofereixen la possibilitat de rebre notificacions o utilitzar seguretat.
 I les aplicacions no permeten interactuar directament amb el controlador (a través de HCI), per exemple, no poden canviar la potència de transmissió. 

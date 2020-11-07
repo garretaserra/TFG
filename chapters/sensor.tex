@@ -8,7 +8,7 @@ A fi d'entendre millor com afecten els diferents paràmetres configurables corre
 
 \subsection{Abast}
 
-Com ja s'ha mencionat anteriorment l'abast teòric que té BLE és considerable comparat amb tecnologies similars.
+Com ja s'ha mencionat anteriorment l'abast teòric que té BLE, 100-200 metres, és considerable comparat amb tecnologies similars.
 Però, cal entendre que, a l'estar utilitzant la banda de 2.4 GHz, l'abast de BLE dependrà de l'entorn, on pot haver-hi molta variabilitat d'interferències.
 A causa d'això, en un escenari realista l'abast que es pot assolir pot ser molt diferent del teòric.
 Les LAUNCHXL-CC1352R1 utilitzades en aquest projecte, per si soles, no són l'eina perfecta per fer proves d'abast.
@@ -32,11 +32,35 @@ S'ha escollit un pàrquing i utilitzat la potència per defecte de 0 dBm per pod
 El procediment per realitzar l'experiment va ser col·locar una de les plaques sobre un cotxe i amb l'altre connectada a un altre ordinador anar retrocedint fins que es perdés la connexió.
 Per forçar que es perdés la connexió quan ja no es podia establir una comunicació des de la PCB que s'anava movent s'anaven enviant peticions de lectura d'atributs.
 
-Els resultats obtinguts, que es poden veure en la figura \ref{abast}, indiquen que la distància màxima d'abast del dispositiu en una capa 2M és de 75 metres, mentre que en una capa S=8 aquesta distància s'estén fins als 135.
+Els resultats obtinguts, que es poden veure en la Figura \ref{abast}, indiquen que la distància màxima d'abast del dispositiu en una capa 2M és de 75 metres, mentre que en una capa S=8 aquesta distància s'estén fins als 135.
 S'han tingut en compte únicament aquestes capes físiques, ja que com que no hi ha interferències significatives i sempre s'ha mantingut la visibilitat directa, els resultats de la capa 1M són similars als de 2M i els de Coded S=2 són similar als de S=8.
 
-Un cop realitzat l'experiment s'han validat, tal com s'havia comentat anteriorment, els avantatges que aporta la nova capa física Coded que no existia abans de la versió 5.0 de BLE.
-En aquest rang amb visibilitat directa es pot considerar que BLE podrà assolir cobertura suficient dins les cases a través de parets.
+També s'ha realitzat un mapa de cobertura d'un interior d'una casa per poder observar quin és l'abast quan es tenen en compte les parets.
+En aquest cas s'ha establert una connexió fins a la PCB i s'ha obtingut el valor de la potència rebuda en totes les estàncies de la casa. De les mesures preses s'ha realitzat un mapa de cobertura que es pot veure a la Figura \ref{heatmap}.
+
+La PCB s'ha col·locat a l'habitació 1 i s'ha configurat amb la potencia de transmisió de 0 dBm i amb la capa física LE 1M.
+Just al costat de la PCB es reben -50 dBm i en l'altre punta de l'habitació hi ha -70 dBm, això es deu, als obstacles que hi ha entre mig.
+Al llarg del passadís la potència és de -62 dBm, és bona ja que es la zona on hi ha visibilitat directe entre els dispositius.
+A les estàncies adjuntes al passadís, el lavabo i l'habitació 2 la potència arriba a baixar fins a -80 dBm.
+
+Més enllà a la cuina i al menjador es reben potències de -80 fins a -85 dBm.
+A partir del rebedor la senyal ja es veu greument afectada i es comencen a perdre alguns paquets. En aquesta estància es reben -90 dBm. A l'habitació 3, la connexió és molt pobre i és habitual que els dispositius perdin la connexió. En aquesta, la potència rebuda es d'entre -95 dBm i -100 dBm.
+En el vestidor i el lavabo 2, que són les estàncies més allunyades de la casa. En aquestes al creuar la porta sempre es perd la connexió.
+Que es rebi connexió arribi a l'habitació 3 i no al lavabo i vestidor del costat es deu a que el senyal pentera la paret i arriba més fàcilment.
+
+Tal i com es pot observar pel resultat, BLE pot aconseguir una abast considerable en interiors però no d'una punta a un altre de la casa.
+En aquest escenari específic la configuració era adverda a propòsit per veure quin era el límit de la tecnologia.
+En un cas més realista, hi hauria un receptor al centre de la casa que tindria una cobertura que abarcaria qualsevol punt.
+D'aquesta manera qualsevol sensor situat a les puntes de la casa tindria connectivitat sense problemes.
+\newpage
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=\textwidth]{./images/hotmap.png}
+		\caption{Mapa de cobertura}
+		\label{heatmap}
+	\end{center}
+\end{figure}
 
 Així doncs, en aquest apartat s'ha vist una de les millores de la capa física Coded, l'abast.
 Però també cal recordar que on és extremadament útil és en el de resistència a les interferències.
@@ -44,7 +68,7 @@ Però també cal recordar que on és extremadament útil és en el de resistènc
 \subsection{Consum d'energia}
 
 El consum dels dispositius que utilitzen BLE és la característica més significativa, ja que, aquesta tecnologia està dissenyada per a consumir la menor quantitat d'energia possible.
-Les plaques utilitzades tenen ponts extraïbles, tal com es pot veure en la figura \ref{ponts_extraibles}, que permeten desconnectar els components que no són essencials per al funcionament del xip CC1352R.
+Les plaques utilitzades tenen ponts extraïbles, tal com es pot veure en la Figura \ref{ponts_extraibles}, que permeten desconnectar els components que no són essencials per al funcionament del xip CC1352R.
 
 \begin{figure}[h]
 	\begin{center}
@@ -65,7 +89,7 @@ D'aquesta manera, es pot analitzar comparativament en quin moment s'està consum
 Aquesta eina però, no substitueix la solució explicada anteriorment amb l'analitzador de potència, ja que l'Energy Trace resulta molt menys precisa.
 
 Per provar el funcionament de l'Energy Trace s'ha utilitzat durant l'execució en el xip del Project Zero.
-A la figura \ref{energy_trace1} es pot observar una captura del consum aproximat de corrent.
+A la Figura \ref{energy_trace1} es pot observar una captura del consum aproximat de corrent.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -78,7 +102,7 @@ A la figura \ref{energy_trace1} es pot observar una captura del consum aproximat
 És possible visualitzar com hi ha pics de consum cada 100 ms, aquests corresponen als instants en què el dispositiu està enviant els anuncis.
 Aquests 100 ms corresponen a l'interval d'anunci que s'ha configurat per a aquest projecte.
 
-També és possible mesurar el consum d'energia acumulada de la PCB al llarg del temps, en aquest cas s'ha realitzat durant un segon i es pot veure a la figura \ref{energy_measure}.
+També és possible mesurar el consum d'energia acumulada de la PCB al llarg del temps, en aquest cas s'ha realitzat durant un segon i es pot veure a la Figura \ref{energy_measure}.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -88,7 +112,7 @@ També és possible mesurar el consum d'energia acumulada de la PCB al llarg del
 	\end{center}
 \end{figure}
 
-Un cop s'estableix una connexió amb el dispositiu es realitza una altra captura del corrent que es pot observar a la figura \ref{energy_trace_connection}.
+Un cop s'estableix una connexió amb el dispositiu es realitza una altra captura del corrent que es pot observar a la Figura \ref{energy_trace_connection}.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -231,7 +255,7 @@ Per assegurar-se que no es superen els 3.3$V$ a l'entrada de l'ADC que podria ma
 
 Com que s'utilitzaran 4 canals de l'ADC per mesurar, es necessiten 4 circuits com el que s'ha dissenyat.
 S'ha implementat el circuit en una placa de proves i soldat els components de tal manera que cal connectar el voltatge d'entrada (a 5$V$) en vermell, terra en negre i finalment quatre cables blaus on hi haurà el voltatge controlat pels quatre potenciòmetres.
-A la figura \ref{protoboard} es pot observar aquesta implementació real del circuit.
+A la Figura \ref{protoboard} es pot observar aquesta implementació real del circuit.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -446,7 +470,7 @@ El circuit que simula els 4 sensors es connecta als pins de la PCB (veure apènd
 	\label{connexions}
 \end{table}
 
-Les connexions des del circuit fins a la PCB es fan a través dels ports que proporciona la PCB a la seva part de darrere que es veuen a la figura \ref{ports_placa}.
+Les connexions des del circuit fins a la PCB es fan a través dels ports que proporciona la PCB a la seva part de darrere que es veuen a la Figura \ref{ports_placa}.
 
 \begin{figure}[h]
 	\begin{center}
@@ -460,7 +484,7 @@ Un cop fetes les connexions, cal executar el codi de la PCB i clicar el botó d'
 Cal tenir en compte que durant el procés d'escaneig, degut a la configuració de BLE, sempre és possible (tot i que poc probable) que el mòbil no descobreixi la PCB un cop transcorregut el temps establert.
 En aquest cas, cal tornar a clicar el botó d'escaneig.
 Un cop l'aplicació està escanejant es poden canviar les posicions dels potenciòmetres i s'observa com els valors corresponents en el mòbil canvien amb poca latència.
-Es pot veure una captura del disseny de l'aplicació a la figura \ref{captura_app}.
+Es pot veure una captura del disseny de l'aplicació a la Figura \ref{captura_app}.
 
 \begin{figure}[h!]
 	\begin{center}

@@ -11,7 +11,7 @@ En aquest entorn sorgeix la necessitat d'establir estàndards entre companyies q
 Per definir els estàndards les companyies s'agrupen i formen grups com la WI-FI Alliance o el NFC Forum.
 
 \section{Bluetoooth}
-Bluetooth és un estàndard per l'intercanvi de dades de curt abast que utilitza la banda ISM de 2.4 GHz.
+Bluetooth és un estàndard per l'intercanvi de dades de curt abast que utilitza la banda ISM de 2,4 GHz.
 És un dels protocols més coneguts i utilitzats, sobretot a través dels dispositius mòbils.
 A continuació, s'explicarà l'origen d'aquesta tecnologia.
 
@@ -26,7 +26,7 @@ Preveient que la mobilitat en el futur seria important, les dues empreses van ac
 El resultat va ser que els mòbils Ericsson i els ordinadors ThinkPad es podien comunicar entre si, i va permetre realitzar trucades des del portàtil.
 Com que ni Ericsson ni IBM tenien majoria en la quota de mercat dels respectius productes van decidir que la tecnologia fos oberta.
 D'aquesta manera es buscava integrar a més participants en aquesta tecnologia per tal de fer-la compatible amb la majoria de dispositius possibles.
-El 1998 es van unir al grup Intel, Nokia i Toshiba i totes 5 companyies van fundar el Bluetooth SIG (\textit{Bluetooth Special Interest group}, d'ara endavant SIG).
+El 1998 es van unir al grup Intel, Nokia i Toshiba i totes 5 companyies van fundar el Bluetooth SIG (\textit{Bluetooth Special Interest Group}, d'ara endavant SIG).
 Finalment, al 2001 van sortir a la venda els primers dispositius amb Bluetooth, el terminal Ericsson T39 i el portàtil IBM ThinkPad A30.
 
 \subsection{Història de Bluetooth Low Energy}
@@ -34,7 +34,7 @@ Com que el món de les comunicacions estava evolucionant cap als dispositius sen
 L'any 2001 a Nokia es va començar a desenvolupar una versió de Bluetooth que fos similar però que reduís significativament el consum d'energia amb el mínim de compromisos possibles.
 Aquest desenvolupament va culminar l'any 2004 amb la publicació de la \textit{Bluetooth Low End Extension} \cite{Original_BLE_Extension}. 
 Posteriorment, es va dur a terme múltiples millores juntament amb Logitech en el projecte d'investigació per part de la Unió Europea MIMOSA \cite{MIMOSA}.
-El resultat del projecte es va anunciar el 2006 amb el nom de Wibree, es pot veure el logo a la figura \ref{wibree_logo}.
+El resultat del projecte es va anunciar el 2006 amb el nom de Wibree, es pot veure el logo a la Figura \ref{wibree_logo}.
 
 \begin{figure}[hb]
 	\begin{center}
@@ -50,11 +50,11 @@ Posteriorment es va canviar el nom per \textit{Bluetooth Low Energy} (BLE d'ara 
 \section{Bluetooth Clàssic vs BLE}
 El Bluetooth Low Energy no té cap relació amb el Bluetooth Clàssic pel que fa a l'arquitectura de la tecnologia.
 Tot i que comparteixen l'ús de la banda freqüencial de 2,4 GHz i contenen el nom de Bluetooth, són completament diferents, de fet, no són compatibles entre si.
-De fet, quan un dispositiu vol implementar les dues tecnologies (anomenat mode dual) ho ha de fer per separat, ja que només comparteixen l'antena; les modulacions i els altres blocs són tots diferents.
+Quan un dispositiu vol implementar les dues tecnologies (anomenat mode dual) ho ha de fer per separat, ja que només comparteixen l'antena; les modulacions i els altres blocs són tots diferents.
 
 \section{MANETS (\textit{Mobile Ad-Hoc Networks})}
 Bluetooth Clàssic no permet tenir més d'una connexió establerta amb altres dispositius.
-A més a més té el desavantatge que, tot i voler transmetre poques dades, l'arquitectura fa que es consumeixi bastant energia per establir i mantenir la connexió, encara que sigui breu.
+A més a més té el desavantatge que, tot i voler transmetre poques dades, l'arquitectura fa que es consumeixi força energia per establir i mantenir la connexió, encara que sigui breu.
 Això no suposava problemes inicialment, ja que l'ús principal era per la transferència de fitxers petits com contactes o fotografies.
 Més endavant també es va fer popular l'us del Bluetooth per a escoltar música a través d'auriculars sense fils.
 En aquests casos el cost d'establiment de la connexió és insignificant en comparació amb el cost mentre s'estan transferint dades, que acostuma a ser un període llarg de temps.
@@ -75,8 +75,8 @@ No està pensat per a situacions amb gran mobilitat entre nodes sinó per a desp
 Aquesta tecnologia, per exemple, s'utilitza en els dispositius de Philips Hue que serveixen per controlar bombetes intel·ligents.
 
 \subsubsection{6LoWPAN}
-IPv6 \textit{over Low power Wireless Personal Area Networks} és un protocol que permet enviar paquets d'Internet Protocol versió 6 a través de l'IEEE 802.15.4\footnotemark[\value{footnote}].
-Aquest protocol està orientat a aportar internet amb connexions sense fils.
+IPv6 \textit{over Low power Wireless Personal Area Networks} és un protocol que permet enviar paquets d'Internet Protocol versió 6 (IPv6) a través de l'IEEE 802.15.4\footnotemark[\value{footnote}].
+Aquest protocol està orientat a aportar Internet amb connexions sense fils.
 Una de les característiques destacades és la capacitat de comprimir les capçaleres dels paquets per així reduir el sobrecost que suposa.
 La utilització del 6LoWPAN és majoritàriament coneguda per l'estandardització del protocol Thread que l'utilitza per a domòtica.
 
@@ -109,7 +109,7 @@ Tot i així, la LoRa Alliance va definir el LoRaWAN que és un dels protocols qu
 
 
 \subsection{Comparació}
-Tot i que els protocols tenen molt en comú, com per exemple el se ús en domòtica, cada un es diferencia de la resta en els detalls.
+Tot i que els protocols tenen molt en comú, com per exemple el se ús en domòtica, cadascun es diferencia de la resta en els detalls.
 A la taula \ref{taula_comparacio} es pot veure una comparació de les capacitats de cada un dels protocols.
 Cal mencionar que les freqüències de les bandes mencionades poden variar lleugeramanet segons la normativa de cada país.
 En la comparació es pot veure com BLE és una de les que té millors capacitats.
@@ -120,7 +120,7 @@ Això es deu al fet que tot i que no és possible aconseguir totes les caracter�
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{|r|c|c|c|c|c|}
 			\hline
-&Abast (m)&	Velocitat Física (Kbps)	&	Taxa de dades (Kbps)   & Consum (mA) & Banda    \\ \hline
+&Abast (m)&	Velocitat Física (Kbps)	&	Taxa de dades (Kbps)   & Consum (mA) & Banda\footnotemark   \\ \hline
 BLE 4	&	50		& 1000	& 800  	& 15	& 2.4 GHz		\\ \hline
 BLE 5	&	200 	& 2000	& 1430 	& 15	& 2.4 GHz		\\	\hline
 6LoWPAN	&	100    	& 250 	& 162	& 15	& 900 MHz i 2.4  GHz		\\	\hline
@@ -135,6 +135,7 @@ LoRa	&	10 Km	& 27	& 5		& 18	& 400 i 900 MHz				\\	\hline
 \end{table}
 
 \newpage
+\footnotetext{Les bandes indicades com a 900 MHz varien depenent del país entre 800 MHz i 1000 MHz}
 
 \section{Versions de BLE}
 \label{Versions_BLE}
@@ -209,14 +210,14 @@ A continuació, es descriurà la pila de BLE i es veurà cada una de les capes q
 	\end{center}
 \end{figure}
 
-La pila pròpia de Bluetooth Low Energy està dividida en dues parts, tal com es pot observar a la figura \ref{ble_stack}, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre elles.
+La pila pròpia de Bluetooth Low Energy està dividida en dues parts, tal com es pot observar a la Figura \ref{ble_stack}, el controlador i el \textit{host}. Aquestes dues parts són independents i utilitzen el protocol \textit{Host Controller Interface} (HCI d'ara endavant) per comunicar-se entre elles.
 Aquest protocol pot estar implementat amb qualsevol protocol de transport físic com USB o UART.
 La idea darrera de separar la pila en dos serveix per fer compatibles xips fets per diferents fabricants.
 Les dues parts de la pila poden ser implementades en el mateix xip anomenat configuració única o en xips separats anomenat configuració dual.
 
 
 \subsection{Controller}
-El controlador compren la capa física i la capa d'enllaç en l'ordre que mostra la figura \ref{controller_stack}.
+El controlador compren la capa física i la capa d'enllaç en l'ordre que mostra la Figura \ref{controller_stack}.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -228,7 +229,7 @@ El controlador compren la capa física i la capa d'enllaç en l'ordre que mostra
 
 \subsubsection{Capa Física}
 La capa física és la que s'encarrega de la comunicació anal·lògica modulant i desmodulant els senyals.
-Tal i com ja s'ha comentat abans, treballa a la banda de 2.4 GHz en 40 canals diferents tal i com es mostra a la figura \ref{BLE_Channels}.
+Tal i com ja s'ha comentat abans, treballa a la banda de 2.4 GHz en 40 canals diferents tal i com es mostra a la Figura \ref{BLE_Channels}.
 
 \begin{figure}[hb]
 	\begin{center}
@@ -241,7 +242,7 @@ Tal i com ja s'ha comentat abans, treballa a la banda de 2.4 GHz en 40 canals di
 Els canals es classifiquen en 37 de dades o també anomenats secundaris i 3 d'anunci (\textit{Advertisment}) o primaris.
 En els canals d'anunci es vol tenir més qualitat, ja que la informació que s'hi transmet és més important.
 Per exemple, són els canals que s'utilitzen per descobrir altres dispositius.
-És per això, que els canals d'anunci es troben en el buits que deixen els canals WiFi més comuns (1, 6 i 11), tal com es veu a la figura \ref{BLE_Channels}.
+És per això, que els canals d'anunci es troben en el buits que deixen els canals WiFi més comuns (1, 6 i 11), tal com es veu a la Figura \ref{BLE_Channels}.
 
 El protocol BLE té l'objectiu de consumir el mínim d'energia possible, això es pot millorar reduint el temps que s'està transmetent o escoltant a través de la ràdio.
 Si no s'ha de rebre o transmetre res, es pot apagar la ràdio i s'estalvia energia.
@@ -272,7 +273,7 @@ La capa d'enllaç és l'encarregada d'escanejar, anunciar i gestionar les connex
 
 Depenent del moment en la connexió, els dispositius es troben en diferents estats.
 Els estats son: Espera (\textit{Standby}), Anunciador (\textit{Advertiser}) o Escàner (\textit{Scanner}) i Iniciador (\textit{Initiator}), Esclau (\textit{Slave}) o Mestre (\textit{Master}).
-A la figura \ref{Link_State_Diagram} s'hi pot veure el flux d'estats per arribar a una connexió.
+A la Figura \ref{Link_State_Diagram} s'hi pot veure el flux d'estats per arribar a una connexió.
 
 Aquesta capa és l'encarregada d'implementar el salt en freqüència (\textit{frequency hopping}) que permet mitigar l'impacte de les interferències estretes.
 Si s'utilitzés només un dels canals BLE i en aquell canal hi haguessin interferències no es podria establir comunicació.
@@ -280,7 +281,7 @@ Al alternar múltiples canals, encara que hi hagi interferències en algun d'ell
 Els salts que es fan són des de 5 fins 16 canals per salt d'entre els dedicats a dades.
 
 \subsection{Host}
-El protocol BLE es va dissenyar amb la flexibilitat en ment, és per això que l'estructura de la pila del host permet no utilitzar certes capes que es consideren opcionals tal com es pot veure a la figura \ref{host_stack}.
+El protocol BLE es va dissenyar amb la flexibilitat en ment, és per això que l'estructura de la pila del host permet no utilitzar certes capes que es consideren opcionals tal com es pot veure a la Figura \ref{host_stack}.
 El permetre tenir capes opcionals pot generar incompatibilitats entre dispositius però no és comú.
 En canvi, facilita molt i abarateix el disseny d'un dispositiu BLE en cas que no es necessitin totes les capacitats que ofereix.
 
@@ -330,7 +331,7 @@ Habitualment és el client qui pren la iniciativa demanant dades, tot i així, e
 
 La definició de l'ATT és massa genèrica per si sola tal que seria comú que, per fer el mateix, es desenvolupessin múltiples definicions que fossin incompatibles entre si.
 Per tal de tenir millor definits els serveis s'utilitza el GATT.
-El GATT permet definir perfils que agrupen múltiples atributs en un sol servei \cite{services}, la seva jerarquia es mostra en la figura \ref{fig:Gatt_Hierarchy}.
+El GATT permet definir perfils que agrupen múltiples atributs en un sol servei \cite{services}, la seva jerarquia es mostra en la Figura \ref{fig:Gatt_Hierarchy}.
 
 En un llistat d'atributs el GATT identifica els serveis tenint en compte que cada servei comença amb un atribut amb l'UUID 0x2800.
 Aquest atribut amb UUID 0x2800 s'anomena Declaració de Servei i tots els atributs consecutius fins a una altra declaració de servei formen part d'aquest.
@@ -438,7 +439,7 @@ L'AUX\_SYNC\_IND s'utilitza per indicar que s'enviaran anuncis periòdics pels c
 D'aquesta manera no cal utilitzar els canals d'anunci tan sovint.
 
 Per poder enviar moltes dades sense necessitat d'establir una connexió es pot fer utilitzant el paquet AUX\_CHAIN\_IND.
-Amb aquest tipus de paquet un cop s'ha enviat l'anunci pel canal primari es poden enviar múltiples paquets d'anunci per canals secundaris tal com es veu a la figura \ref{fig:aux_chain_ind}.
+Amb aquest tipus de paquet un cop s'ha enviat l'anunci pel canal primari es poden enviar múltiples paquets d'anunci per canals secundaris tal com es veu a la Figura \ref{fig:aux_chain_ind}.
 En cada capçalera s'indica en quin moment i per quin canal es transmetrà el següent paquet.
 
 \begin{figure}[h!]
@@ -460,7 +461,7 @@ BLE permet seleccionar qualsevol combinació de canals per on transmetre els anu
 Per consumir menys energia es pot transmetre en un únic canal però això es recomana no fer-ho, ja que si el canal és sorollós, els dispositius no el podran detectar.
 
 Un paràmetre molt important que es pot configurar és l'interval d'anunci.
-Aquest valor defineix el temps que passa entre que es transmeten anuncis pel mateix canal tal com es pot veure en la figura \ref{fig:advertisment_params}.
+Aquest valor defineix el temps que passa entre que es transmeten anuncis pel mateix canal tal com es pot veure en la Figura \ref{fig:advertisment_params}.
 L'especificació de BLE defineix que pot estar entre 20 ms i 10.24 s amb salts de 0.625 ms.
 Aquest paràmetre és crític depenent del servei que es vol oferir.
 Si el valor és molt alt, ajudarà a reduir el consum d'energia considerablement però això augmentarà la latència de descobriment de dispositius.
@@ -503,7 +504,7 @@ La diferència és que serveixen per a les comunicacions a través de canals sec
 Conseqüentment la quantitat de dades passa a ser de fins a 254 bytes en la resposta.
 
 \subsection{Paràmetres}
-Els paràmetres d'escaneig es poden identificar en la figura \ref{fig:escaneig_canals}.
+Els paràmetres d'escaneig es poden identificar en la Figura \ref{fig:escaneig_canals}.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -551,7 +552,7 @@ En cada esdeveniment, els dos dispositius tenen un temps assignat per transmetre
 \end{figure}
 
 
-A la figura \ref{fig:unicast_roles} es pot observar el procediment en que dos dispositius estableixen una connexió.
+A la Figura \ref{fig:unicast_roles} es pot observar el procediment en que dos dispositius estableixen una connexió.
 Tenim el dispositiu A que, inicialment, està com a observador i el dispositiu B que s'està anunciant.
 Cal recordar que, els anuncis no es detecten tots, ja que els dispositius no sempre estan transmetent i escoltant en el mateix canal primari.
 
@@ -573,7 +574,7 @@ En cas que es vulgui fixar, simplement, s'ha d'indicar el mateix valor per al m�
 BLE permet a l'esclau saltar-se esdeveniments per tal d'estalviar bateria, per exemple, si no té dades a transmetre.
 La latència de l'esclau, que és un dels paràmetres de connexió, defineix la quantitat màxima d'esdeveniments que l'esclau pot saltar i que la connexió segueixi establerta.
 
-En la figura \ref{fig:slave_latency} es pot observar la comparació entre quan s'utilitza la latència d'esclau i quan no.
+En la Figura \ref{fig:slave_latency} es pot observar la comparació entre quan s'utilitza la latència d'esclau i quan no.
 Tot i això, el mestre que és el node que té més bateria, participa en tots els esdeveniments escoltant el canal per si l'esclau transmet.
 Utilitzar aquest paràmetre permet tenir una connexió amb una latència baixa però amb un consum igualment reduït mentre no s'hagin de transmetre dades molt sovint.
 
@@ -614,7 +615,7 @@ En aquest apartat s'explicarà com estan formats els paquets que s'envien en BLE
 Cal distingir però entre la versió 4.2 i la 5 de BLE, ja que degut a les noves funcionalitats, el format canvia considerablement.
 
 \subsection{BLE 4.2}
-En la versió de BLE 4.2\footnote{En les versions anteriors a la 4.2 la PDU tenia una mida màxima de 39 bytes.} els paquets que es transmeten segueixen el format de la figura \ref{fig:4_2_format}.
+En la versió de BLE 4.2\footnote{En les versions anteriors a la 4.2 la PDU tenia una mida màxima de 39 bytes.} els paquets que es transmeten segueixen el format de la Figura \ref{fig:4_2_format}.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -630,7 +631,7 @@ Aquest camp serveix al receptor per filtrar els paquets i només tractar aquells
 El CRC (Cyclic Redundancy Check) s'utilitza per detectar errors en el paquet. 
 
 En la PDU (Protocol Data Unit) és on es troba la informació pròpia del paquet i depenent de si és un paquet en un canal d'anunci o en un de dades té un format lleugerament diferent.
-En la figura \ref{fig:pdu_format} es poden veure les diferències.
+En la Figura \ref{fig:pdu_format} es poden veure les diferències.
 Cal destacar que, en el cas de ser un anunci tot l'espai es dedica a informació, en canvi, en la PDU d'anunci es reserven 4 bytes per al comprovant d'integritat del missatge (\textit{Message Integrity Check} en anglès).
 
 \begin{figure}[!h]
