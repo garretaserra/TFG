@@ -34,23 +34,24 @@ Per forçar que es perdés la connexió quan ja no es podia establir una comunic
 
 Els resultats obtinguts, que es poden veure en la Figura \ref{abast}, indiquen que la distància màxima d'abast del dispositiu en una capa 2M és de 75 metres, mentre que en una capa S=8 aquesta distància s'estén fins als 135.
 S'han tingut en compte únicament aquestes capes físiques, ja que com que no hi ha interferències significatives i sempre s'ha mantingut la visibilitat directa, els resultats de la capa 1M són similars als de 2M i els de Coded S=2 són similar als de S=8.
+\newpage
 
 També s'ha realitzat un mapa de cobertura d'un interior d'una casa per poder observar quin és l'abast quan es tenen en compte les parets.
-En aquest cas s'ha establert una connexió fins a la PCB i s'ha obtingut el valor de la potència rebuda en totes les estàncies de la casa. De les mesures preses s'ha realitzat un mapa de cobertura que es pot veure a la Figura \ref{heatmap}.
+En aquest cas s'ha establert una connexió fins a la PCB i s'ha obtingut el valor de la potència rebuda en totes les estances de la casa. De les mesures preses s'ha realitzat un mapa de cobertura que es pot veure a la Figura \ref{heatmap}.
 
-La PCB s'ha col·locat a l'habitació 1 i s'ha configurat amb la potencia de transmisió de 0 dBm i amb la capa física LE 1M.
-Just al costat de la PCB es reben -50 dBm i en l'altre punta de l'habitació hi ha -70 dBm, això es deu, als obstacles que hi ha entre mig.
-Al llarg del passadís la potència és de -62 dBm, és bona ja que es la zona on hi ha visibilitat directe entre els dispositius.
-A les estàncies adjuntes al passadís, el lavabo i l'habitació 2 la potència arriba a baixar fins a -80 dBm.
+La PCB s'ha col·locat a l'habitació 1 i s'ha configurat amb la potència de transmissió de 0 dBm i amb la capa física LE 1M.
+Just al costat de la PCB es reben -50 dBm i en l'altra punta de l'habitació hi ha -70 dBm, això es deu, als obstacles que hi ha entremig.
+Al llarg del passadís la potència és de -62 dBm, és bona, ja que és la zona on hi ha visibilitat directa entre els dispositius.
+A les estances adjuntes al passadís, el lavabo i l'habitació 2 la potència arriba a baixar fins a -80 dBm.
 
 Més enllà a la cuina i al menjador es reben potències de -80 fins a -85 dBm.
-A partir del rebedor la senyal ja es veu greument afectada i es comencen a perdre alguns paquets. En aquesta estància es reben -90 dBm. A l'habitació 3, la connexió és molt pobre i és habitual que els dispositius perdin la connexió. En aquesta, la potència rebuda es d'entre -95 dBm i -100 dBm.
-En el vestidor i el lavabo 2, que són les estàncies més allunyades de la casa. En aquestes al creuar la porta sempre es perd la connexió.
-Que es rebi connexió arribi a l'habitació 3 i no al lavabo i vestidor del costat es deu a que el senyal pentera la paret i arriba més fàcilment.
+A partir del rebedor el senyal ja es veu greument afectada i es comencen a perdre alguns paquets. En aquesta estança es reben -90 dBm. A l'habitació 3, la connexió és molt pobre i és habitual que els dispositius perdin la connexió. En aquesta, la potència rebuda és d'entre -95 dBm i -100 dBm.
+En el vestidor i el lavabo 2, que són les estances més allunyades de la casa. En aquestes en travessar la porta sempre es perd la connexió.
+Que es rebi connexió arribi a l'habitació 3 i no al lavabo i vestidor del costat es deu al fet que el senyal penetra la paret i arriba més fàcilment.
 
-Tal i com es pot observar pel resultat, BLE pot aconseguir una abast considerable en interiors però no d'una punta a un altre de la casa.
-En aquest escenari específic la configuració era adverda a propòsit per veure quin era el límit de la tecnologia.
-En un cas més realista, hi hauria un receptor al centre de la casa que tindria una cobertura que abarcaria qualsevol punt.
+Tal com es pot observar pel resultat, BLE pot aconseguir un abast considerable en interiors però no d'una punta a un altre de la casa.
+En aquest escenari específic la configuració era adversa a propòsit per veure quin era el límit de la tecnologia.
+En un cas més realista, hi hauria un receptor al centre de la casa que tindria una cobertura que abastaria qualsevol punt.
 D'aquesta manera qualsevol sensor situat a les puntes de la casa tindria connectivitat sense problemes.
 \newpage
 
