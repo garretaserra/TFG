@@ -675,3 +675,26 @@ L'\textit{Extended Header Length} defineix la longitud de l'\textit{Extended Hea
 L'\textit{AdvMode} defineix una sèrie de valors que identifiquen si l'anunciador accepta connexions o es pot escanejar.
 L'\textit{Extended Header} indica informació similar a la versió 4.2 com l'adreça de l'anunciador.
 Però també indica tot el necessari per BLE 5, com en quin canal secundari es transmetrà part de la informació del paquet o amb quin tipus de capa física es transmetrà aquesta informació (LE 1M, LE 2M o LE Coded) entre d'altres.
+
+\section{Xarxes multi-node}
+Avui en dia tenir connectivitat entre dos nodes no és suficient per poder dissenyar instal·lacions, ja que en molts casos el que es requereix és interconnectivitat de múltiples dispositius entre si.
+Altres tecnologies similars com [] que s'han comentat anteriorment estableixen mecanismes per connectar tots els nodes en una xarxa.
+Des dels seus inicis tant BLE com Bluetooth Clàssic es van orientar a facilitar la connectivitat entre dos nodes, és per això, que no estava definit en l'estàndard cap manera per establir xarxes de nodes.
+Però gràcies a la flexibilitat de l'estructura de BLE era possible dissenyar un perfil complementari a BLE que fos compatible amb la tecnologia actual i que permetés interconnexió de dispositius.
+El Gener de 2019 es va adoptar l'estàndard del perfil de malla (\textit{Mesh Profile} en anglès)[ref].
+En aquest estàndard és defineix el perfil, els models i les propietats necessàries per permetre amb BLE tenir una xarxa mallada.
+EL gran avatatge que suposa es que a la pràctica pot incrementar l'abast de dispositius ja que es poden utilitzar altres nodes siguin sensors o dispositius específics que funcionin com a repetidors.
+
+
+\subsection{Topologia}
+Hi ha diferents tipus de xarxes segons quin rol prenen els nodes que en formen part.
+Quan els dispositius només són o esclaus o mestres, les connexions s'estableixen 1:N és a dir un mestre pot estar connectat a més d'un esclau però un esclau només estarà connectat a un mestre.
+En aquest cas el que s'haurà format serà una xarxa \textit{piconet}.
+Abans del perfil de malla totes les xarxes eren \textit{piconets}.
+
+Gràcies al nou perfil un node pot ser mestre en una connexió i esclau en una altre. D'aquesta manera els nodes formen connexions N:M, és a dir, un mateix node pot estar connectat amb esclaus i mestres a la vegada.
+Aquest tipus de xarxa s'anomena \textit{scatternet}.
+
+
+Segons l'estàndard el limit de la xarxa és de 32767 nodes que es poden dividir entre 4096 subxarxes.
+ 
