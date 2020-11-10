@@ -685,16 +685,33 @@ El Gener de 2019 es va adoptar l'estàndard del perfil de malla (\textit{Mesh Pr
 En aquest estàndard és defineix el perfil, els models i les propietats necessàries per permetre amb BLE tenir una xarxa mallada.
 EL gran avatatge que suposa es que a la pràctica pot incrementar l'abast de dispositius ja que es poden utilitzar altres nodes siguin sensors o dispositius específics que funcionin com a repetidors.
 
-
 \subsection{Topologia}
-Hi ha diferents tipus de xarxes segons quin rol prenen els nodes que en formen part.
-Quan els dispositius només són o esclaus o mestres, les connexions s'estableixen 1:N és a dir un mestre pot estar connectat a més d'un esclau però un esclau només estarà connectat a un mestre.
-En aquest cas el que s'haurà format serà una xarxa \textit{piconet}.
-Abans del perfil de malla totes les xarxes eren \textit{piconets}.
+Cal definir diferents tipus de xarxes segons quin rol prenen els nodes que en formen part.
+En Bluetooth Clàssic els missatges que s'envien tenen un únic node origen i un únic node destí.
+Les connexions s'estableixen punt a punt entre un escalu i un mestre.
 
-Gràcies al nou perfil un node pot ser mestre en una connexió i esclau en una altre. D'aquesta manera els nodes formen connexions N:M, és a dir, un mateix node pot estar connectat amb esclaus i mestres a la vegada.
-Aquest tipus de xarxa s'anomena \textit{scatternet}.
+Amb la introducció de BLE sorgeix la possibilitat d'enviar un mateix missatge amb potencialment múltiples disposistius com a destí, per exemple, utilitzant missatges d'anunci.
+Aquest tipus d'interaccions són punt a multi-punt, és a dir un mestre pot estar connectat a més d'un esclau però un esclau només estarà connectat a un mestre.
 
+Ambdós casos corresponen a xarxes anomenades \textit{piconet} segons l'estandard.
+Gràcies al nou perfil un node pot ser mestre en una connexió i esclau en una altre.
+D'aquesta manera els nodes formen connexions multi-punt a multi-punt, és a dir, un mateix node pot estar connectat amb esclaus i mestres a la vegada.
+Aquest tipus de xarxa està formada per mútiples \textit{piconets} connectades i en conjunt s'anomena \textit{scatternet}.
 
+Pel reenviament dels paquets enlloc d'utilitzar protocols de direccionament basats en IP utilitza encaminament d’inundació gestionat (\textit{managed flood routing}, en anglès).
+L'ús d'aquest protocol és per fer el més simple possible el desenvolupament de dispositius així com reduïr el sobrecost en procesament i memòria.
 Segons l'estàndard el limit de la xarxa és de 32767 nodes que es poden dividir entre 4096 subxarxes.
- 
+
+\subsection{Pila}
+La xarxa multi-node suposa una nova definició de les capes que formen la pila.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{./images/mesh_profile_stack.jpg}
+		\caption{Pila Xarxa Mallada}
+	\end{center}
+\end{figure}
+
+Tal i com es pot veure en la [Figura] el controlador, format per les dues capes inferiors, és manté igual.
+Al poder reutilitziar el controlador es facilita l'implementació d'aquest perfils en dispositius ja existents.
+
