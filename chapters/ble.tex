@@ -690,6 +690,13 @@ Cal definir diferents tipus de xarxes segons quin rol prenen els nodes que en fo
 En Bluetooth Clàssic els missatges que s'envien tenen un únic node origen i un únic node destí.
 Les connexions s'estableixen punt a punt entre un escalu i un mestre.
 
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{./images/scatternet.PNG}
+		\caption{Pila Xarxa Mallada \cite{Mesh Profile}}
+	\end{center}
+\end{figure}
+
 Amb la introducció de BLE sorgeix la possibilitat d'enviar un mateix missatge amb potencialment múltiples disposistius com a destí, per exemple, utilitzant missatges d'anunci.
 Aquest tipus d'interaccions són punt a multi-punt, és a dir un mestre pot estar connectat a més d'un esclau però un esclau només estarà connectat a un mestre.
 
@@ -701,6 +708,21 @@ Aquest tipus de xarxa està formada per mútiples \textit{piconets} connectades 
 Pel reenviament dels paquets enlloc d'utilitzar protocols de direccionament basats en IP utilitza encaminament d’inundació gestionat (\textit{managed flood routing}, en anglès).
 L'ús d'aquest protocol és per fer el més simple possible el desenvolupament de dispositius així com reduïr el sobrecost en procesament i memòria.
 Segons l'estàndard el limit de la xarxa és de 32767 nodes que es poden dividir entre 4096 subxarxes.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{./images/mesh_profile_features.jpg}
+		\caption{Pila Xarxa Mallada \cite{Mesh Profile}}
+	\end{center}
+\end{figure}
+
+Cal d'estacar el mode intermediari (\textit{proxy}, en anglès) que facilita la compatibilitat amb dispositius que no tenen el \textit{Mesh profile}.
+Un dispositiu que té aquest mode pot fer d'intermediari entre la xarxa i BLE.
+
+Tenir una xarxa de nodes que reenvien paquets quan alguns dels nodes són de baix consum pot suposar un problema.
+És per això que el \textit{Mesh profile} incloud la possibilitat de definir un node com a "amic".
+Aquest dispositiu amic no haurà d'estar escoltant constantment sinó que podrà requerir els paquets dirigits a ell quan es desperti.
+L'altre node associat haurà d'emmagatzemar els paquets i reenviar-los quan sigui requerit.
 
 \subsection{Pila}
 La xarxa multi-node suposa una nova definició de les capes que formen la pila.
