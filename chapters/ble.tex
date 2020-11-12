@@ -66,6 +66,7 @@ Era necessari tenir xarxes sense fils, amb consum molt baix d'energia i que cobr
 Amb aquests requeriments, van sorgir les xarxes ad hoc o \textit{Mobile Ad-Hoc Networks} (MANETS d'ara endavant).
 
 \subsection{Altres MANETS}
+\label{MANETS}
 BLE és una de les MANETs més populars però n'hi ha d'altres que competeixen i que es detallaran a continuació.
 
 \subsubsection{Zigbee}
@@ -678,10 +679,10 @@ Però també indica tot el necessari per BLE 5, com en quin canal secundari es t
 
 \section{Xarxes multi-node}
 Avui en dia tenir connectivitat entre dos nodes no és suficient per poder dissenyar instal·lacions, ja que en molts casos el que es requereix és interconnectivitat de múltiples dispositius entre si.
-Altres tecnologies similars com [] que s'han comentat anteriorment estableixen mecanismes per connectar tots els nodes en una xarxa.
+Altres tecnologies similars, que s'han vist a l'apartat \ref{MANETS}, com Zigbee, 6LoWPAN, Z-Wave, entre d'altres, estableixen mecanismes per connectar tots els nodes en una xarxa.
 Des dels seus inicis tant BLE com Bluetooth Clàssic es van orientar a facilitar la connectivitat entre dos nodes, és per això, que no estava definit en l'estàndard cap manera per establir xarxes de nodes.
 Però gràcies a la flexibilitat de l'estructura de BLE era possible dissenyar un perfil complementari a BLE que fos compatible amb la tecnologia actual i que permetés interconnexió de dispositius.
-El Gener de 2019 es va adoptar l'estàndard del perfil de malla (\textit{Mesh Profile} en anglès)[ref].
+El Juliol del 2017 es va adoptar l'estàndard del perfil de malla (\textit{Mesh Profile} en anglès) format per la definició del perfil \cite{Mesh Profile Definition} i per la definició del models \cite{Mesh Profile Models}.
 En aquest estàndard és defineix el perfil, els models i les propietats necessàries per permetre amb BLE tenir una xarxa mallada.
 EL gran avatatge que suposa es que a la pràctica pot incrementar l'abast de dispositius ja que es poden utilitzar altres nodes siguin sensors o dispositius específics que funcionin com a repetidors.
 
@@ -726,14 +727,18 @@ L'altre node associat haurà d'emmagatzemar els paquets i reenviar-los quan sigu
 
 \subsection{Pila}
 La xarxa multi-node suposa una nova definició de les capes que formen la pila.
+En la pila del \textit{Mesh Profile}  conté tota la pila de BLE a la capa inferior ja que BLE proporciona les comunicacions al perfil \textit{mesh}.
+
+
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{./images/mesh_profile_stack.jpg}
-		\caption{Pila Xarxa Mallada}
+		\includegraphics[width=0.6\textwidth]{./images/mesh_profile_stack2.PNG}
+		\caption{Pila Xarxa Mallada \cite{Mesh Profile Overview}}
+		\label{mesh_netowrk_stack}
 	\end{center}
 \end{figure}
 
-Tal i com es pot veure en la [Figura] el controlador, format per les dues capes inferiors, és manté igual.
+Tal i com es pot veure en la Figura \ref{mesh_netowrk_stack} el controlador, format per les dues capes inferiors, és manté igual.
 Al poder reutilitziar el controlador es facilita l'implementació d'aquest perfils en dispositius ja existents.
 
