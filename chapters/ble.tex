@@ -678,14 +678,16 @@ L'\textit{Extended Header} indica informació similar a la versió 4.2 com l'adr
 Però també indica tot el necessari per BLE 5, com en quin canal secundari es transmetrà part de la informació del paquet o amb quin tipus de capa física es transmetrà aquesta informació (LE 1M, LE 2M o LE Coded) entre d'altres.
 
 \section{Xarxes Bluetooth multi-node}
-EL Bluetooth Low Energy permet la connectivitat punt a punt i això no és suficient per poder competir amb les altres tecnologies.
-Si tenim un mòbil que es connecta amb múltiples dispositius BLE, aquests no es poden comunicar entre si i això limita l'ús de BLE en desplegaments grans.
-En canvi, amb altres MANETs que s'han vist a l'apartat \ref{MANETS}, com Zigbee, 6LoWPAN, Z-Wave, entre d'altres, estableixen mecanismes que permeten connectar tots els nodes entre si en una xarxa.
+Tal com s'ha vist anteriorment, el Bluetooth Low Energy només permet tenir connectivitat punt a punt i això no és suficient per poder competir amb les altres tecnologies.
+Si tenim un node que es connecta amb múltiples dispositius BLE, aquests no es poden comunicar entre si i això limita l'ús de BLE en desplegaments grans.
+En canvi, amb altres MANETs que s'han vist a l'apartat \ref{MANETS}, com Zigbee, 6LoWPAN o Z-Wave, entre d'altres, estableixen mecanismes que permeten connectar tots els nodes entre si a través d'una xarxa.
 
-EL Bluetooth necessitava establir alguna manera per poder implementar xarxes complexes entre nodes i ho va fer amb el \textit{Mesh Profile}.
-El Juliol del 2017 es va adoptar l'estàndard del perfil de malla (\textit{Mesh Profile} en anglès) format per la definició del perfil \cite{Mesh Profile Definition} i per la definició del models \cite{Mesh Profile Models}.
-En aquest estàndard és defineix el perfil, els models i les propietats necessàries per permetre una xarxa mallada.
-EL gran avatatge que suposa es que a la pràctica pot incrementar l'abast de dispositius ja que es poden utilitzar altres nodes siguin sensors o dispositius específics, que realitzin les funcions com a repetidors.
+Bluetooth necessitava definir algun mètode oficial per poder implementar xarxes complexes entre nodes i ho va fer amb el \textit{Mesh Profile}.
+El juliol del 2017 es va adoptar l'estàndard del perfil de malla (\textit{Mesh Profile} en anglès) format per la definició del perfil \cite{Mesh Profile Definition} i per la definició del models \cite{Mesh Profile Models}.
+
+Aquest estàndard és molt rellevant per a BLE, ja que anteriorment l'abast màxim dels dispositius estava estrictament limitat.
+En canvi, amb l'ús del \textit{Mesh Profile} és possible estendre la connectivitat amb nodes intermedis que facin de repetidors.
+Però aquesta no és l'únic avantatge que aporta, a continuació es descriurà resumidament com funciona el \textit{Mesh Profile} i com ajuda a augmentar les capacitats de BLE.
 
 \subsection{Topologia}
 Bluetooth té definicions per a diferents tipologies de nodes que es poden veure a la Figura \ref{piconet}.
@@ -699,19 +701,23 @@ Bluetooth té definicions per a diferents tipologies de nodes que es poden veure
 \end{figure}
 
 En Bluetooth Clàssic els missatges que s'envien tenen un únic node origen i un únic node destí i per tant formen una \textit{Piconet} d'esclau únic.
-Amb la introducció de BLE sorgeix la possibilitat d'enviar un mateix missatge amb potencialment múltiples disposistius com a destí, per exemple, utilitzant missatges d'anunci.
-Aquest tipus d'interaccions són punt a multi-punt, és a dir un mestre pot estar connectat a més d'un esclau però un esclau només estarà connectat a un mestre.
+Amb la introducció de BLE sorgeix la possibilitat d'enviar un mateix missatge amb potencialment múltiples dispositius com a destí, per exemple, utilitzant missatges d'anunci.
+Aquest tipus d'interaccions són punt a multipunt, és a dir, un mestre pot estar connectat a més d'un esclau, però un esclau només estarà connectat a un mestre.
 Aquest tipus de xarxa s'anomena \textit{Piconet} d'esclaus múltiples.
 
-Gràcies al nou \textit{Mesh Profile} un node pot ser mestre en una connexió i esclau en una altre.
-D'aquesta manera els nodes formen connexions multi-punt a multi-punt, és a dir, un mateix node pot estar connectat amb esclaus i mestres a la vegada.
-Aquest tipus de xarxa està formada per mútiples \textit{piconets} connectades i en conjunt s'anomena \textit{scatternet}.
+Gràcies al nou \textit{Mesh Profile} un node pot ser mestre en una connexió i esclau en una altra.
+D'aquesta manera els nodes formen connexions multipunt a multipunt, és a dir, un mateix node pot estar connectat amb esclaus i mestres a la vegada.
+Aquest tipus de xarxa està formada per múltiples \textit{piconets} interconnectades i en conjunt s'anomena \textit{scatternet}.
 
-Pel reenviament dels paquets enlloc d'utilitzar protocols de direccionament basats en IP utilitza encaminament d’inundació gestionat (\textit{managed flood routing}, en anglès).
-L'ús d'aquest protocol és per fer el més simple possible el desenvolupament de dispositius així com reduïr el sobrecost en procesament i memòria.
-[Explicar escenes]
-Cal destacar que tot i que probablement la majoria de xarxes que utilitzin el \textit{Mesh Profile} no seran molt grans, l'estàndard s'ha dimensionat per poder tenir xarxes extremadament grans, pensades per parquings de cotxes, control d'ilumincació en edificis d'oficines o sensors en caps de futbol entre d'altres.
-Els límits del dimensionament són de 32.767 nodes per xarxa, fins a 4.096 subxarxes i 65.535 escenes que vénen marcats per la longitud dels camps que identifiquen l'estructura que són de 15, 12 i 16 bits respectivament.
+Pel reenviament dels paquets en lloc d'utilitzar protocols d'encaminament basats en IP s'utilitza encaminament d’inundació gestionat (\textit{managed flood routing}, en anglès).
+L'ús d'aquest protocol és per fer el més simple possible el desenvolupament de dispositius així com reduir el sobrecost en processament i memòria.
+
+És molt comú que es vulguin canviar múltiples elements a la vegada com poden ser llums, temperatura del termòstat i persianes.
+Per reduir la quantitat de missatges enviats es poden utilitzar escenes que permeten interactuar amb múltiples nodes a la vegada.
+Aquestes escenes es poden activar a través d'un únic missatge o també es poden programar perquè s'activin automàticament a una certa hora.
+
+Cal destacar que, tot i que probablement la majoria de xarxes que utilitzin el \textit{Mesh Profile} no seran molt grans, l'estàndard s'ha dimensionat per poder tenir xarxes extremadament grans, pensades per pàrquings de cotxes, control d'il·luminació en edificis d'oficines o sensors en caps de futbol entre d'altres.
+Els límits són de 32.767 nodes per xarxa, fins a 4.096 subxarxes i 65.535 escenes i vénen marcats per la longitud dels camps corresponents que són de 15, 12 i 16 bits respectivament.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -720,18 +726,19 @@ Els límits del dimensionament són de 32.767 nodes per xarxa, fins a 4.096 subx
 	\end{center}
 \end{figure}
 
-Cal d'estacar el mode intermediari (\textit{proxy}, en anglès) que facilita la compatibilitat amb dispositius que no tenen el \textit{Mesh profile}.
-Un dispositiu que té aquest mode pot fer d'intermediari entre la xarxa i BLE.
+Per facilitar la introducció del \textit{Mesh Profile} en desplegaments de BLE ja existents es defineix un mode d'operació intermediari (\textit{proxy}, en anglès).
+El mode intermediari permet a un node d'una xarxa establir una connexió utilitzant BLE amb un altre node que no implementa el \textit{Mesh Profile}.
+Així, un node antic pot ser perfectament controlar a través d'una \textit{Scatternet}.
 
-Tenir una xarxa de nodes que reenvien paquets quan alguns dels nodes són de baix consum pot suposar un problema.
-És per això que el \textit{Mesh profile} inclou la possibilitat de definir un node com a "amic".
+Tenir una xarxa de nodes que reenvien paquets quan alguns dels nodes són de baix consum i amb poca capacitat de processament pot suposar problemes.
+És per això que el \textit{Mesh profile} inclou la possibilitat de definir una connexió d'amistat on el node de baix consum és l'amic.
 Aquest dispositiu amic no haurà d'estar escoltant constantment sinó que podrà requerir els paquets dirigits a ell quan es desperti.
-L'altre node associat haurà d'emmagatzemar els paquets i reenviar-los quan sigui requerit.
+L'altre node associat que tindrà més capacitat de processament, memòria i probablement estarà connectat a la xarxa elèctrica haurà d'emmagatzemar els paquets i reenviar-los quan siguin requerits.
 
 \subsection{Pila}
-La xarxa multi-node suposa una nova definició de les capes que formen la pila.
-En la pila del \textit{Mesh Profile}  conté tota la pila de BLE a la capa inferior ja que el \textit{mesh profile} utilitza BLE per enviar paquets entre els nodes.
-A continuació es comentarà breument les diferents capes d'aquesta pila.
+El \textit{Mesh Profile} defineix les capes de la seva pròpia pila.
+En la capa inferior d'aquesta pila hi conté tot BLE, ja que el \textit{Mesh Profile} utilitza BLE per enviar paquets entre els nodes que formen la xarxa.
+A continuació es comentarà breument les diferents capes.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -741,38 +748,38 @@ A continuació es comentarà breument les diferents capes d'aquesta pila.
 	\end{center}
 \end{figure}
 
-La capa \textit{Bearer} controla la transmissió i recepció de paquets, n'hi ha de dos tipus l'\textit{Advertising Bearer} i el GATT \textit{Bearer}.
+La capa \textit{Bearer} controla la transmissió i recepció de paquets, hi ha dos tipus, l'\textit{Advertising Bearer} i el GATT \textit{Bearer}.
 L'\textit{Advertising Bearer} utiliza el BLE per enviar i rebre missatges corresponents al \textit{Mesh Profile}.
-En canvi, el GATT \textit{Bearer} és el que s'utilitza en sipositius que no implementen el \textit{Mesh Profile} i permet comunicar-se indirectament amb altres dispositius de la xarxa utilitzant el protocol d'intermediari comentat anteriorment.
+En canvi, el GATT \textit{Bearer} és el que s'utilitza en dispositius que no implementen el \textit{Mesh Profile} i permet comunicar-se indirectament amb altres dispositius de la xarxa utilitzant el protocol d'intermediari comentat anteriorment.
 
 La capa de xarxa defineix l'ús d'adreces i la gestió de les múltiples interfícies que pot tenir un node.
 Les funcions de repetidor s'implementen en aquesta capa.
-La capa de transport inferior realitza la segmentació i reesemblatge dels paquets que no caben en una PDU de transport.
-La capa de transport superior es responsable de la seguretat proveïnt de encriptació i autenticació.
-Igualment també s'encarrega de la funcionalitat d'amistat entre dispositius comentada anteriorment.
-La capa d'accès es defineix el format de les dades de la capa de transport, quina encriptació s'ha de realitzar entre d'altres.
-Les dues capes superiors tracten la implementació dels models i els missatges, estats que defineixen.
+La capa de transport inferior realitza la segmentació i reassemblatge dels paquets que no caben en una PDU de transport.
+La capa de transport superior és responsable de la seguretat, proveeix encriptació i autenticació.
+Igualment, també s'encarrega de la funcionalitat d'amistat entre dispositius comentada anteriorment.
+En la capa d'accés es defineix el format de les dades de la capa de transport incloent quina encriptació s'ha de realitzar entre d'altres.
+Les dues capes superiors tracten la implementació dels models, els missatges i estats que defineix l'estàndard.
 
 Comparant les capes de \textit{Mesh Profile} i de BLE es pot veure que són similars fins al punt que s'estan realitzant les mateixes funcions.
-Això es deu a que enlloc de substituïr o extendre BLE amb el \textit{Mesh Profile} el que s'ha fet es mantenir BLE tal i com està i afegir \textit{Mesh Profile} per sobre.
+Això es deu al fet que en lloc de substituir o estendre BLE amb el \textit{Mesh Profile} el que s'ha fet és mantenir BLE tal com està i afegir \textit{Mesh Profile} per sobre.
 D'aquesta manera s'assegura la compatibilitat entre dispositius que implementen el \textit{Mesh Profile} i dispositius que no.
 A més a més la compatibilitat és amb BLE 5 i amb BLE 4, així que és molt fàcil afegir dispositius amb \textit{Mesh Profile} en una instal·lació ja existent.
 
 \subsection{Seguretat}
-En la majoria de tecnologies que s'han vist fins ara, incloent BLE la seguretat és opcional per permetre implementacions simples del protocol que no ho requereixen.
-Aquest no és el cas amb el \textit{Mesh Profile} que obliga a utilitzar seguretat segons l'estàndard.
+En la majoria de tecnologies que s'han vist fins ara, incloent-hi BLE la seguretat és opcional per permetre implementacions simples del protocol que no la requereixen.
+Aquest no és el cas del \textit{Mesh Profile} que obliga a utilitzar seguretat segons l'estàndard.
 
-Tots els paquets corresponents al \textit{Mesh Profile} estan encriptat i autenticats.
-Existeixen les claus de xarxa que són compartides entre tots els nodes de la xarxa i es requereixen per realitzar funcions de xarxa com reenviar paquets.
-Amb aquestes claus s'obfusquen les capçaleres del paquet per dona privacitat en l'origen i destí d'aquest als nodes que no són de la xarxa.
-Si un node forma part d'una subxarxa, aquest també tindrà una altre clau única i compartida entre els nodes de la subxarxa.
-Per tant, es poden aïllar certes parts de la xarxa, per exemple, una estancia d'un d'hotel.
+Tots els paquets corresponents al \textit{Mesh Profile} estan encriptats i autenticats.
+Per fer-ho existeixen les claus de xarxa que són compartides entre tots els nodes de la mateixa xarxa i es requereixen per realitzar funcions de xarxa com reenviar paquets.
+Amb aquestes claus ofusquen les capçaleres del paquet per donar privacitat de l'origen i destí envers un potencial actor maliciós que no pertany a la xarxa.
+Si un node forma part d'una subxarxa, aquest també tindrà una altra clau única i compartida entre els nodes de la subxarxa.
+Per tant, es poden aïllar certes parts de la xarxa, per exemple, una estança d'un d'hotel.
 
 Cada xarxa pot tenir múltiples aplicacions que tindran la seva pròpia clau d'aplicació.
-Aquesta servira per aïllar diferents elements d'una xarxa que estan relacionats com poden ser els elements d'iluminació (llums i interruptors) dels elements de calefacció (sensor de temperatura i radiador).
+Aquesta servirà per aïllar diferents elements d'una xarxa que estan relacionats com poden ser els elements d'il·luminació (llums i interruptors) dels elements de calefacció (sensor de temperatura i radiador).
 
 Finalment, tots els nodes contenen una clau de dispositiu que els permet formar part d'una xarxa o una aplicació.
-Quant un dispositiu es vol eliminar de la xarxa o aplicació, per exemple, per vendre'l, es procedeix de forma segura afegint aquella clau a una llista negre.
-Els dispositius que estan a la llista negre no se'ls renoven les claus d'aplicació o xarxa i per tant no poden seguir participant en les communicacions.
-Tal com és habitual d'utilitzen identificadors seqüencials en els paquets per evitar atacs de repetició en que l'atacant retransmet un paquet per intentar repetir una acció anterior.
+Quant un dispositiu es vol eliminar de la xarxa o aplicació, per exemple, per vendre'l, es procedeix de forma segura afegint aquella clau a una llista negra.
+Els dispositius que estan a la llista negra no se'ls renoven les claus d'aplicació o xarxa i per tant no poden seguir participant en les comunicacions.
+Tal com és habitual s'utilitzen identificadors seqüencials en els paquets per evitar atacs de repetició on l'atacant retransmet un paquet per intentar repetir una acció anterior.
 
