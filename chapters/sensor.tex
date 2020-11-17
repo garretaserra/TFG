@@ -196,10 +196,48 @@ Per contextualitzar-ho més, si utilitzéssim una bateria habitual en els telèf
 
 
 \subsection{ADC}
-Per poder veure les capacitats del ADC 
+El \textit{Analogic to Digital Converter} és un perifèric de la PCB que permet convertir un senyal analògic a un digital.
+Per poder comprobar que les capacitats del ADC de la PCB són suficients per a sensors s'ha realitzat un experiment.
+Es basa en veure que la PCB pot mostrejar prou ràpid com per mesurar les senyals que s'obtindrien dels sensors.
+
+S'ha utilitzat un generador de funcions per simular una senyal quadrada i s'ha anat variant la freqüència del senyal.
+Com que l'ADC de la PCB té un rang de 0 a 3.3V s'ha configurat el generador de funcions amb un òfset per tenir una senyal sempre en voltatge positiu.
+L'amplitud del senyal és d'aproximadament 2.5 V, no és de 3.3 V perquè el generador de fucions sempre supera breument l'amplitude del senyal i d'aquesta manera s'evita superar els 3.3 V i protegir l'ADC.
+
+En la PCB s'executarà el projecte [continous] que ve inclòs en els exemples del SimpleLink i permet realitzar mostres del ADC continuament i les ensenya a través de la consola.
+Originalment mostren els volts que entren a l'ADC.
+
+S'ha modificat per a que mostri zeros quan el voltatge està sota de 2 V i 1 quan està per sota de 2 V.
+Sempre s'utilitza una freqüència de mostreig que sigui un múltiple de la freqüencia del senyal i si s'està mostrejant correctament ha d'haver-hi el mateix nombre de mesures amb valor alt que amb baix.
+Per tant, en la consola ha de tenir una sequencia amb la mateixa quantitat de zeros que uns.
+
+Per comprobar que s'està mostrejant el senyal correctament s'han mostrejats senyals amb una frequencia divisora de la frequencia de mostreig.
+Es pot comprobar que es mostreja correctament si el senyal té la mateixa quantiat de zeros i es repeteix cada tantes mostres que venen definides segons la seguent formula:
+
+
+\begin{equation}
+	L=\frac{f_{s}}{f_{g}\cdot2}
+\end{equation}
+
+Primer de tot s'ha mostrejat a frequencies baixes per comprobar que l'escenari estigues ben muntat.
+
+Senyal 10 Hz fs 20 Hz
+Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
+
+A continuació s'ha configurat l'ADC per mostrejar a la màxima frequencia i s'han provat senyals amb frequencia divisora de la frequencia de mostreig.
+
+fs=200KHz signal 20KHz
+Buffer: 0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,
+
+fs=200KHz signal 50KHz
+Buffer: 0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,
+
+Finalment s'ha provat amb el senyal a la màxima freqÑuència possible segons el teorema de Nyquist i s'ha vist que l'ADC segueix funcionant correctament.
+
+fs=200KHz signal 100KHz
+Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
 
 \section{Lectura de l'ADC}
-El \textit{Analogic to Digital Converter} és un perifèric de la PCB que permet convertir un senyal analògic a un digital.
 Per poder realitzar la lectura amb l'ADC, és necessari dissenyar un circuit per simular el senyal que produiria un sensor i també desenvolupar el codi necessari perquè la PCB prengui la mesura.
 A continuació s'explicaran aquests processos.
 
