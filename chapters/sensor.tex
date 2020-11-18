@@ -147,14 +147,14 @@ D'una banda, l'anunci dura uns 4 mil·lisegons i mig, en canvi l'esdeveniment de
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=\textwidth]{./images/pic_anunci_captura.png}
-		\caption{Captura d'anunci}
+		\caption{Captura d'un anunci}
 		\label{energy_trace_adv}
 	\end{center}
 \end{figure}
 \begin{figure}[!h]
 	\begin{center}
 		\includegraphics[width=\textwidth]{./images/pic_connectat_captura.png}
-		\caption{Captura d'esdeveniment}
+		\caption{Captura d'un esdeveniment}
 		\label{energy_trace_event}
 	\end{center}
 \end{figure}
@@ -196,7 +196,7 @@ Per contextualitzar-ho més, si utilitzéssim una bateria habitual en els telèf
 
 
 \subsection{ADC}
-El \textit{Analogic to Digital Converter} és un perifèric de la PCB que permet convertir un senyal analògic a un digital.
+L'\textit{Analogic to Digital Converter} és un perifèric de la PCB que permet convertir un senyal analògic a un digital.
 Per poder comprobar que les capacitats del ADC de la PCB són suficients per a sensors s'ha realitzat un experiment.
 Es basa en veure que la PCB pot mostrejar prou ràpid com per mesurar les senyals que s'obtindrien dels sensors.
 
@@ -212,30 +212,43 @@ Sempre s'utilitza una freqüència de mostreig que sigui un múltiple de la freq
 Per tant, en la consola ha de tenir una sequencia amb la mateixa quantitat de zeros que uns.
 
 Per comprobar que s'està mostrejant el senyal correctament s'han mostrejats senyals amb una frequencia divisora de la frequencia de mostreig.
-Es pot comprobar que es mostreja correctament si el senyal té la mateixa quantiat de zeros i es repeteix cada tantes mostres que venen definides segons la seguent formula:
+Es pot comprobar que es mostreja correctament si el senyal té la mateixa quantiat de zeros i uns i es repeteix cada $L$ mostres que venen definides segons la Formula \ref{eqn:length}, sent $f_{m}$ la frequencia de mostreig i $f_{s}$ la frequencia del senyal mostrejat.
 
 
 \begin{equation}
-	L=\frac{f_{s}}{f_{g}\cdot2}
+	\label{eqn:length}
+	L=\frac{f_{m}}{f_{s}}
 \end{equation}
 
-Primer de tot s'ha mostrejat a frequencies baixes per comprobar que l'escenari estigues ben muntat.
+Primer de tot s'ha mostrejat a frequencies baixes per comprobar que els resultats fossin els esperats i per tant que l'escenari estigués ben implementat.
 
-Senyal 10 Hz fs 20 Hz
-Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
+Amb una $f_{m}=10$Hz i una $f_{s}=20$Hz s'ha obtingut:
+\begin{lstlisting}[language=C]
+	Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
+\end{lstlisting}
 
 A continuació s'ha configurat l'ADC per mostrejar a la màxima frequencia i s'han provat senyals amb frequencia divisora de la frequencia de mostreig.
 
-fs=200KHz signal 20KHz
-Buffer: 0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,
+Amb una $f_{m}=200$kHz i una $f_{s}=20$kHz s'ha obtingut:
+\begin{lstlisting}[language=C]
+	Buffer: 0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,
+\end{lstlisting}
 
-fs=200KHz signal 50KHz
-Buffer: 0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,
+Amb una $f_{m}=200$kHz i una $f_{s}=50$kHz s'ha obtingut:
+\begin{lstlisting}[language=C]
+	Buffer: 0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,
+\end{lstlisting}
 
-Finalment s'ha provat amb el senyal a la màxima freqÑuència possible segons el teorema de Nyquist i s'ha vist que l'ADC segueix funcionant correctament.
 
-fs=200KHz signal 100KHz
-Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
+Finalment s'ha provat amb el senyal a la màxima freqüència possible segons el teorema de Nyquist\footnote{El teorema de Nyquist defineix que si la freqüència de mostreig és el doble que la freqüència màxima d'un senyal, aquesta serà suficient per recontruïr el senyal mostrejat.}.
+
+Amb una $f_{m}=200$kHz i una $f_{s}=100$kHz s'ha obtingut:
+\begin{lstlisting}[language=C]
+	Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
+\end{lstlisting}
+
+Tal i com es pot observar, el senyal es continua mostrejant correctament i, per tant, podem confirmar que es poden mostrejar senyals digitals de fins a 100kHz.
+
 
 \section{Lectura de l'ADC}
 Per poder realitzar la lectura amb l'ADC, és necessari dissenyar un circuit per simular el senyal que produiria un sensor i també desenvolupar el codi necessari perquè la PCB prengui la mesura.
