@@ -82,7 +82,6 @@ Les plaques utilitzades tenen ponts extraïbles, tal com es pot veure en la Figu
 D'aquesta manera, es pot utilitzar un analitzador de potència per mesurar l'energia consumida.
 Aquesta configuració produeix una mesura molt precisa i permet calcular el cicle de vida del dispositiu que s'està desenvolupant.
 Per contra, no es poden utilitzar les eines de desenvolupament com la depuració del codi.
-Aquesta configuració no ha estat possible realitzar-la a causa de la situació sanitària actual.
 
 Per poder desenvolupar fàcilment un projecte i analitzar els canvis que el codi produeix en l'ús d'energia, existeix una eina anomenada Energy Trace.
 D'aquesta manera, es pot analitzar comparativament en quin moment s'està consumint l'energia i es poden adaptar els paràmetres de la connexió per observar quin serà l'estalvi que s'aconseguirà.
@@ -197,22 +196,20 @@ Per contextualitzar-ho més, si utilitzéssim una bateria habitual en els telèf
 
 \subsection{ADC}
 L'\textit{Analogic to Digital Converter} és un perifèric de la PCB que permet convertir un senyal analògic a un digital.
-Per poder comprobar que les capacitats del ADC de la PCB són suficients per a sensors s'ha realitzat un experiment.
-Es basa en veure que la PCB pot mostrejar prou ràpid com per mesurar les senyals que s'obtindrien dels sensors.
+Per poder comprovar que les capacitats de l'ADC de la PCB són suficients per a sensors s'ha realitzat un experiment.
+Aquest es basa en comprovar que la PCB pot mostrejar prou ràpidament per mesurar els senyals que s'obtindrien dels sensors.
 
-S'ha utilitzat un generador de funcions per simular una senyal quadrada i s'ha anat variant la freqüència del senyal.
-Com que l'ADC de la PCB té un rang de 0 a 3.3V s'ha configurat el generador de funcions amb un òfset per tenir una senyal sempre en voltatge positiu.
-L'amplitud del senyal és d'aproximadament 2.5 V, no és de 3.3 V perquè el generador de fucions sempre supera breument l'amplitude del senyal i d'aquesta manera s'evita superar els 3.3 V i protegir l'ADC.
+S'ha utilitzat un generador de funcions per simular un senyal d'ona quadrada i s'ha anat variant la freqüència del senyal.
+Com que l'ADC de la PCB té un rang de 0 a 3,3 V s'ha configurat el generador de funcions amb un òfset per tenir un senyal sempre en voltatge positiu.
+L'amplitud del senyal és d'aproximadament 2,5 V, no és de 3,3 V perquè el generador de funcions sempre supera breument l'amplitud del senyal i d'aquesta manera s'evita superar els 3,3 V i protegir l'ADC.
 
-En la PCB s'executarà el projecte [continous] que ve inclòs en els exemples del SimpleLink i permet realitzar mostres del ADC continuament i les ensenya a través de la consola.
-Originalment mostren els volts que entren a l'ADC.
+En la PCB s'executarà el projecte \textit{adcBufContinous} que ve inclòs en els exemples del SimpleLink i permet realitzar mostres de l'ADC contínuament i les ensenya a través de la consola.
+Originalment en aquest projecte es mostren els volts a l'entrada de l'ADC, però s'ha modificat perquè mostri zeros quan el voltatge està sota de 1,5 V i uns quan està per sobre de 1,5 V.
+Sempre s'utilitza una freqüència de mostreig que sigui un múltiple de la freqüència del senyal i si s'està mostrejant correctament ha d'haver-hi el mateix nombre de mesures amb valor alt que amb baix.
+Per tant, la consola ha de tenir una seqüència amb la mateixa quantitat de zeros que uns.
 
-S'ha modificat per a que mostri zeros quan el voltatge està sota de 2 V i 1 quan està per sota de 2 V.
-Sempre s'utilitza una freqüència de mostreig que sigui un múltiple de la freqüencia del senyal i si s'està mostrejant correctament ha d'haver-hi el mateix nombre de mesures amb valor alt que amb baix.
-Per tant, en la consola ha de tenir una sequencia amb la mateixa quantitat de zeros que uns.
-
-Per comprobar que s'està mostrejant el senyal correctament s'han mostrejats senyals amb una frequencia divisora de la frequencia de mostreig.
-Es pot comprobar que es mostreja correctament si el senyal té la mateixa quantiat de zeros i uns i es repeteix cada $L$ mostres que venen definides segons la Formula \ref{eqn:length}, sent $f_{m}$ la frequencia de mostreig i $f_{s}$ la frequencia del senyal mostrejat.
+Per comprovar que s'està mostrejant el senyal correctament s'han mostrejat senyals amb una freqüència divisora de la freqüència de mostreig.
+En aquest cas, si el senyal té la mateixa quantitat de zeros i uns i es repeteix cada $L$ mostres que vénen definides segons la Formula \ref{eqn:length}, sent $f_{m}$ la freqüència de mostreig i $f_{s}$ la freqüència del senyal mostrejat.
 
 
 \begin{equation}
@@ -227,7 +224,7 @@ Amb una $f_{m}=10$Hz i una $f_{s}=20$Hz s'ha obtingut:
 	Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
 \end{lstlisting}
 
-A continuació s'ha configurat l'ADC per mostrejar a la màxima frequencia i s'han provat senyals amb frequencia divisora de la frequencia de mostreig.
+A continuació, s'ha configurat l'ADC per mostrejar a la màxima frequencia i s'han provat senyals amb frequencia divisora de la frequencia de mostreig.
 
 Amb una $f_{m}=200$kHz i una $f_{s}=20$kHz s'ha obtingut:
 \begin{lstlisting}[language=C]
@@ -240,14 +237,14 @@ Amb una $f_{m}=200$kHz i una $f_{s}=50$kHz s'ha obtingut:
 \end{lstlisting}
 
 
-Finalment s'ha provat amb el senyal a la màxima freqüència possible segons el teorema de Nyquist\footnote{El teorema de Nyquist defineix que si la freqüència de mostreig és el doble que la freqüència màxima d'un senyal, aquesta serà suficient per recontruïr el senyal mostrejat.}.
+Finalment s'ha provat amb el senyal a la màxima freqüència possible segons el teorema de Nyquist\footnote{El teorema de Nyquist defineix que si la freqüència de mostreig és el doble que la freqüència màxima d'un senyal, aquesta serà suficient per reconstruir el senyal mostrejat.}.
 
 Amb una $f_{m}=200$kHz i una $f_{s}=100$kHz s'ha obtingut:
 \begin{lstlisting}[language=C]
 	Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
 \end{lstlisting}
 
-Tal i com es pot observar, el senyal es continua mostrejant correctament i, per tant, podem confirmar que es poden mostrejar senyals digitals de fins a 100kHz.
+Tal com es pot observar, el senyal es continua mostrejant correctament i, per tant, es pot confirmar que és possible mostrejar senyals digitals de fins a 100 kHz.
 
 
 \section{Lectura de l'ADC}
@@ -375,7 +372,7 @@ else if(!memcmp(pAttr->type.uuid, humidityUUID, pAttr->type.len))
 \end{lstlisting}
 
 
-
+\newpage
 \section{Aplicació mòbil}
 Per veure un exemple simplificat d'un client que consumís els serveis oferits per la PCB, s'ha realitzat un desenvolupament propi d'una aplicació per a Android.
 Aquesta aplicació llegeix contínuament els valors dels quatre atributs que té la PCB que corresponen amb els sensors.

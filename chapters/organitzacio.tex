@@ -3,7 +3,7 @@ Un cop vist com funciona el protocol del Bluetooth Low Energy, en aquest capíto
 S'explicarà tant els components i parts que formen part del circuit imprès (\textit{Printed Circuit Board} o PCB d'ara endavant) com el programari que s'utilitza per desenvolupar projectes utilitzant-la.
 
 \section{LaunchXL CC1352R1}
-Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat el kit LaunchXL pel desenvolupament ràpid del microcontrolador CC1352R1.
+Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat el \textit{kit} LaunchXL pel desenvolupament ràpid del microcontrolador CC1352R1.
 
 \begin{figure}[h!]
 	\begin{center}
@@ -13,13 +13,22 @@ Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat
 	\end{center}
 \end{figure}
 
-Aquesta PCB, que es pot veure a la Figura \ref{PCB}, permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments.
+En el \textit{kit} hi ve la PCB, que es pot veure a la Figura \ref{PCB} i permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments.
 A continuació es descriuen les seves característiques principals \cite{placa_datasheet}.
 
-El dispositiu CC1352R és multiprotocol i multibanda orientat a 2.4 GHz o sub-1GHz que serveix per a Thread, Zigbee, Bluetooth 5 Low Energy, IEEE 802.15.4g i 6LoWPAN.
+El xip CC1352R és el que s'utilitza per desenvolupar els protocols de comunicacions i treballa a 2,4 GHz o sub-1GHz, per tant, serveix per a Thread, Zigbee, Bluetooth 5 Low Energy, IEEE 802.15.4g i 6LoWPAN.
+La ràdio multibanda que té un receptor amb sensibilitat de -121 dBm per a sub-1GHz i de -110 dBm a 50 Kbps o -105 dBm a 125 Kbps. El transmissor pot transmetre fins a 14 dBm sub-1GHz i 5dBm a 2,4 GHz.
+Dels perifèrics el més important és l'ADC de 12 bits i 8 canals amb freqüència de mostreig de 200 Kmostres/s (multiplexat).
 Pel que fa a memòria, té 352 KB flash programable, 256 KB de ROM per a protocols i llibreries, 8 KB de Cache SRAM i 80 KB de RAM protegida amb paritat.
-D'els perifèrics el més important és l'ADC de 12 bits i 8 canals amb freqüència de mostreig de 200 Kmostres/s (multiplexat). També té Rellotge de Temps Real (RTC en anglès), acceleradors d'operacions criptogràfiques i generador de números aleatoris.
-La radio multibanda que té un receptor amb sensibilitat de -121 dBm per a sub-1GHz i de -110 dBm a 50 Kbps o -105 dBm a 125 Kbps. El transmissor pot transmetre fins a 14 dBm sub-1GHz i 5dBm a 2.4 GHz.
+També té Rellotge de Temps Real (RTC en anglès), acceleradors d'operacions criptogràfiques i generador de nombres aleatoris.
+
+La PCB porta una antena incorporada, però també té 3 ports per poder utilitzar antenes externes a les diferents bandes.
+Té dos botons que permeten interactuar amb el xip i dos LEDs que es permeten donar indicacions amb facilitat.
+Els LEDs es poden desactivar desconnectant-los retirant els ponts extraïbles pels quals estan connectats per poder realitzar mesures de consum.
+També té altres ponts extraïbles que permeten diferents configuracions i es comentaran més endavant.
+
+Per interactuar amb la PCB té un port micro-USB, un botó per reiniciar l'execució de codi.
+El microxip (\textit{MCU, Micro Controller Unit}) TM4C1294NCPDTI3 de Texas Instruments és el que permet la interacció amb el CC1352 i té un mòdul JTAG que és el que permet la depuració de codi a través de consola.
 
 
 \section{Software}
