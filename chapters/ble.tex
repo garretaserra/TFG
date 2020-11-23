@@ -51,6 +51,7 @@ Posteriorment es va canviar el nom per \textit{Bluetooth Low Energy} (BLE d'ara 
 El Bluetooth Low Energy no té cap relació amb el Bluetooth Clàssic pel que fa a l'arquitectura de la tecnologia.
 Tot i que comparteixen l'ús de la banda freqüencial de 2,4 GHz i contenen el nom de Bluetooth, són completament diferents, de fet, no són compatibles entre si.
 Quan un dispositiu vol implementar les dues tecnologies (anomenat mode dual) ho ha de fer per separat, ja que només comparteixen l'antena; els altres blocs del protocol són tots diferents.
+\newpage
 
 \section{MANETS (\textit{Mobile Ad-Hoc Networks})}
 Bluetooth Clàssic no permet tenir més d'una connexió establerta amb altres dispositius.
@@ -113,7 +114,7 @@ Tot i així, la LoRa Alliance va definir el LoRaWAN que és un dels protocols qu
 
 \subsection{Comparació}
 Tot i que els protocols tenen molt en comú, com per exemple el se ús en domòtica, cadascun es diferencia de la resta en els detalls.
-A la taula \ref{taula_comparacio} es pot veure una comparació de les capacitats de cada un dels protocols.
+A la Taula \ref{taula_comparacio} es pot veure una comparació de les capacitats de cada un dels protocols.
 En la comparació es pot veure com BLE és una de les que té millors capacitats.
 Això es deu al fet que tot i que no és possible aconseguir totes les característiques alhora la seva flexibilitat permet configurar el protocol per a moltes configuracions diferents.
 
@@ -225,11 +226,13 @@ El controlador compren la capa física i la capa d'enllaç en l'ordre que mostra
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=0.4\textwidth]{./diagrames/BLE_Controller}
+		\includegraphics[width=0.5\textwidth]{./diagrames/BLE_Controller}
 		\caption{Controller Stack}
 		\label{controller_stack}
 	\end{center}
 \end{figure}
+
+Per sota del controlador hi hauria l'antena que transmetria i rebria els senyals.
 
 \subsubsection{Capa Física}
 La capa física és la que s'encarrega de la comunicació anal·lògica modulant i desmodulant els senyals.
@@ -370,7 +373,7 @@ Aquest \textit{handle} correspon a l'atribut on hi ha les dades de la caracterí
 	\end{center}
 \end{table}
 
-En aquest exemple de la taula \ref{Attribute_Table} es pot observar que hi ha dos serveis diferents, marcats en vermell, ja que hi ha dos UUID 0x2800.
+En aquest exemple de la Taula \ref{Attribute_Table} es pot observar que hi ha dos serveis diferents, marcats en vermell, ja que hi ha dos UUID 0x2800.
 També es mostren tres declaracions de característiques en total, marcades en groc, (una pel primer servei i dues pel segon) que corresponen als tres atributs amb UUID 0x2803.
 Com que els valors corresponents al nivell de bateria i la temperatura estan estandarditzats (veure \cite{Battery_Level}\cite{Temperature_Characteristic}, respectivament), no cal especificar que es refereixen a percentatge de bateria restant i a graus Celsius.
 
@@ -387,18 +390,19 @@ Es poden veure tots els que ja s'han reservat oficialment a \cite{reservedUUIDs}
 En aquest exemple no n'hi ha cap però les característiques poden tenir descriptors \cite{descriptors} que permeten aportar informació addicional sobre la característica que els precedeix.
 Aquests, per exemple, serveixen per poder subscriure's a rebre notificacions cada cop que una característica canvia de valor.
 Els atributs també tenen propietats d'accés que defineixen quines accions es poden prendre.
-Les propietats es comentaran en un exemple real més endavant \ref{sec:properties}
+Les diferents propietats de l'estàndard es comentaran amb més detall en un exemple real més endavant \ref{sec:properties}
 
 \subsubsection{GAP}
 \label{GAP}
 La \textit{Generic Access Profile} és la capa que interactua amb l'aplicació i per tant ofereix la Interfície de Programació d'Aplicacions (API en anglès) amb la funcionalitat que aporta BLE.
 
-El dispositiu sempre està en un\footnote{En BLE 5.1 es permet certes combinacions de rols} dels quatre rols: Emissor, Observador, Perifèric o Central.
+El dispositiu sempre està en un\footnote{Si s'utilitza el Mesh Profile, que s'explicarà més endavant és possible que un dispositiu tingui més d'un rol, però sempre en tindrà un únic rol per connexió.} dels quatre rols: Emissor, Observador, Perifèric o Central.
 Si el rol és emissor, s'enviaran anuncis per poder ser descobert.
 Si és Observador s'escoltaran els canals per obtenir informació dels anuncis.
 Un cop s'estigui en una connexió el Perifèric serà el node amb menys capacitats de processament o de bateria i és requerirà menys d'ell per mantenir la connexió, per exemple a un rellotge intel·ligent
 En canvi el node Central serà el que tingui més recursos com pot ser un telèfon intel·ligent o un ordinador.
 Amb aquests rols i l'especificació del GAP existeix l'estàndard que permet els dispositius descobrir-se, connectar-se i emparellar-se entre d'altres.
+\newpage
 
 
 \section{Anunciaments}
@@ -409,7 +413,7 @@ A continuació, es concretarà quins són aquests paràmetres i com afecten les 
 
 \subsection{Tipus}
 Existeixen 4 paquets d'aquest tipus i BLE 5 n'afegeix 4 més.
-Els 4 originals es classifiquen segons si permet connexió i si permeten escaneig, tal com mostra la taula \ref{tab:Advertisment_Types}.
+Els 4 originals es classifiquen segons si permet connexió i si permeten escaneig, tal com mostra la Taula \ref{tab:Advertisment_Types}.
 
 \begin{table}[!h]
 	\begin{center}
@@ -470,11 +474,6 @@ Aquest paràmetre és crític depenent del servei que es vol oferir.
 Si el valor és molt alt, ajudarà a reduir el consum d'energia considerablement, però això augmentarà la latència de descobriment de dispositius.
 En canvi, si és molt baix, es reduirà la latència, però augmentarà molt el consum del dispositiu.
 
-Un cop s'estableix la connexió ja es poden enviar dades ràpidament, però per l'escaneig són necessaris múltiples intervals d'anunci i cal considerar que és possible que el receptor no detecti tots els anuncis. 
-És per això que, quan es desenvolupen serveis que interaccionen amb persones no és acceptable haver d'esperar desenes de segons, per tant, habitualment s'utilitzen valors d'entre 100 i 500 ms.
-En canvi, per a dispositiu que requereixen la mínima latència possible en les dades s'utilitzen valors entre 20 i 50 ms.
-Finalment, aquells dispositius que proporcionen dades que no varien sovint i que no requereixen interacció utilitzen valors des d'1 fins a 5 segons.
-
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics{./images/advertisement_params.png}
@@ -482,6 +481,12 @@ Finalment, aquells dispositius que proporcionen dades que no varien sovint i que
 		\label{fig:advertisment_params}
 	\end{center}
 \end{figure}
+
+
+Un cop s'estableix la connexió ja es poden enviar dades ràpidament, però per l'escaneig són necessaris múltiples intervals d'anunci i cal considerar que és possible que el receptor no detecti tots els anuncis. 
+És per això que, quan es desenvolupen serveis que interaccionen amb persones no és acceptable haver d'esperar desenes de segons, per tant, habitualment s'utilitzen valors d'entre 100 i 500 ms.
+En canvi, per a dispositiu que requereixen la mínima latència possible en les dades s'utilitzen valors entre 20 i 50 ms.
+Finalment, aquells dispositius que proporcionen dades que no varien sovint i que no requereixen interacció utilitzen valors des d'1 fins a 5 segons.
 
 Al definir l'interval d'anunci cal tenir en compte que segons l'especificació de BLE (tal com s'ha comentat anteriorment a l'apartat \ref{Advertisement_Extensions}) s'aplica un retard pseudoaleatori que pot ser de fins a 10 ms i afecta els serveis que requereixen molt poca latència.
 Aquest retard aleatori s'implementa per evitar col·lisions entre dispositius que s'han sincronitzat involuntàriament i tenen el mateix interval o un múltiple entre si.
@@ -508,7 +513,8 @@ La diferència és que serveixen per a les comunicacions a través de canals sec
 Conseqüentment la quantitat de dades passa a ser de fins a 254 bytes en la resposta.
 
 \subsection{Paràmetres}
-Els paràmetres d'escaneig es poden identificar en la Figura \ref{fig:escaneig_canals}.
+Els paràmetres d'escaneig són tan importants com els d'anunci, ja que també afecten considerablement al temps de vida del dispositiu.
+Aquests paràmetres es poden identificar en la Figura \ref{fig:escaneig_canals}.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -539,7 +545,6 @@ Per tant, a l'hora de definir els paràmetres de la connexió és important evit
 Com que les connexions estan basades en múltiples esdeveniments en instants determinats es considerà una connexió síncrona.
 No hi ha límit de connexions segons l'especificació de BLE i per tant, dependrà de les capacitats del dispositiu amb el qual es treballa.
 
-Cal recordar que, per crear una connexió és necessari que un dispositiu tingui el rol GAP de central i un altre amb el rol de perifèric (els anunciadors i observadors no poden iniciar connexions).
 
 El dispositiu central serà el que iniciarà la connexió i el perifèric el que l'acceptarà o no.
 El central serà sempre el mestre i el perifèric serà l'esclau de la connexió.
@@ -558,7 +563,8 @@ En cada esdeveniment, els dos dispositius tenen un temps assignat per transmetre
 
 A la Figura \ref{fig:unicast_roles} es pot observar el procediment on els dos dispositius estableixen una connexió.
 Tenim el dispositiu A que, inicialment, està com a observador i el dispositiu B que s'està anunciant.
-Cal recordar que, no es detecten tots els anuncis, ja que els dispositius no sempre estan transmetent i escoltant en el mateix canal primari.
+Cal recordar que, no es detecten tots els anuncis, ja que els dispositius no sempre estan transmetent i escoltant en el mateix canal.
+Per tant, serà necessari anunciar-se múltiples vegades en cada canal per assegurar-se que es rep l'anunci.
 
 El dispositiu A rep un anunci de B, decideix establir una connexió i enviant un requeriment de connexió.
 El dispositiu B després de transmetre un anunci per un canal, escolta durant un temps determinat en el mateix canal a l'espera de requeriments de connexió.
@@ -620,7 +626,7 @@ En aquest apartat s'explicarà com estan formats els paquets que s'envien en BLE
 Cal distingir però entre la versió 4.2 i la 5 de BLE, ja que degut a les noves funcionalitats, el format canvia considerablement.
 
 \subsection{BLE 4.2}
-En la versió de BLE 4.2\footnote{En les versions anteriors a la 4.2 la PDU tenia una mida màxima de 39 bytes.} els paquets que es transmeten segueixen el format de la Figura \ref{fig:4_2_format}.
+En la versió de BLE 4.2\footnote{En les versions anteriors a la 4.2 la PDU tenia una mida màxima de 39 bytes.} els paquets segueixen el format de la Figura \ref{fig:4_2_format}.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -635,10 +641,6 @@ L'adreça d'accés identifica a quina connexió pertany aquest paquet, en cas de
 Aquest camp serveix al receptor per filtrar els paquets i només tractar aquells que el poden interessar.
 El CRC (Cyclic Redundancy Check) s'utilitza per detectar errors en el paquet. 
 
-En la PDU (Protocol Data Unit) és on es troba la informació pròpia del paquet i depenent de si és un paquet en un canal d'anunci o en un de dades té un format lleugerament diferent.
-En la Figura \ref{fig:pdu_format} es poden veure les diferències.
-Cal destacar que, en el cas de ser un anunci tot l'espai es dedica a informació, en canvi, en la PDU de dades es reserven 4 bytes per al comprovant d'integritat del missatge (\textit{Message Integrity Check} en anglès).
-
 \begin{figure}[!h]
 	\begin{center}
 		\begin{subfigmatrix}{1}
@@ -650,10 +652,9 @@ Cal destacar que, en el cas de ser un anunci tot l'espai es dedica a informació
 	\label{fig:pdu_format}
 \end{figure}
 
-Pel que fa a la Càrrega Útil o \textit{Payload} serà diferent segons el tipus de paquet.
-En el cas de l'ADV\_IND està format per l'adreça de l'anunciant seguit d'un llistat d'estructures de dades d'anunci (\textit{Advertisement Data Structure}).
-Aquestes, estan formades per la longitud de l'estructura, el tipus i les dades en si.
-Existeixen molts tipus d'estructura que estan definits en l'estàndard \cite{AD_Types}.
+En la PDU (Protocol Data Unit) és on es troba la informació pròpia del paquet i depenent de si és un paquet en un canal d'anunci o en un de dades té un format lleugerament diferent.
+En la Figura \ref{fig:pdu_format} es poden veure les diferències.
+Cal destacar que, en el cas de ser un anunci tot l'espai es dedica a informació, en canvi, en la PDU de dades es reserven 4 bytes per al comprovant d'integritat del missatge (\textit{Message Integrity Check} en anglès).
 
 \begin{figure}[!h]
 	\begin{center}
@@ -661,6 +662,11 @@ Existeixen molts tipus d'estructura que estan definits en l'estàndard \cite{AD_
 		\caption{Payload de ADV\_IND \cite{BLE_4.2_packet_format}}
 	\end{center}
 \end{figure}
+
+Pel que fa a la Càrrega Útil o \textit{Payload} serà diferent segons el tipus de paquet.
+En el cas de l'ADV\_IND està format per l'adreça de l'anunciant seguit d'un llistat d'estructures de dades d'anunci (\textit{Advertisement Data Structure}).
+Aquestes, estan formades per la longitud de l'estructura, el tipus i les dades en si.
+Existeixen molts tipus d'estructura que estan definits en l'estàndard \cite{AD_Types}.
 
 En canvi, en el cas de l'ADV\_DIRECT\_IND simplement s'indica l'adreça de l'anunciador i la del dispositiu al qual va dirigit el paquet.
 
@@ -698,7 +704,7 @@ Bluetooth té definicions per a diferents tipologies de nodes que es poden obser
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{./images/PICONET.png}
+		\includegraphics[width=0.52\textwidth]{./images/PICONET.png}
 		\caption{Tipus de xarxes}
 		\label{piconet}
 	\end{center}

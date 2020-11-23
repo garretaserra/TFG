@@ -67,7 +67,7 @@ D'aquesta manera qualsevol sensor situat a les puntes de la casa tindria connect
 \subsection{Consum d'energia}
 
 El consum dels dispositius que utilitzen BLE és la característica més significativa, ja que, aquesta tecnologia està dissenyada per a consumir la menor quantitat d'energia possible.
-Les plaques utilitzades tenen ponts extraïbles, tal com es pot veure en la Figura \ref{ponts_extraibles}, que permeten desconnectar els components que no són essencials per al funcionament del xip CC1352R.
+Les PCB utilitzades tenen ponts extraïbles, tal com es pot veure en la Figura \ref{ponts_extraibles}, que permeten desconnectar els components que no són essencials per al funcionament del xip CC1352R.
 
 \begin{figure}[h]
 	\begin{center}
@@ -87,7 +87,7 @@ D'aquesta manera, es pot analitzar comparativament en quin moment s'està consum
 Aquesta eina però, no substitueix la solució explicada anteriorment amb l'analitzador de potència, ja que l'Energy Trace resulta molt menys precisa.
 
 Per provar el funcionament de l'Energy Trace s'ha utilitzat durant l'execució en el xip del Project Zero.
-A la Figura \ref{energy_trace1} es pot observar una captura del consum aproximat de corrent.
+A la Figura \ref{energy_trace1} es pot observar una captura del consum aproximat de corrent del CC1352.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -201,7 +201,7 @@ S'ha utilitzat un generador de funcions per simular un senyal d'ona quadrada i s
 
 \begin{figure}[!h]
 	\begin{center}
-		\includegraphics[width=\textwidth]{./images/CicrcuitoExperimentoLab2.png}
+		\includegraphics[width=0.9\textwidth]{./images/CicrcuitoExperimentoLab2.png}
 		\caption{Escenari ADC}
 		\label{lab}
 	\end{center}
@@ -395,7 +395,7 @@ Per veure un exemple simplificat d'un client que consumís els serveis oferits p
 Aquesta aplicació llegeix contínuament els valors dels quatre atributs que té la PCB que corresponen amb els sensors.
 
 Per poder interactuar amb la PCB el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs.
-Aquests es poden veure a la taula \ref{taula_app}
+Aquests es poden veure a la Taula \ref{taula_app}
 
 \begin{table}[!h]
 	\begin{center}
@@ -472,7 +472,7 @@ Però per poder mostrar aquests valors no es pot fer directament.
 El codi de BLE és asíncron i es troba en un fil d'execució (\textit{thread} en anglès) diferent al que controla la interfície d'usuari.
 Per poder compartir valors entre threads cal utilitzar un \textit{handler}.
 
-Per passar múltiples valors cal fer-ho de la següent manera.
+Per passar múltiples valors amb un \textit{handler} cal fer-ho utilitzant \textit{bundles} tal com mostra el codi següent.
 \begin{lstlisting}[language=java]
 Bundle bundle = new Bundle();
 bundle.putString("value", Integer.toString(characteristicValue));

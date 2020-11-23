@@ -50,7 +50,7 @@ Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arqui
 
 \subsection{Serveis de Botons i LEDs}
 
-En la taula \ref{tab:project_zero_uuid} es poden veure els valors que hi ha tal com estan en la taula d'atributs del servidor GATT del Project 0.
+En la Taula \ref{tab:project_zero_uuid} es poden veure els valors que hi ha tal com estan en la taula d'atributs del servidor GATT del Project 0.
 Per facilitar la visualització de les dades s'han tret els zeros finals dels UUID propis, però cal recordar que en total tenen 16 parells de caràcters (128 bits en representació hexadecimal) i no només els 9 parells que surten a la taula.
 
 \begin{table}[h!]
@@ -72,7 +72,7 @@ En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el cor
 	\end{center}
 \end{figure}
 
-El primer que cal tenir clar és que a la taula \ref{tab:project_zero_uuid} els caràcters de la columna Valor estan representats amb l'ordre en què es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitzen \textit{little-endian} per enviar la informació.
+El primer que cal tenir clar és que a la Taula \ref{tab:project_zero_uuid} els caràcters de la columna Valor estan representats amb l'ordre en què es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitzen \textit{little-endian} per enviar la informació.
 Això resulta en el fet que els caràcters hexadecimals queden (per parelles, ja que, dos caràcters representen un byte) ordenats al revés.
 
 En analitzar els atributs es pot veure com aquells que tenen l'UUID 0x2800 (que corresponen a declaracions de serveis) en el seu valor únicament contenen l'UUID corresponent a les definicions de serveis de LEDs i de botons de la Figura \ref{project0_table}.
@@ -85,7 +85,7 @@ Per últim, la resta de caràcters corresponen al UUID que identifica quina cara
 \subsection{Propietats}
 \label{sec:properties}
 Les propietats d'accés són un valor que identifica quines operacions i procediments es poden fer sobre la característica.
-Es poden observar les propietats principals amb els corresponents valors en la taula \ref{properties}.
+Es poden observar les propietats principals amb els corresponents valors en la Taula \ref{properties}.
 El camp té 8 bits per defecte i cada un d'ells identifica una operació o procediment.
 Es pot utilitzar qualsevol combinació d'aquests bits  per habilitar totes les opcions d'accés que es desitgin.
 
@@ -147,7 +147,7 @@ El projecte Host Test permet controlar les diferents capes de la pila BLE del xi
 \subsection{Btool}
 L'aplicació BTool utilitza l'API del projecte Host Test per executar les crides a les diferents capes BLE.
 Primer de tot, BTool necessita saber per quina interfície ha d'interactuar amb la PCB.
-En l'administrador de dispositius de Windows es poden trobar els ports utilitzats per la PCB i els paràmetres de la connexió els indica Texas Instruments\cite{serial_params}.
+En l'administrador de dispositius de Windows es poden trobar els ports utilitzats per la PCB i els paràmetres de la connexió els indica Texas Instruments \cite{serial_params}.
 Un cop s'inicia la comunicació entre BTool i la PCB es pot escanejar, iniciar connexió i descobrir la taula d'atributs del servidor.
 En tot moment es poden veure tots els paquets que s'envien per la interfície amb la seva corresponent interpretació en la consola.
 Com que en aquesta consola apareixen tots els esdeveniments de BLE 5, permet veure quan es reben notificacions.
