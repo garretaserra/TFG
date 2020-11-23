@@ -15,6 +15,7 @@ Aquest projecte serveix per considerar si BLE és la tecnologia adequada per a l
 Com s'ha comentat, l'abast de la tecnologia BLE ve limitat tant per la distància entre transmissor i receptor com per les interferències.
 En mesures biològiques es pot considerar que el transmissor i el receptor estaran relativament a prop, per tant, no hi haurà problemes d'abast.
 En canvi, per a mesures ambientals si considerem instal·lacions privades en habitatges, cal tenir en compte els obstacles que s'oposen al senyal.
+Tot i això tal com s'ha comprovat amb l'experiment de cobertura en interiors, BLE es pot utilitzar perfectament per a desplegaments domèstics de sensors.
 També cal considerar la interferència més que probable de les tecnologies amb les quals BLE comparteix espectre com wifi, altres dispositius intel·ligents o amb Bluetooth Clàssic mateix.
 Per combatre aquests desavantatges BLE té múltiples estratègies.
 Primerament, sempre és possible augmentar la potència de transmissió (fins al límit permès), però reduint el cicle de vida de la bateria.
@@ -26,9 +27,9 @@ A més a més, BLE utilitza canals de freqüència estrets comparats amb altres 
 
 \section*{Consum d'Energia}
 
-BLE és dels protocols que permet consumir menys energia per a transmetre informació.
+BLE és dels protocols que permet consumir menys energia per transmetre informació.
 Això només serà un avantatge quan els sensors estiguin alimentats per bateria i la transmissió sigui el que consumeix més energia de tot el sistema.
-Si els sensors tenen pantalles, s'alimenten de la instal·lació elèctrica, fan un processament de les dades o emmagatzemen les dades localment; és possible que el consum de la transmissió no sigui significant.
+Si els sensors tenen pantalles, s'alimenten de la instal·lació elèctricao fan un processament de les dades és possible que el consum de la transmissió no sigui significant.
 En aquests casos no s'ha d'escollir el protocol de transmissió segons el consum, ja que el temps entre recàrregues no es veu especialment afectat pel protocol.
 
 En els escenaris on és important tenir un consum baix d'energia, el protocol BLE és una molt bona opció.
@@ -37,7 +38,7 @@ Aquesta flexibilitat permet, per exemple, poder prescindir de les transmissions 
 Tanmateix, es pot utilitzar la latència d'esclau per reduir els esdeveniments d'una connexió quan no són necessaris.
 També, permet transmetre molta informació sense necessitat d'establir una connexió.
 
-Així doncs, poder evitar realitzar tots aquests procediments permet reduir significativament el consum que suposa la transmissió de dades i fa possible augmentar el cicle de vida de la bateria o reduir la mida d'aquesta.
+Així doncs, poder evitar realitzar tots aquests procediments permet reduir significativament el consum que suposa la transmissió de dades i fa possible augmentar el cicle de vida de la bateria o reduir la capacitat d'aquesta.
 Gràcies a BLE és possible que dispositius no hagin d'estar connectats a cap altre dispositiu a través de cables ni a la xarxa elèctrica.
 
 \section*{Penetració del mercat}

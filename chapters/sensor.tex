@@ -8,8 +8,8 @@ A fi d'entendre millor com afecten els diferents paràmetres configurables corre
 
 \subsection{Abast}
 
-Com ja s'ha mencionat anteriorment l'abast teòric que té BLE, 100-200 metres, és considerable comparat amb tecnologies similars.
-Però, cal entendre que, a l'estar utilitzant la banda de 2.4 GHz, l'abast de BLE dependrà de l'entorn, on pot haver-hi molta variabilitat d'interferències.
+Com ja s'ha mencionat anteriorment l'abast teòric que té BLE, 100-400 metres (depenent de la capa física), és considerable comparat amb tecnologies similars.
+Però, cal entendre que, a l'estar utilitzant la banda de 2,4 GHz, l'abast de BLE dependrà de l'entorn, on pot haver-hi molta variabilitat d'interferències.
 A causa d'això, en un escenari realista l'abast que es pot assolir pot ser molt diferent del teòric.
 Les LAUNCHXL-CC1352R1 utilitzades en aquest projecte, per si soles, no són l'eina perfecta per fer proves d'abast.
 Això es deu, en part, a què no és possible transmetre a la màxima potència permesa per l'estàndard que és de fins a 20 dBm.
@@ -29,14 +29,15 @@ S'ha escollit un pàrquing i utilitzat la potència per defecte de 0 dBm per pod
 	\end{center}
 \end{figure}
 
-El procediment per realitzar l'experiment va ser col·locar una de les plaques sobre un cotxe i amb l'altre connectada a un altre ordinador anar retrocedint fins que es perdés la connexió.
+El procediment per realitzar l'experiment va ser col·locar una de les PCB sobre un cotxe i amb l'altre connectada a un altre ordinador es va anar retrocedint fins que es perdés la connexió.
 Per forçar que es perdés la connexió quan ja no es podia establir una comunicació des de la PCB que s'anava movent s'anaven enviant peticions de lectura d'atributs.
 
-Els resultats obtinguts, que es poden veure en la Figura \ref{abast}, indiquen que la distància màxima d'abast del dispositiu en una capa 2M és de 75 metres, mentre que en una capa S=8 aquesta distància s'estén fins als 135.
+Els resultats obtinguts, que es poden veure en la Figura \ref{abast}, indiquen que la distància màxima d'abast del dispositiu en una capa 2M és de 75 metres, mentre que en una capa S=8 aquesta distància s'estén fins als 135 metres.
 S'han tingut en compte únicament aquestes capes físiques, ja que com que no hi ha interferències significatives i sempre s'ha mantingut la visibilitat directa, els resultats de la capa 1M són similars als de 2M i els de Coded S=2 són similar als de S=8.
+Així doncs, amb aquest experiment s'ha vist una de les millores de la capa física Coded, l'abast.
 \newpage
 
-També s'ha realitzat un mapa de cobertura d'un interior d'una casa per poder observar quin és l'abast quan es tenen en compte les parets.
+També s'ha realitzat un mapa de cobertura de l'interior d'una casa per poder observar quin és l'abast en un escenari més habitual amb obstacles.
 En aquest cas s'ha establert una connexió fins a la PCB i s'ha obtingut el valor de la potència rebuda en totes les estances de la casa. De les mesures preses s'ha realitzat un mapa de cobertura que es pot veure a la Figura \ref{heatmap}.
 
 La PCB s'ha col·locat a l'habitació 1 i s'ha configurat amb la potència de transmissió de 0 dBm i amb la capa física LE 1M.
@@ -45,13 +46,13 @@ Al llarg del passadís la potència és de -62 dBm, és bona, ja que és la zona
 A les estances adjuntes al passadís, el lavabo i l'habitació 2 la potència arriba a baixar fins a -80 dBm.
 
 Més enllà a la cuina i al menjador es reben potències de -80 fins a -85 dBm.
-A partir del rebedor el senyal ja es veu greument afectada i es comencen a perdre alguns paquets. En aquesta estança es reben -90 dBm. A l'habitació 3, la connexió és molt pobre i és habitual que els dispositius perdin la connexió. En aquesta, la potència rebuda és d'entre -95 dBm i -100 dBm.
-En el vestidor i el lavabo 2, que són les estances més allunyades de la casa. En aquestes en travessar la porta sempre es perd la connexió.
-Que es rebi connexió arribi a l'habitació 3 i no al lavabo i vestidor del costat es deu al fet que el senyal penetra la paret i arriba més fàcilment.
+Un cop passada la sala d'estar el senyal ja es veu greument afectada i es comencen a perdre alguns paquets. En aquesta estança es reben -90 dBm. A l'habitació 3, la connexió és molt pobre i és habitual que els dispositius perdin la connexió. En aquesta, la potència rebuda és d'entre -95 dBm i -100 dBm.
+En el vestidor i el lavabo 2, que són les estances més allunyades de la casa, en travessar la porta sempre es perd la connexió.
+Que es rebi connexió a l'habitació 3 i no al lavabo i vestidor del costat es deu al fet que el senyal penetra la paret i arriba més fàcilment.
 
 Tal com es pot observar pel resultat, BLE pot aconseguir un abast considerable en interiors però no d'una punta a un altre de la casa.
 En aquest escenari específic la configuració era adversa a propòsit per veure quin era el límit de la tecnologia.
-En un cas més realista, hi hauria un receptor al centre de la casa que tindria una cobertura que abastaria qualsevol punt.
+En un cas més realista, hi hauria un repetidor (anb Mesh Profile) al centre de la casa que tindria una cobertura que abastaria qualsevol punt.
 D'aquesta manera qualsevol sensor situat a les puntes de la casa tindria connectivitat sense problemes.
 \newpage
 
@@ -62,9 +63,6 @@ D'aquesta manera qualsevol sensor situat a les puntes de la casa tindria connect
 		\label{heatmap}
 	\end{center}
 \end{figure}
-
-Així doncs, en aquest apartat s'ha vist una de les millores de la capa física Coded, l'abast.
-Però també cal recordar que on és extremadament útil és en el de resistència a les interferències.
 
 \subsection{Consum d'energia}
 
@@ -140,7 +138,7 @@ També, es realitza una captura del consum d'energia acumulat durant un segon:
 Els màxims que es produeixen per anuncis i per esdeveniments de connexió poden semblar similars en les captures de consum de corrent.
 Tanmateix, no és així, en les captures de consum d'energia es pot observar com hi ha increments més pronunciats corresponents als anuncis i en canvi els esdeveniments de connexió els increments són més lleugers.
 
-Si es veuen amb més detall l'anunci i l'esdeveniment es pot observar com són d'una duració diferent.
+Si es veuen amb més detall l'anunci i l'esdeveniment (Figura \ref{energy_trace_adv} i Figura \ref{energy_trace_event}, respectivament) es pot observar com són d'una duració diferent.
 D'una banda, l'anunci dura uns 4 mil·lisegons i mig, en canvi l'esdeveniment de connexió només dura 2 mil·lisegons.
 \newline
 \begin{figure}[!h]
@@ -162,7 +160,7 @@ Aquesta eina, per tant, està orientada a facilitar una idea comparativa d'en qu
 D'aquesta manera, és més fàcil pel desenvolupador comprovar com els canvis en el codi afecten el consum d'energia.
 
 A part dels gràfics, l'Energy Trace també proporciona directament les dades més rellevants de les captures.
-A la taula \ref{taula_consum} es troben els valors importants.\newline
+A la Taula \ref{taula_consum} es troben els valors importants.\newline
 
 \begin{table}[h!]
 	\begin{center}
@@ -185,13 +183,13 @@ Per aquests valors s'han pres mesures de 10 segons de duració per obtenir unes 
 Es pot observar com la potència i corrent màxim consumits, tant amb connexió com sense, no són molt diferents entre si.
 Això es deu al fet que independentment de si el dispositiu té conexions establertes, s'enviaran els anuncis que suposen el pic més important de les gràfiques amb el consum de corrent.
 
-Els paràmetres amb els quals s'ha pres la mesura no estan optimitzats específicament per a un consum molt baix, tot i això, es pot observar com la mitjana de consum és molt reduïda, per sota d'1 mA.
+Els paràmetres amb els quals s'ha pres la mesura no estan optimitzats específicament per a un consum molt baix, tot i això, es pot observar com en els dos casos la mitjana de consum és molt reduïda, per sota d'1 mA.
 Per contextualitzar com és de baix aquest consum, és habitual calcular un temps de vida estimat d'una pila de botó, en aquest cas s'utilitza la CR2032.
 En aquest cas, el temps de vida, tenint en compte la connexió seria de 8 dies.
 Altrament, sense connexió aquest temps de vida s'allargaria fins als onze dies i mig.
 Per tant, el temps de vida s'assimilarà més a 8 o 11 dies depenent del temps en què el dispositiu es passi amb alguna connexió.
 
-Per contextualitzar-ho més, si utilitzéssim una bateria habitual en els telèfons mòbils que tingués 3800 mAh suposaria un temps de vida de 160 amb connexió i 219 dies sense, uns 7,3 i 5,3 mesos corresponentment.
+Per contextualitzar-ho més, si s'utilitzés una bateria habitual en els telèfons mòbils que tingués 3800 mAh suposaria un temps de vida de 160 amb connexió i 219 dies sense, uns 7,3 i 5,3 mesos corresponentment.
 
 
 \subsection{ADC}
@@ -219,7 +217,7 @@ Sempre s'utilitza una freqüència de mostreig que sigui un múltiple de la freq
 Per tant, la consola ha de tenir una seqüència amb la mateixa quantitat de zeros que uns.
 
 Per comprovar que s'està mostrejant el senyal correctament s'han mostrejat senyals amb una freqüència divisora de la freqüència de mostreig.
-En aquest cas, si el senyal té la mateixa quantitat de zeros i uns i es repeteix cada $L$ mostres que vénen definides segons la Formula \ref{eqn:length}, sent $f_{m}$ la freqüència de mostreig i $f_{s}$ la freqüència del senyal mostrejat.
+En aquest cas, si el senyal té la mateixa quantitat de zeros i uns i es repeteix cada $L$ mostres que vénen definides segons la Fòrmula \ref{eqn:length}, sent $f_{m}$ la freqüència de mostreig i $f_{s}$ la freqüència del senyal mostrejat.
 
 
 \begin{equation}
@@ -229,7 +227,7 @@ En aquest cas, si el senyal té la mateixa quantitat de zeros i uns i es repetei
 
 Primer de tot s'ha mostrejat a frequencies baixes per comprobar que els resultats fossin els esperats i per tant que l'escenari estigués ben implementat.
 
-Amb una $f_{m}=10$Hz i una $f_{s}=20$Hz s'ha obtingut:
+Amb una $f_{m}=20$Hz i una $f_{s}=10$Hz s'ha obtingut:
 \begin{lstlisting}[language=C]
 	Buffer: 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,
 \end{lstlisting}
@@ -255,6 +253,23 @@ Amb una $f_{m}=200$kHz i una $f_{s}=100$kHz s'ha obtingut:
 \end{lstlisting}
 
 Tal com es pot observar, el senyal es continua mostrejant correctament i, per tant, es pot confirmar que és possible mostrejar senyals digitals de fins a 100 kHz.
+
+
+També s'ha volgut comprovar si les mesures que pren l'ADC són precises.
+S'han pres valors a diferents punts del rang dinàmic de l'ADC (0 - 3,3 V) tant amb l'ADC com amb un multímetre.
+Amb aquestes mesures (que es poden trobar a l'Apèndix \ref{raw_adc}) s'ha realitzat un gràfic que es por veure a la Figura \ref{multimetre}.
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{./images/multimetre.PNG}
+		\caption{Precisió ADC}
+		\label{multimetre}
+	\end{center}
+\end{figure}
+
+Com a referència s'han utilitzat les mesures del multímetre que formen la línia diagonal en blau.
+La línia taronja mostra la mesura de l'ADC de la PCB i es pot veure com segueix aproximadament línia del multímetre.
+
 
 
 \section{Lectura de l'ADC}
@@ -299,7 +314,7 @@ Per trobar l'$R_1$ que compleixi els requisits queda la següent fórmula.
 \end{equation}
 
 Per a l'$R_1$ s'utilitzaran resistències de la sèrie E12, els valors que més s'acosten a $5$,$121\Omega$ són $5.6k\Omega$ i $4.6k\Omega$.
-Per assegurar-se que no es superen els 3.3$V$ a l'entrada de l'ADC que podria malmetre el dispositiu s'escull la resistència superior, per tant el circuit final s'ha dissenyat de la següent manera.
+Per assegurar-se que no es superen els 3.3$V$ a l'entrada de l'ADC que podria malmetre el dispositiu s'escull la resistència superior, per tant el circuit final queda dissenyat de la següent manera.
 
 \begin{figure}[!h]
 	\begin{center}
@@ -317,20 +332,13 @@ Per assegurar-se que no es superen els 3.3$V$ a l'entrada de l'ADC que podria ma
 \end{figure}
 
 Com que s'utilitzaran 4 canals de l'ADC per mesurar, es necessiten 4 circuits com el que s'ha dissenyat.
-S'ha implementat el circuit en una placa de proves i soldat els components de tal manera que cal connectar el voltatge d'entrada (a 5$V$) en vermell, terra en negre i finalment quatre cables blaus on hi haurà el voltatge controlat pels quatre potenciòmetres.
-A la Figura \ref{protoboard} es pot observar aquesta implementació real del circuit.
+S'ha implementat el circuit en una placa de proves i soldat els components de tal manera que cal connectar el voltatge d'entrada (a 5 $V$) en vermell, terra en negre i finalment quatre cables blaus on hi haurà el voltatge controlat pels quatre potenciòmetres.
+Es pot veure el resultat a la Figura \ref{ports_placa}.
 
-\begin{figure}[!h]
-	\begin{center}
-		\includegraphics[width=0.6\textwidth]{./images/sensors_circuit.jpg}
-		\caption{Protoboard amb el circuit}
-		\label{protoboard}
-	\end{center}
-\end{figure}
 
 \subsection{Desenvolupament i implementació del codi}
 
-Tal com s'ha comentat anteriorment la PCB que s'està utilitzant conté un ADC de dotze canals que s'utilitza per llegir valors de voltatge.
+Tal com s'ha comentat anteriorment la PCB que s'està utilitzant conté un ADC de vuit canals que s'utilitza per llegir valors de voltatge.
 
 %Importar adcsinglechannel
 En aquest exemple, l'objectiu és aconseguir la lectura dels valors del voltatge d'un pin de la PCB.
@@ -387,7 +395,7 @@ Per veure un exemple simplificat d'un client que consumís els serveis oferits p
 Aquesta aplicació llegeix contínuament els valors dels quatre atributs que té la PCB que corresponen amb els sensors.
 
 Per poder interactuar amb la PCB el primer que cal és tenir en compte l'adreça del dispositiu i els identificadors, tant del servei, com dels atributs.
-Aquests es poden veure a la taula \ref{taula_app}.
+Aquests es poden veure a la taula \ref{taula_app}
 
 \begin{table}[!h]
 	\begin{center}
@@ -449,7 +457,7 @@ characteristicList = service.getCharacteristics();
 readCharacteristic(gatt);
 \end{lstlisting}
 
-Per cada característica que es llegeix, per obtenir el seu valor tal com es vol i no com l'envia BLE (en little-endian), cal especificar el format que té.
+Per cada característica que es llegeix, per obtenir el seu valor tal com es vol mostrar i no com l'envia BLE (en little-endian), cal especificar el format que té.
 En aquest cas, com que s'han definit en 2 bytes les longituds de les característiques en la PCB, cal especificar que són nombres enters \textit{unsigned} (sense signe) codificats en 16 bits.
 
 \begin{lstlisting}[language=java]
@@ -516,7 +524,7 @@ El codi complet de l'aplicació que s'ha realitzat es pot trobar a \cite{android
 \section{Escenari}
 Finalment, un cop desenvolupat el circuit per simular sensors, el codi necessari per mostrejar i transmetre els valors i una aplicació per rebre aquests valors, l'escenari és el següent.
 
-El circuit que simula els 4 sensors es connecta als pins de la PCB (veure Apèndix \ref{datasheet}) que tenen ADC segons el manual de la PCB que es pot trobar a \cite{manual_placa} seguint la taula \ref{connexions}.
+El circuit que simula els 4 sensors es connecta als pins de la PCB (veure Apèndix \ref{datasheet}) que tenen ADC segons el manual de la PCB que es pot trobar a \cite{manual_placa} seguint la Taula \ref{connexions}.
 
 \begin{table}[!h]
 	\begin{center}
@@ -558,14 +566,14 @@ Es pot veure una captura del disseny de l'aplicació a la Figura \ref{captura_ap
 \end{figure}
 
 \newpage
-\section{Continuitat del projecte}
+\section{Continuïtat del projecte}
 Un cop executat el projecte i entès tant la tecnologia Bluetooth Low Energy com l'entorn de desenvolupament, hi ha aspectes en els quals és possible profunditzar més.
 Aquestes es podrien tractar en un altre futur treball.
 
 Tal com s'ha esmentat quan s'ha realitzat l'estudi del consum d'energia utilitzant Energy Trace, els valors obtinguts no es poden considerar absoluts.
-És per això que, per poder determinar el temps de vida amb diferents configuracions del BLE s'hauria de mesurar el consum amb un oscil·loscopi mentre la PCB està configurada amb la font d'alimentació externa.
+És per això que, per poder determinar el temps de vida amb molta més precisió amb diferents configuracions del BLE s'hauria de mesurar el consum amb un oscil·loscopi mentre la PCB està configurada amb la font d'alimentació externa.
 
-La implementació pràctica de BLE que s'ha realitzat no utilitza cap servei propietari.
+La implementació pràctica de BLE que s'ha realitzat utilitza únicament serveis propis.
 Seria interessant implementar un servei estandarditzat i tenir algun dispositiu comercial que pogués connectar-se a la PCB.
 
 Finalment, tot i haver-se desenvolupats projectes que permeten mesurar els voltatges dels ADC i emetre notificacions, per part de BLE, no s'ha aconseguit que sigui alhora.

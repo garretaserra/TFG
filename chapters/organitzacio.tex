@@ -16,18 +16,19 @@ Per analitzar el protocol BLE i veure les seves característiques s'ha utilitzat
 En el \textit{kit} hi ve la PCB, que es pot veure a la Figura \ref{PCB} i permet el desenvolupament d'aplicacions en BLE utilitzant el microcontrolador CC1352 de Texas Instruments.
 A continuació es descriuen les seves característiques principals \cite{placa_datasheet}.
 
-El xip CC1352R és el que s'utilitza per desenvolupar els protocols de comunicacions i treballa a 2,4 GHz o sub-1GHz, per tant, serveix per a Thread, Zigbee, Bluetooth 5 Low Energy, IEEE 802.15.4g i 6LoWPAN.
-La ràdio multibanda que té un receptor amb sensibilitat de -121 dBm per a sub-1GHz i de -110 dBm a 50 Kbps o -105 dBm a 125 Kbps. El transmissor pot transmetre fins a 14 dBm sub-1GHz i 5dBm a 2,4 GHz.
+El xip CC1352R és el que s'utilitza pels protocols de comunicacions i treballa a 2,4 GHz o sub-1GHz.
+Es pot utilitzar per a Thread, Zigbee, Bluetooth 5 Low Energy, IEEE 802.15.4g i 6LoWPAN.
+La ràdio multibanda que té un receptor amb sensibilitat de -121 dBm per a sub-1GHz i de -110 dBm a 50 Kbps o -105 dBm a 125 Kbps. El transmissor pot transmetre fins a 14 dBm sub-1GHz i 5dBm en 2,4 GHz.
 Dels perifèrics el més important és l'ADC de 12 bits i 8 canals amb freqüència de mostreig de 200 Kmostres/s (multiplexat).
 Pel que fa a memòria, té 352 KB flash programable, 256 KB de ROM per a protocols i llibreries, 8 KB de Cache SRAM i 80 KB de RAM protegida amb paritat.
 També té Rellotge de Temps Real (RTC en anglès), acceleradors d'operacions criptogràfiques i generador de nombres aleatoris.
 
 La PCB porta una antena incorporada, però també té 3 ports per poder utilitzar antenes externes a les diferents bandes.
 Té dos botons que permeten interactuar amb el xip i dos LEDs que es permeten donar indicacions amb facilitat.
-Els LEDs es poden desactivar desconnectant-los retirant els ponts extraïbles pels quals estan connectats per poder realitzar mesures de consum.
+Els LEDs es poden desactivar desconnectant-los retirant els ponts extraïbles pels quals estan connectats per poder realitzar mesures de consum més precises.
 També té altres ponts extraïbles que permeten diferents configuracions i es comentaran més endavant.
 
-Per interactuar amb la PCB té un port micro-USB, un botó per reiniciar l'execució de codi.
+Per interactuar amb la PCB s'utilitza el port micro-USB.
 El microxip (\textit{MCU, Micro Controller Unit}) TM4C1294NCPDTI3 de Texas Instruments és el que permet la interacció amb el CC1352 i té un mòdul JTAG que és el que permet la depuració de codi a través de consola.
 
 
@@ -35,7 +36,6 @@ El microxip (\textit{MCU, Micro Controller Unit}) TM4C1294NCPDTI3 de Texas Instr
 Pel desenvolupament de projectes per a la PCB s'ha utilitzat l'entorn de desenvolupament Code Composer Studio 9. 
 El CCS el distribueix Texas Instruments i està basat en Eclipse \cite{eclipse}, que és de codi obert.
 Aquest entorn de desenvolupament està orientat al desenvolupament per a processadors incrustats (\textit{embedded} en anglès) de les famílies fabricades per Texas Instruments.
-El gran benefici d'aquest programa és que permet la depuració de programes basats en JTAG que és el cas d'aquesta PCB.
 
 Texas Instruments té la plataforma SimpleLink que conté tant les llibreries necessàries per desenvolupar projectes com els recursos necessaris per a l'aprenentatge de les tecnologies que es volen implementar.
 Per poder dur a terme projectes amb la PCB d'aquest treball és necessari utilitzar el SimpleLink CC13X2 versió 2.30.00.45\footnote{La versió utilitzada no és la més nova perquè sigui compatible amb la revisió C del xip que s'està utilitzant.}.
@@ -46,12 +46,13 @@ Aquest projecte exposa certs serveis a través de BLE i permet fer una comunicac
 Aquesta comunicació és bidireccional, és a dir, des del mòbil es poden controlar els LEDs que té la PCB.
 I en el mòbil es pot veure si qualsevol dels dos botons està pitjat.
 
-Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arquitectura dels serveis amb les seves característiques amb una relativa simple funcionalitat. A continuació s'analitzaran diferents parts dels atributs.
+Aquest projecte serveix per tenir un bon exemple de com està dissenyada l'arquitectura dels serveis amb les seves característiques amb una funcionalitat relativament simple. A continuació s'analitzaran diferents parts dels atributs.
 
 \subsection{Serveis de Botons i LEDs}
 
 En la taula \ref{tab:project_zero_uuid} es poden veure els valors que hi ha tal com estan en la taula d'atributs del servidor GATT del Project 0.
-Per facilitar la visualització de les dades s'han tret els zeros finals dels UUID propis però cal recordar que en total tenen 16 parells de caràcters (128 bits en representació hexadecimal) i no només els 9 parells que surten a la taula.
+Per facilitar la visualització de les dades s'han tret els zeros finals dels UUID propis, però cal recordar que en total tenen 16 parells de caràcters (128 bits en representació hexadecimal) i no només els 9 parells que surten a la taula.
+
 \begin{table}[h!]
 	\begin{center}
 		\csvautotabular{data_files/projectzeroUUID.csv}
@@ -59,6 +60,7 @@ Per facilitar la visualització de les dades s'han tret els zeros finals dels UU
 		\label{tab:project_zero_uuid}
 	\end{center}
 \end{table}
+
 Els atributs en si no es poden identificar per tant és necessari tenir en compte la documentació del Project 0.
 En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el corresponent significat que es pot observar a la Figura \ref{project0_table}.
 
@@ -70,12 +72,12 @@ En la documentació hi ha inclosa una taula on es relaciona cada UUID amb el cor
 	\end{center}
 \end{figure}
 
-El primer que cal tenir clar és que a la taula \ref{tab:project_zero_uuid} els valors estan representats amb l'ordre en què es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitzen \textit{little-endian} per enviar la informació.
+El primer que cal tenir clar és que a la taula \ref{tab:project_zero_uuid} els caràcters de la columna Valor estan representats amb l'ordre en què es reben i en general els serveis estandarditzats (i també aquest servei propi) utilitzen \textit{little-endian} per enviar la informació.
 Això resulta en el fet que els caràcters hexadecimals queden (per parelles, ja que, dos caràcters representen un byte) ordenats al revés.
 
 En analitzar els atributs es pot veure com aquells que tenen l'UUID 0x2800 (que corresponen a declaracions de serveis) en el seu valor únicament contenen l'UUID corresponent a les definicions de serveis de LEDs i de botons de la Figura \ref{project0_table}.
 Seguidament, als atributs amb UUID 0x2803 hi ha les definicions de les característiques, en el seu valor hi ha múltiples parts.
-El primer parell hexadecimal (0x0E o 0x12, en aquest cas) correspon a les propietats.
+El primer parell hexadecimal 0x0E o 0x12 correspon a les propietats.
 Que defineixen l'accés a l'atribut que el succeeix.
 Just després hi ha dos parells hexadecimals que identifiquen el \textit{Handle} de l'atribut on hi ha la característica.
 Per últim, la resta de caràcters corresponen al UUID que identifica quina característica és.
@@ -83,9 +85,9 @@ Per últim, la resta de caràcters corresponen al UUID que identifica quina cara
 \subsection{Propietats}
 \label{sec:properties}
 Les propietats d'accés són un valor que identifica quines operacions i procediments es poden fer sobre la característica.
-Es poden veure les propietats principals amb els corresponents valors en la taula \ref{properties}.
+Es poden observar les propietats principals amb els corresponents valors en la taula \ref{properties}.
 El camp té 8 bits per defecte i cada un d'ells identifica una operació o procediment.
-Es pot utilitzar qualsevol combinació d'aquests bits  per habilitar les opcions d'accés que es desitgin.
+Es pot utilitzar qualsevol combinació d'aquests bits  per habilitar totes les opcions d'accés que es desitgin.
 
 \begin{table}[h]
 	\begin{center}
@@ -106,7 +108,7 @@ Es pot utilitzar qualsevol combinació d'aquests bits  per habilitar les opcions
 \label{properties}
 \end{table}
 
-Primer de tot, cal destacar la implementació de comunicacions amb reconeixement o sense. D'aquesta manera si es prefereix reduir la quantitat de missatges per estalviar energia en lloc d'assegurar-se que s'ha rebut la informació es dóna l'opció de no tenir reconeixements.
+Primer de tot, cal destacar la implementació de comunicacions amb reconeixement (acknowledgement o ACK) o sense. D'aquesta manera si es prefereix reduir la quantitat de missatges per estalviar energia en lloc d'assegurar-se que s'ha rebut la informació es dóna l'opció de no tenir reconeixements.
 
 En el Project 0 les propietats de les característiques dels LEDs tenen el valor 0x0E que suposa  0000 1110 en binari, per tant, es permet: llegir, escriure i escriure sense resposta.
 En canvi les característiques del servei de botons tenen el valor 0x12 que suposa 0001 0010, per tant, es permet la lectura i la notificació sense reconeixement.
@@ -121,7 +123,7 @@ Si el valor és 0, no hi ha transmissions; si el valor és 1, s'envien notificac
 
 El bit d'extensió de propietats, en cas que sigui 1 indica que existeix l'atribut: Descriptor Propietats Esteses de Característica.
 Aquest atribut té l'UUID 0x2900 i permet afegir més propietats de les que poden existir amb l'espai limitat de 8 bits que hi ha per defecte.
-Aquest sistema permet afegir fins a 16 bits més per indicar propietats, actualment els dos primers es defineixen segons l'estàndard i la resta estan reservats per a ús futur \cite{extended properties}.
+Aquest sistema permet afegir fins a 16 bits més per indicar propietats, actualment, els dos primers es defineixen segons l'estàndard i la resta estan reservats per a ús futur \cite{extended properties}.
 
 Aquests 2 primers que estan definits són escriptura fiable i escriptura auxiliar.
 L'escriptura fiable permet escriure valors amb un procediment diferent de l'habitual que permet assegurar-se que el valor que es vol modificar s'ha escrit sense errors.
@@ -137,7 +139,7 @@ Tot i això, no totes les aplicacions ofereixen la possibilitat de rebre notific
 I les aplicacions no permeten interactuar directament amb el controlador (a través de HCI), per exemple, no poden canviar la potència de transmissió. 
 
 Per poder tenir un control total del sistema l'equip de desenvolupament de programari que proporciona Texas Instruments conté l'aplicació BTool.
-S'utilitza conjuntament amb el projecte Host Test del mateix equip per convertir la PCB en un client BLE.
+Aquesta s'utilitza conjuntament amb el projecte Host Test del mateix equip per convertir la PCB en un client BLE.
 El projecte Host Test permet controlar les diferents capes de la pila BLE del xip a través de la interfície sèrie.
 
 %Afegir captura dels possibles missatges del BTool
@@ -154,9 +156,9 @@ Un cop s'ha establert la connexió es pot interactuar amb la taula d'atributs di
 
 \section{Crear un Perfil propietari}
 Per poder implementar una xarxa de sensors amb BLE serà necessari dissenyar un esquema propi en el servidor GATT.
-Tal com s'ha comentat anteriorment el servidor GATT està format per perfils que alhora agrupen serveis.
+Tal com s'ha comentat anteriorment el servidor GATT està format per perfils que alhora agrupen serveis tal i com s'ha vist en la Figura \ref{fig:Gatt_Hierarchy}.
 Aquests serveis són els que contenen les característiques amb què s'interactuarà per intercanviar informació.
-A continuació s'explicarà com es poden implementar perfils en l'entorn de Texas Instruments BLE Stack.
+A continuació s'explicarà com es poden implementar perfils en l'entorn de Texas Instruments BLE \textit{Stack}.
 
 \subsection{Generar fitxers}
 Texas Instruments proporciona un Generador de Fitxers \cite{Service_Generator} que evita haver de començar de zero.
@@ -164,15 +166,14 @@ En aquesta eina s'han de definir el nom del servei, els noms de les característ
 Aquesta eina està pensada per a ser utilitzada junt amb el Project 0, per tant, aquest serà el projecte base per aquest treball.
 Un cop s'han generat els fitxers cal copiar-los dins d'Application/services en el projecte.
 
-A parts dels fitxers generats (font i capçalera\footnote{Els fitxers de capçalera en C s'identifiquen per l'extensió .h i contenen les declaracions de funcions que es poden compartir entre múltiples fitxers font}) també cal que l'aplicació cridi a la funció que incialitza el servei registrant-los al GATT.
+A parts dels fitxers generats (font i capçalera\footnote{Els fitxers de capçalera en C s'identifiquen per l'extensió .h i contenen les declaracions de funcions que es poden compartir entre múltiples fitxers font.}) també cal que l'aplicació cridi a la funció que incialitza el servei registrant-los al GATT.
 Aquesta és la funció [Perfil]\_AddService(..) que cal afegir dins la funció ProjectZero\_init() en la secció Inicialització de Serveis.
 
-Tot i que, aquest generador de fitxers és molt útil a l'hora de tenir una estructura bàsica del projecte cal analitzar les parts importants per entendre com funciona per dins i quina relació té cada part amb BLE.
+Tot i que, aquest generador de fitxers és molt útil a l'hora de tenir una estructura bàsica del projecte.
+Es necessari entendre el codi i analitzar com funciona per dins i quina relació té cada part amb BLE.
 
 \subsection{Definir el perfil propi}
-En l'explicació de com es pot definir un perfil propi s'utilitzaran parts del codi desenvolupat per al projecte final.
-
-Per poder desenvolupar un perfil propi cal seguir els següents passos.
+Per poder desenvolupar un perfil propi\footnote{En l'explicació de la definició d'un perfil propi s'utilitzaran parts del codi desenvolupat pel projecte final.} cal seguir els següents passos.
 Cada característica necessita: un identificador per poder-la classificar, l'UUID que té assignat i la longitud de dades que tindrà.
 Aquests valors es defineixen en el fitxer capçalera del perfil.
 
@@ -195,7 +196,7 @@ Aquests valors es defineixen en el fitxer capçalera del perfil.
 	
 \end{lstlisting}
 
-En aquest cas tots els UUID tenen 4 caràcters que suposen 16 bits. Però només es poden tenir UUID de 16 bits si estan reservats i aquest no és el cas.
+En aquest cas tots els UUID tenen 4 caràcters hexadecimals que suposen 16 bits. Però només es poden tenir UUID de 16 bits si estan reservats i aquest no és el cas.
 Els 4 caràcters acabaran només sent part de l'UUID final que tindrà 128 bits un cop s'hi hagi afegit farciment.
 Això es fa utilitzant la funció TI\_BASE\_UUID\_128 que converteix els 16 bits a 128 amb el format F000XXXX-0451-4000-B000-000000000000 que és el que ve per defecte.
 
@@ -325,7 +326,7 @@ El CCCD és un atribut més en la taula que cal posar just després de l'atribut
 
 Com que l'UUID correspon al d'un CCCD cal que sigui 0x2902 que està a la variable \textit{clientCharCfgUUID}.
 La longitud de l'UUID és de dos bytes i s'indica amb la variable \textit{ATT\_BT\_UUID\_SIZE}.
-La configuració per defecte és que s'enviaran notificacions a aquells dispositius que escriguin un 1 o Indicacions als que escriguin un 2.
+La configuració per defecte, tal i com s'ha comentat anteriorment a l'apartat \ref{sec:properties} és que s'enviaran notificacions a aquells dispositius que escriguin un 1 o Indicacions als que escriguin un 2.
 Però perquè el servidor sàpiga que ha de fer aquestes operacions cal executar la funció \textit{GATTServApp\_ProcessCharCfg} que ha d'estar en la funció \textit{set} del servei.
 
 
